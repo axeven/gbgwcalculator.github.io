@@ -21,9 +21,11 @@
 	.container {display: flex; flex-flow: no-wrap;}
 	.info {width: 200px;}
 	
-	.parameters {margin-right:20px;}
-	.parameters > * {padding: 0 10px;}
-	.parameters > div:nth-of-type(even) {background: #f2f7f4;}
+	.info > div {margin-right:20px;}
+	.parameters > *,
+	.active-word-tag > * {padding: 0 10px;}
+	.parameters > div:nth-of-type(even),
+	.active-word-tag > div:nth-of-type(even) {background: #f2f7f4;}
 	.parameters > div > * {display: inline-block; width: 50%;}
 	.parameters > div > span {text-align: right;}
 	
@@ -47,6 +49,12 @@
 			<div><label>Beam RES</label><span class="js-total-br">0</span></div>
 			<div><label>Phys. RES</label><span class="js-total-pr">0</span></div>
 		</div>
+		<div class="active-word-tag">
+			<h3>Active Word Tag</h3>
+			<div>&nbsp;</div>
+			<div>&nbsp;</div>
+			<div>&nbsp;</div>
+		</div>
 	</div>
 	<div class="parts">
 		<div><label>Head</label><select class="js-select-head"><option></option></select><span class="js-skill-trait"></span></div>
@@ -58,6 +66,11 @@
 		<div><label>Range</label><select class="js-select-range"><option></option></select><span class="js-skill-trait"></span></div>
 		<div><label>Shield</label><select class="js-select-shield"><option></option></select><span class="js-skill-trait"></span></div>
 		<div><label>Pilot</label><select class="js-select-pilot"><option></option></select><span class="js-skill-trait"></span></div>
+		<div class="attribute-tally">
+			<label>[P] <span class="js-tally-p">0</span></label>
+			<label>[T] <span class="js-tally-t">0</span></label>
+			<label>[S] <span class="js-tally-s">0</span></label>
+		</div>
 	</div>
 </div>
 
@@ -162,7 +175,7 @@
 					if("parts" in ms && Array.isArray(ms.parts)) {
 						ms.parts.forEach((p) => {
 							const o = document.createElement('option');
-							o.text = ms.name + ("name" in p ? " ("+p.name+")" : "");
+							o.text = "[" + ms.attribute.charAt(0) + "] " + ms.name + ("name" in p ? " ("+p.name+")" : "");
 							o.dataset["attribute"] = ms.attribute;
 							for(let k in p) {
 								if(p.hasOwnProperty(k)) {
@@ -180,7 +193,7 @@
 			if(pilots && Array.isArray(pilots)) {
 				pilots.forEach((p) => {
 					const o = document.createElement('option');
-					o.text = p.name;
+					o.text = "[" + p.attribute.charAt(0) + "] " + p.name;
 					for(let k in p) {
 						if(p.hasOwnProperty(k)) {
 							o.dataset[k] = p[k] instanceof Object ? JSON.stringify(p[k]) : p[k];
@@ -201,6 +214,7 @@
 					ss[k].addEventListener('change', (e) => {
 						this._displaySkillTraits(e);
 						this._calculateParameters();
+						this._displayAttributeTally();
 					});
 				}
 			}
@@ -247,6 +261,33 @@
 			else {
 				skillTraitCont.textContent = "";
 			}
+		}
+		
+		_displayAttributeTally() {
+			const attributesTally = {"p":0, "t":0, "s":0},
+				ss = this.selects;
+			
+			for(let k in ss) {
+				if(ss.hasOwnProperty(k)) {
+					const o = this._getSelectedOption(ss[k]);
+					
+					if(o && o.dataset.attribute && o.dataset.attribute.charAt(0).toLowerCase() in attributesTally) {
+						attributesTally[o.dataset.attribute.charAt(0).toLowerCase()]++;
+					}
+				}
+			}
+			
+			for(let k in attributesTally) {
+				document.querySelector(`.js-tally-${k}`).textContent = attributesTally[k];
+			}
+		}
+		
+		_getSelectedOption(select) {
+			if(select.options.length) {
+				return select.options[select.selectedIndex];
+			}
+			
+			return false;
 		}
 	}
 	
