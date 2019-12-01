@@ -126,11 +126,31 @@
 
 <script>
 	const wordTagActivation = 5;
-	const _wordTags = ["Protag.","Mass P.","Ace Excl.","Amphib.","Commander","Close Combat","Mid-Range","Long-Range","High Mobility"," High Firepower","Heavy Armor","Transformer","Gudam Type","Mobile Fighter","Support Type","Federation","Zeon","Zaku Type","GM Type","For Space","For Dessert","For Tundra","For Forest","For Urban Area","For Base","For Computers"];
+	const fullBuff = 0.1;
+	const halfBuff = 0.05;
+	const _wordTags = ["Protag.","Mass P.","Ace Excl.","Amphib.","Commander","Close Combat","Mid-Range","Long-Range","High Mobility","High Firepower","Heavy Armor","Transformer","Gundam Type","Mobile Fighter","Support Type",
+		"Federation","Zeon","Zaku Type","GM Type","For Space","For Desert","For Tundra","For Forest","For Urban Area","For Base","For Computers"];
 	const wordTags = [
-		{"name":"Protag.", "parameters":["ma"], "multiplier": 0.1},
-		{"name":"Close Combat", "parameters":["a","ma"], "multiplier": 0.05},
-	]
+		{"name":"Protag.", "parameters":["ma"], "multiplier": fullBuff},
+		{"name":"Mass P.", "parameters":["a"], "multiplier": fullBuff},
+		{"name":"Ace Excl.", "parameters":["sa"], "multiplier": fullBuff},
+		{"name":"Amphib.", "parameters":["br"], "multiplier": fullBuff},
+		{"name":"Commander", "parameters":["sa","br"], "multiplier": halfBuff},
+		{"name":"Close Combat", "parameters":["a","ma"], "multiplier": halfBuff},
+		{"name":"Mid-Range", "parameters":["sa","pr"], "multiplier": halfBuff},
+		{"name":"Long-Range", "parameters":["sa","sd"], "multiplier": halfBuff},
+		{"name":"High Mobility", "parameters":["sd","br"], "multiplier": halfBuff},
+		{"name":"High Firepower", "parameters":["ma","sa"], "multiplier": halfBuff},
+		{"name":"Heavy Armor", "parameters":["md", "sd"], "multiplier": halfBuff},
+		{"name":"Transformer", "parameters":["sd"], "multiplier": fullBuff},
+		{"name":"Gundam Type", "parameters":["a","pr"], "multiplier": halfBuff},
+		{"name":"Mobile Fighter", "parameters":["ma","md"], "multiplier": halfBuff},
+		{"name":"Support Type", "parameters":["pr"], "multiplier": fullBuff},
+		{"name":"Federation", "parameters":["ma","sd"], "multiplier": halfBuff},
+		{"name":"Zeon", "parameters":["md"], "multiplier": fullBuff},
+		{"name":"Zaku Type", "parameters":["ma","pr"], "multiplier": halfBuff},
+		{"name":"GM Type", "parameters":["sa","md"], "multiplier": halfBuff},
+	]; //{"name":"", "parameters":["",""], "multiplier": 0},
 	const attributes = ["Power", "Technique", "Speed"];
 	const exTypes = ["EX Skill", "Part Traits"];
 	const parameters = ["a", "ma", "sa", "md", "sd", "br", "pr"];
@@ -138,11 +158,11 @@
 	const parts = ["head", "torso", "arms", "legs", "backpack", "melee", "range", "shield", "pilot"];
 	const jobLicenses = [
 		{"name":"All-Rounder"},
-		{"name":"Defender", "parameters":["a", "md", "sd"], "multiplier": 0.05},
-		{"name":"In-Fighter", "parameters":["ma"], "multiplier": 0.1},
-		{"name":"Out-Fighter", "parameters":["ma"], "multiplier": 0.1},
-		{"name":"Middle-Shooter", "parameters":["sa"], "multiplier": 0.1},
-		{"name":"Long-Shooter", "parameters":["sa"], "multiplier": 0.1},
+		{"name":"Defender", "parameters":["a", "md", "sd"], "multiplier": halfBuff},
+		{"name":"In-Fighter", "parameters":["ma"], "multiplier": fullBuff},
+		{"name":"Out-Fighter", "parameters":["ma"], "multiplier": fullBuff},
+		{"name":"Middle-Shooter", "parameters":["sa"], "multiplier": fullBuff},
+		{"name":"Long-Shooter", "parameters":["sa"], "multiplier": fullBuff},
 		{"name":"Supporter"}
 	];
 	const mobileSuits = [
@@ -150,26 +170,44 @@
 			"name":"Aegis Gundam",
 			"attribute":"Speed",
 			"rarity": 4,
+			"sokai": 0,
 			"parts":[
 				{"part":"head", "a":1181, "ma":384, "sa":2380, "md": 384, "sd":384, "br":213, "pr":417, "wt":["Transformer", "High Mobility"], "ex":{"type":"EX Skill", "name":"Igelstellung"}},
 				{"part":"torso", "a":1977, "ma":384, "sa":796, "md":796, "sd":796, "br":0, "pr":661, "wt":["Transformer", "High Mobility"], "ex":{"type":"Part Traits", "name":"When Armor is 40% or more Shooting DMG taken reduced by 8-35"}},
 				{"part":"arms", "a":1181, "ma":796, "sa":796, "md":1181, "sd":1181, "br":0, "pr":0, "wt":["Transformer", "High Mobility"], "ex":{"type":"EX Skill", "name":"Assault Cyclone"}},
-				{"part":"legs", "a":1181, "ma":384, "sa":384, "md":796, "sd":1181, "br":417, "pr":611, "wt":["Transformer", "Gudam Type"], "ex":{"type":"EX Skill", "name":"Kick Combination"}},
-				{"part":"backpack", "a":1181, "ma":384, "sa":384, "md":796, "sd":1181, "br":417, "pr":611, "wt":["Transformer", "Gudam Type"], "ex":{"type":"Part Traits", "name":"When Armor is 40% or more Enemy Sp. Shot power reduced 17-30%"}},
+				{"part":"legs", "a":1181, "ma":384, "sa":384, "md":796, "sd":1181, "br":417, "pr":611, "wt":["Transformer", "Gundam Type"], "ex":{"type":"EX Skill", "name":"Kick Combination"}},
+				{"part":"backpack", "a":1181, "ma":384, "sa":384, "md":796, "sd":1181, "br":417, "pr":611, "wt":["Transformer", "Gundam Type"], "ex":{"type":"Part Traits", "name":"When Armor is 40% or more Enemy Sp. Shot power reduced 17-30%"}},
 				{"part":"range", "a":1181, "ma":0, "sa":3177, "md":0, "sd":0, "br":213, "pr":611, "wt":["Transformer", "For Base"], "ex":{"type":"Part Traits", "name":"Out-Fighter Job Enemy Shooting power reduced 17-30%"}, "name":"60mm High-Energy Beam Rifle", "type":"Beam"},
-				{"part":"shield", "a":1181, "ma":0, "sa":0, "md":796, "sd":1602, "br":213, "pr":806, "wt":["Transformer", "Gudam Type"], "ex":{"type":"EX Skill", "name":"Shield Throw"}, "name":"Anti-Beam Shield"},
+				{"part":"shield", "a":1181, "ma":0, "sa":0, "md":796, "sd":1602, "br":213, "pr":806, "wt":["Transformer", "Gundam Type"], "ex":{"type":"EX Skill", "name":"Shield Throw"}, "name":"Anti-Beam Shield"},
+			]
+		},
+		{
+			"name":"Enhanced ZZ Gundam [Ver. Ka]",
+			"attribute":"Power",
+			"rarity": 4,
+			"sokai": 1,
+			"parts":[
+				{"part":"head", "a":965, "ma":0, "sa":3306, "md":551, "sd":551, "br":282, "pr":464, "wt":["Gundam Type", "Ace Excl."], "ex":{"type":"EX Skill", "name":"High Mega Cannon"}},
+				{"part":"torso", "a":1732, "ma":551, "sa":551, "md":1732, "sd":965, "br":75, "pr":670, "wt":["Gundam Type", "Ace Excl."], "ex":{"type":"EX Skill", "name":"Biosensor"}},
+				{"part":"arms", "a":1884, "ma":1506, "sa":551, "md":4255, "sd":1506, "br":381, "pr":947, "wt":["Gundam Type", "Ace Excl."], "ex":{"type":"Part Traits", "name":"With Power attribute (self) Strong Melee DMG output boosted by 35"}, "combo":"shield"},
+				{"part":"legs", "a":965, "ma":329, "sa":551, "md":1732, "sd":965, "br":464, "pr":670, "wt":["Gundam Type", "High Firepower"], "ex":{"type":"Part Traits", "name":"With Blade category equipped EX Skill CD reduced 20%"}},
+				{"part":"backpack", "a":965, "ma":329, "sa":551, "md":1732, "sd":965, "br":464, "pr":670, "wt":["Gundam Type", "High Firepower"], "ex":{"type":"EX Skill", "name":"Double Cannon & Missile Launcher"}},
+				{"part":"melee", "a":551, "ma":3138, "sa":0, "md":788, "sd":153, "br":282, "pr":464, "wt":["Protag.", "High Firepower"], "ex":{"type":"EX Skill", "name":"Hyper Beam Saber"}, "name":"Hyper Beam Saber", "type":"Beam"},
+				{"part":"range", "a":0, "ma":0, "sa":0, "md":0, "sd":0, "br":0, "pr":0, "wt":["", ""], "ex":{"type":"", "name":""}, "name":"", "type":""},
+				{"part":"shield", "a":0, "ma":0, "sa":0, "md":0, "sd":0, "br":0, "pr":0, "wt":["", ""], "ex":{"type":"", "name":""}, "name":""},
 			]
 		},
 		{
 			"name":"Gundam",
 			"attribute":"Technique",
 			"rarity": 4,
+			"sokai": 0,
 			"parts":[
-				{"part":"head", "a":796, "ma":383, "sa":2378, "md":796, "sd":796, "br":212, "pr":212, "wt":["Protag.", "Gudam Type"], "ex":{"type":"EX Skill", "name":"Head-Mounted Vulcan"}},
-				{"part":"torso", "a":1602, "ma":383, "sa":383, "md":1180, "sd":1180, "br":288, "pr":288, "wt":["Protag.", "Gudam Type"], "ex":{"type":"Part Traits", "name":"With Saber category equipped Melee power boosted 17-30%"}},
+				{"part":"head", "a":796, "ma":383, "sa":2378, "md":796, "sd":796, "br":212, "pr":212, "wt":["Protag.", "Gundam Type"], "ex":{"type":"EX Skill", "name":"Head-Mounted Vulcan"}},
+				{"part":"torso", "a":1602, "ma":383, "sa":383, "md":1180, "sd":1180, "br":288, "pr":288, "wt":["Protag.", "Gundam Type"], "ex":{"type":"Part Traits", "name":"With Saber category equipped Melee power boosted 17-30%"}},
 				{"part":"arms", "a":796, "ma":2378, "sa":383, "md":1180, "sd":1180, "br":0, "pr":0, "wt":["Protag.", "Close Combat"], "ex":{"type":"Part Traits", "name":"With Technique attribute (self) Melee DMG taken reduced by 8-35"}},
 				{"part":"legs", "a":796, "ma":383, "sa":383, "md":1180, "sd":1180, "br":475, "pr":502, "wt":["Protag.", "Close Combat"], "ex":{"type":"Part Traits", "name":"With Technique attribute (self) Mid Shot Attack raised 8-20%"}},
-				{"part":"backpack", "a":796, "ma":383, "sa":383, "md":1180, "sd":1180, "br":502, "pr":475, "wt":["Protag.", "Gudam Type"], "ex":{"type":"EX Skill", "name":"Double Saber Rush"}},
+				{"part":"backpack", "a":796, "ma":383, "sa":383, "md":1180, "sd":1180, "br":502, "pr":475, "wt":["Protag.", "Gundam Type"], "ex":{"type":"EX Skill", "name":"Double Saber Rush"}},
 				{"part":"melee", "a":796, "ma":3176, "sa":0, "md":0, "sd":0, "br":417, "pr":417, "wt":["Protag.", "Close Combat"], "ex":{"type":"EX Skill", "name":"Crimson Stinger"}, "name":"Beam Javelin", "type":"Beam"},
 				{"part":"melee", "a":796, "ma":3176, "sa":0, "md":0, "sd":0, "br":417, "pr":417, "wt":["Protag.", "Close Combat"], "ex":{"type":"Part Traits", "name":"With Technique attribute (self) Melee Crit rate boosted 10-30%"}, "name":"Beam Saber", "type":"Beam"},
 				{"part":"range", "a":796, "ma":0, "sa":3176, "md":0, "sd":0, "br":417, "pr":417, "wt":["Protag.", "Mid-Range"], "ex":{"type":"EX Skill", "name":"Last Shooting"}, "name":"Beam Rifle", "type":"Beam"},
@@ -181,6 +219,7 @@
 			"name":"Gundam Barbatos",
 			"attribute":"Power",
 			"rarity": 4,
+			"sokai": 0,
 			"parts":[
 				{"part":"head", "a":335, "ma":162, "sa":830, "md": 162, "sd":496, "br":172, "pr":91, "wt":["Protag.", "For Forest"], "ex":{"type":"Part Traits", "name":"With Power attribute (self) Close Shot Attack raised 8-20%"}},
 				{"part":"torso", "a":496, "ma":335, "sa":162, "md": 335, "sd":678, "br":266, "pr":0, "wt":["Protag.", "For Forest"], "ex":{"type":"EX Skill", "name":"Fearless Hurl"}},
@@ -195,15 +234,32 @@
 		{
 			"name":"Gundam Exia",
 			"attribute":"Speed",
-			"rarity": 0,
+			"rarity": 4,
+			"sokai": 0,
 			"parts":[
-				{"part":"backpack", "a":796, "ma":384, "sa":384, "md":1602, "sd":796, "br":417, "pr":611, "wt":["Gudam Type", "For Base"], "ex":{"type":"EX Skill", "name":"Trans-Am Raid"}},
+				{"part":"backpack", "a":796, "ma":384, "sa":384, "md":1602, "sd":796, "br":417, "pr":611, "wt":["Gundam Type", "For Base"], "ex":{"type":"EX Skill", "name":"Trans-Am Raid"}},
+			]
+		},
+		{
+			"name":"Hi-nu Gundam HWS [Ver. Ka]",
+			"attribute":"Technique",
+			"rarity": 4,
+			"sokai": 1,
+			"parts":[
+				{"part":"head", "a":965, "ma":0, "sa":3309, "md":551, "sd":551, "br":464, "pr":464, "wt":["Ace Excl.", "Heavy Armor"], "ex":{"type":"EX Skill", "name":"Head-Mounted Vulcan"}},
+				{"part":"torso", "a":1732, "ma":551, "sa":551, "md":965, "sd":1732, "br":672, "pr":75, "wt":["Ace Excl.", "Heavy Armor"], "ex":{"type":"EX Skill", "name":"Chest Missile Launcher"}},
+				{"part":"arms", "a":965, "ma":1355, "sa":551, "md":551, "sd":1732, "br":75, "pr":75, "wt":["Ace Excl.", "Heavy Armor"], "ex":{"type":"Part Traits", "name":"When Armor is 40% or more Sp.Shot power boosted 30%"}},
+				{"part":"legs", "a":965, "ma":551, "sa":551, "md":965, "sd":1732, "br":672, "pr":464, "wt":["Ace Excl.", "High Firepower"], "ex":{"type":"EX Skill", "name":"Hidden Arms"}},
+				{"part":"backpack", "a":965, "ma":551, "sa":551, "md":965, "sd":1732, "br":672, "pr":464, "wt":["Ace Excl.", "High Firepower"], "ex":{"type":"EX Skill", "name":"Fin Funnels"}},
+				{"part":"range", "a":551, "ma":153, "sa":4105, "md":153, "sd":0, "br":672, "pr":282, "wt":["Ace Excl.", "High Firepower"], "ex":{"type":"Part Traits", "name":"With Technique attribute (self) Ex Skill power boosted 30%"}, "name":"Hyper Mega Rifle", "type":"Beam"},
+				{"part":"shield", "a":965, "ma":153, "sa":0, "md":965, "sd":2521, "br":872, "pr":282, "wt":["Ace Excl.", "High Firepower"], "ex":{"type":"EX Skill", "name":"High-Caliber Mega Particle Cannon"}, "name":"Hi-Mega Shield"},
 			]
 		},
 		{
 			"name":"Tallgeese II",
 			"attribute":"Technique",
 			"rarity": 3,
+			"sokai": 0,
 			"parts":[
 				{"part":"head", "a":558, "ma":291, "sa":1700, "md":558, "sd":558, "br":126, "pr":126, "wt":["Commander", "Long-Range"], "ex":{"type":"EX Skill", "name":"Offense Up a"}},
 			]
@@ -212,10 +268,24 @@
 	
 	const pilots = [
 		{"name":"Athrun Zala", "jl":"In-Fighter", "attribute":"Speed", "rarity": 4, "a":799, "ma":1182, "sa":384, "md":799, "sd":1182, "br":612, "pr":213, "wt":["Transformer", "Mid-Range"], "ex":{"type":"Part Traits", "name":"20% chance to prevent vernier consumption when stepping"}},
+		{"name":"Bernard Wiseman", "jl":"In-Fighter", "attribute":"Technique", "rarity": 4, "a":795, "ma":795, "sa":795, "md":795, "sd":795, "br":211, "pr":609, "wt":["High Mobility", "Zaku Type"], "ex":{"type":"Part Traits", "name":"When Armor is 60% or less Recover 10 Armor gradually"}},
 		{"name":"Chang Wufei", "jl":"In-Fighter", "attribute":"Technique", "rarity": 4, "a":1181, "ma":1181, "sa":384, "md":796, "sd":796, "br":417, "pr":417, "wt":["Close Combat", "Ace Excl."], "ex":{"type":"Part Traits", "name":"With Technique attribute (self) Strong Melee DMG output boosted by 8-35"}},
 		{"name":"Dearka Elsman", "jl":"Long-Shooter", "attribute":"Power", "rarity": 3, "a":558, "ma":291, "sa":1142, "md":558, "sd":558, "br":302, "pr":126, "wt":["Long-Range", "Support Type"], "ex":{"type":"Part Traits", "name":"With Power attribute (self) Shot guidance boosted 5-14%"}},
 		{"name":"Duo Maxwell", "jl":"In-Fighter", "attribute":"Speed", "rarity": 4, "a":796, "ma":1602, "sa":384, "md":796, "sd":796, "br":213, "pr":417, "wt":["Close Combat", "For Forest"], "ex":{"type":"Part Traits", "name":"With Speed attribute (self) 8-20% chance to not recoil"}},
+		{"name":"Fa Yuiry", "jl":"Supporter", "attribute":"Technique", "rarity": 3, "a":891, "ma":292, "sa":891, "md":558, "sd":558, "br":302, "pr":302, "wt":["Transformer", "Support Type"], "ex":{"type":"Part Traits", "name":"Support Job EX Skill recovery boosted 16%"}},
+		{"name":"Garrod Ran", "jl":"Out-Fighter", "attribute":"Speed", "rarity": 4, "a":797, "ma":1181, "sa":1181, "md":797, "sd":797, "br":213, "pr":418, "wt":["Protag.", "Close Combat"], "ex":{"type":"Part Traits", "name":"When Armor is 80% or less All power boosted 30%"}},
+		{"name":"George de Sand", "jl":"Out-Fighter", "attribute":"Technique", "rarity": 4, "a":795, "ma":382, "sa":382, "md":1179, "sd":1179, "br":609, "pr":211, "wt":["Mobile Fighter", "Long-Range"], "ex":{"type":"Part Traits", "name":"With Technique attribute (self) EX Skill CD reduced 20%"}},
+		{"name":"Hamman Karn", "jl":"Long-Shooter", "attribute":"Power", "rarity": 4, "a":796, "ma":384, "sa":1602, "md":796, "sd":796, "br":417, "pr":213, "wt":["Commander", "Zeon"], "ex":{"type":"Part Traits", "name":"With Power attribute (self) Job Gauge increase boosted 17%"}},
 		{"name":"Harry Ord", "jl":"Defender", "attribute":"Speed", "rarity": 3, "a":558, "ma":1142, "sa":291, "md":558, "sd":558, "br":302, "pr":126, "wt":["Ace Excl.", "Close Combat"], "ex":{"type":"Part Traits", "name":"Beam ranged weapon magazine boosted 9-20%"}},
+		{"name":"Kamille Bidan", "jl":"Middle-Shooter", "attribute":"Speed", "rarity": 4, "a":796, "ma":796, "sa":796, "md":796, "sd":796, "br":417, "pr":417, "wt":["Protag.", "Close Combat"], "ex":{"type":"Part Traits", "name":"With Speed attribute (self) EX Skill piercing boosted 28%"}},
+		{"name":"Kira Yamato", "jl":"Middle-Shooter", "attribute":"Speed", "rarity": 4, "a":799, "ma":384, "sa":1184, "md":1184, "sd":799, "br":614, "pr":213, "wt":["Protag.", "For Base"], "ex":{"type":"Part Traits", "name":"With Speed attribute (self) EX Skill recovery boosted by 140"}},
+		{"name":"Kou Uraki", "jl":"Defender", "attribute":"Power", "rarity": 4, "a":1606, "ma":384, "sa":384, "md":799, "sd":799, "br":612, "pr":612, "wt":["Protag.", "Federation"], "ex":{"type":"Part Traits", "name":"With Power attribute (self) 14% chance to survive a fatal blow"}},
+		{"name":"Mikazuki Augus", "jl":"Defender", "attribute":"Power", "rarity": 4, "a":384, "ma":1182, "sa":1182, "md":799, "sd":799, "br":420, "pr":420, "wt":["Protag.", "For Desert"], "ex":{"type":"Part Traits", "name":"With Power attribute (self) Initial EX Skill charge boosted 20%"}},
+		{"name":"Paptimus Scirocco", "jl":"Out-Fighter", "attribute":"Technique", "rarity": 4, "a":1180, "ma":1180, "sa":383, "md":796, "sd":796, "br":212, "pr":610, "wt":["Transformer", "Commander"], "ex":{"type":"Part Traits", "name":"With Technique attribute (self) Shot guidance boosted 14%"}},
+		{"name":"Seabook Arno", "jl":"Middle-Shooter", "attribute":"Technique", "rarity": 4, "a":796, "ma":384, "sa":1602, "md":796, "sd":796, "br":417, "pr":213, "wt":["Protag.", "For Urban Area"], "ex":{"type":"Part Traits", "name":"With Technique attribute (self) Enemy All power reduced 18%"}},
+		{"name":"Shin Asuka", "jl":"Out-Fighter", "attribute":"Power", "rarity": 4, "a":797, "ma":1181, "sa":1181, "md":797, "sd":797, "br":418, "pr":213, "wt":["High Mobility", "Protag."], "ex":{"type":"Part Traits", "name":"Initial EX Skill charge boosted 15%"}},
+		{"name":"Shiro Amada", "jl":"Out-Fighter", "attribute":"Power", "rarity": 4, "a":1180, "ma":1180, "sa":383, "md":796, "sd":796, "br":610, "pr":212, "wt":["For Forest", "For Desert"], "ex":{"type":"Part Traits", "name":"With Power attribute (self) Enemy Shooting power reduced 30%"}},
+		{"name":"Zechs Marquise", "jl":"In-Fighter", "attribute":"Speed", "rarity": 4, "a":795, "ma":795, "sa":795, "md":795, "sd":795, "br":211, "pr":609, "wt":["High Mobility", "Commander"], "ex":{"type":"Part Traits", "name":"With Speed attribute (self) Vernier recovery rate boosted 20%"}},
 	];
 	
 	/** sample
@@ -224,6 +294,7 @@
 		"name":"",
 		"attribute":"",
 		"rarity": 0,
+		"sokai": 0,
 		"parts":[
 			{"part":"head", "a":0, "ma":0, "sa":0, "md":0, "sd":0, "br":0, "pr":0, "wt":["", ""], "ex":{"type":"", "name":""}},
 			{"part":"torso", "a":0, "ma":0, "sa":0, "md":0, "sd":0, "br":0, "pr":0, "wt":["", ""], "ex":{"type":"", "name":""}},
@@ -236,7 +307,7 @@
 		]
 	},
 	
-	{"name":"", "jl":"", "attribute":"", "rarity": 0, "a":0, "ma":0, "sa":0, "md":0, "sd":0, "br":0, "pr":0, "wt":["", ""], "ex":{"type":"", "name":""}},
+	{"name":"", "jl":"", "attribute":"", "rarity": 0, "a":0, "ma":0, "sa":0, "md":0, "sd":0, "br":0, "pr":0, "wt":["", ""], "ex":{"type":"Part Traits", "name":""}},
 	
 	*/
 	
@@ -246,6 +317,7 @@
 			this.parametersTotal = {};
 			this.attributesTally = {"p":0, "t":0, "s":0};
 			this.selects = {};
+			this.comboParts = [];
 			
 			parts.forEach((part) => {
 				this.selects[part] = document.querySelector(`.js-select-${part}`);
@@ -265,13 +337,16 @@
 					if("parts" in ms && Array.isArray(ms.parts)) {
 						ms.parts.forEach((p) => {
 							const o = document.createElement('option');
+							
 							o.text = `[${ms.attribute.charAt(0)}] ${ms.name} ${"name" in p ? " ("+p.name+")" : ""}`;
 							o.dataset["attribute"] = ms.attribute;
+							
 							for(let k in p) {
 								if(p.hasOwnProperty(k)) {
 									o.dataset[k] = p[k] instanceof Object ? JSON.stringify(p[k]) : p[k];
 								}
 							}
+							
 							if(p.part in s && s[p.part]) {
 								s[p.part].appendChild(o);
 							}
@@ -283,13 +358,16 @@
 			if(pilots && Array.isArray(pilots)) {
 				pilots.forEach((p) => {
 					const o = document.createElement('option');
+					
 					o.text = `[${p.attribute.charAt(0)}] ${p.name} (${p.jl})`;
 					o.dataset.part = "pilot";
+					
 					for(let k in p) {
 						if(p.hasOwnProperty(k)) {
 							o.dataset[k] = p[k] instanceof Object ? JSON.stringify(p[k]) : p[k];
 						}
 					}
+					
 					if("pilot" in s && s.pilot) {
 						s.pilot.appendChild(o);
 					}
@@ -303,6 +381,7 @@
 			for(let k in ss) {
 				if(ss.hasOwnProperty(k)) {
 					ss[k].addEventListener('change', (e) => {
+						this._toggleComboPart(e);
 						this._displaySkillTraits(e);
 						this._loopThroughSelects();
 						this._displayPartsWordTags();
@@ -310,6 +389,28 @@
 				}
 			}
 			
+		}
+		
+		_toggleComboPart(e) {
+			const s = e.currentTarget,
+				o = this._getSelectedOption(s);
+			
+			if(Array.isArray(this.comboParts)) {
+				for(let i = 0; i < this.comboParts.length; i++) {
+					const cp = this.comboParts[i];
+					
+					if(cp.part && cp.combo && s.dataset.part && cp.part == s.dataset.part) {
+						document.querySelector(`.js-select-${cp.combo}`).disabled = false;
+						this.comboParts.splice(i, 1);
+						break;
+					}
+				}
+			}
+			
+			if(o.dataset.combo && o.dataset.part) {
+				this.comboParts.push({"part":o.dataset.part, "combo":o.dataset.combo});
+				document.querySelector(`.js-select-${o.dataset.combo}`).disabled = true;
+			}
 		}
 		
 		_displaySkillTraits(e) {
@@ -360,11 +461,12 @@
 		
 		_tallyWordTags(o) {
 			if(o && o.dataset.wt) {
-				const wt = JSON.parse(o.dataset.wt);
+				const wt = JSON.parse(o.dataset.wt),
+					addon = o.dataset.combo ? 2 : 1;
 				
 				if(Array.isArray(wt)) {
 					wt.forEach((t) => {
-						this.wordTagsTally[t] = t in this.wordTagsTally ? this.wordTagsTally[t] + 1 : 1;
+						this.wordTagsTally[t] = t in this.wordTagsTally ? this.wordTagsTally[t] + addon : addon;
 					});
 				}
 			}
@@ -420,7 +522,7 @@
 				if(this.wordTagsTally[k] >= wordTagActivation) {
 					const wt = this._getWordTag(k);
 					
-					if(wt.multiplier && wt.parameters && Array.isArray(wt.parameters)) {
+					if(wt && wt.multiplier && wt.parameters && Array.isArray(wt.parameters)) {
 						wt.parameters.forEach((p) => {
 							multipliers[p] = p in multipliers ? multipliers[p] + wt.multiplier : wt.multiplier;
 						});
@@ -446,7 +548,7 @@
 			if(o && o.dataset.jl) {
 				const jl = this._getJobLicense(o.dataset.jl);
 				
-				if(jl.multiplier && jl.parameters && Array.isArray(jl.parameters)) {
+				if(jl && jl.multiplier && jl.parameters && Array.isArray(jl.parameters)) {
 					jl.parameters.forEach((p) => {
 						if(p in this.parametersTotal) {
 							this.parametersTotal[p] = Math.round(this.parametersTotal[p] + (this.parametersTotal[p] * jl.multiplier));
@@ -467,7 +569,8 @@
 		
 		_tallyAttributes(o) {
 			if(o && o.dataset.attribute && o.dataset.attribute.charAt(0).toLowerCase() in this.attributesTally) {
-				this.attributesTally[o.dataset.attribute.charAt(0).toLowerCase()]++;
+				const addon = o.dataset.combo ? 2 : 1;
+				this.attributesTally[o.dataset.attribute.charAt(0).toLowerCase()] += addon;
 			}
 		}
 		
@@ -485,7 +588,7 @@
 					const o = this._getSelectedOption(ss[k]);
 					
 					if(o) {
-						if(!this._displayWordTags(o)) {
+						if(!this._displayWordTags(o) && ss[k].disabled == false) {
 							this._clearWordTag(k);
 						}
 					}
@@ -510,7 +613,11 @@
 					const count = this.wordTagsTally[t];
 				
 					return v + `${v == "" ? "" : "<br />"}<span class="${count >= wordTagActivation ? 'activatedWT' : '' }">(${count}) ${t}</span>`; 
-				}, "")
+				}, "");
+				
+				if(o.dataset.combo) {
+					document.querySelector(`.js-wt-${o.dataset.combo}`).innerHTML = span.innerHTML;
+				}
 			}
 			
 			return true;
