@@ -12,26 +12,53 @@
 		line-height: 1.6;
 	}
 	h3 {
-		background: #0000ff;
+		background: #4379ba;
 		color: #fff;
 		font-size: 16px;
 		font-weight: normal;
 		margin: 0;
+		padding: 0 10px;
 	}
-	.container {display: flex; flex-flow: no-wrap;}
-	.info {width: 200px;}
 	
-	.info > div {margin-right:20px;}
+	.activatedWT {color: #206cc9;}
+	
+	.container {display: flex; flex-flow: row no-wrap;}
+	.info,
+	.word-tags,
+	.part-trait-ex-skill {margin-right:10px; width: 180px;}
+	
 	.parameters > *,
 	.active-word-tag > * {padding: 0 10px;}
+	
 	.parameters > div:nth-of-type(even),
-	.active-word-tag > div:nth-of-type(even) {background: #f2f7f4;}
+	.active-word-tag-list > div:nth-of-type(even),
+	.word-tags > div:nth-of-type(even),
+	.part-trait-ex-skill > div:nth-of-type(even) {background: #f2f7f4;}
+	
 	.parameters > div > * {display: inline-block; width: 50%;}
 	.parameters > div > span {text-align: right;}
 	
-	.parts > div { padding: 5px 0;}
-	.parts > div > label {display: inline-block; width: 100px;}
-	.parts > div > select {margin-right: 10px; width: 200px;}
+	.word-tags > div,
+	.part-trait-ex-skill > div,
+	.parts > div {
+		justify-content: center;
+		display: flex;
+		flex-direction: column;
+		height: 50px; 
+		padding: 0px 10px; 
+		width:100%;
+	}
+	
+	.word-tags span,
+	.part-trait-ex-skill span {font-size: 12px;}
+	
+	.part-trait-ex-skill {width: 350px;}
+	
+	.parts {width: 300px;}
+	.parts label {display: inline-block; width: 30%;}
+	.parts select {display: inline-block; padding: 5px 0; width: 70%;}
+	
+	.attribute-tally {display:block !important; padding: 0 0 0 35% !important;}
 </style>
 </head>
 
@@ -51,21 +78,44 @@
 		</div>
 		<div class="active-word-tag">
 			<h3>Active Word Tag</h3>
-			<div>&nbsp;</div>
-			<div>&nbsp;</div>
-			<div>&nbsp;</div>
+			<div class="active-word-tag-list js-active-wt"></div>
 		</div>
 	</div>
+	<div class="word-tags">
+		<h3>Word Tags</h3>
+		<div><span class="js-wt-head"></span></div>
+		<div><span class="js-wt-torso"></span></div>
+		<div><span class="js-wt-arms"></span></div>
+		<div><span class="js-wt-legs"></span></div>
+		<div><span class="js-wt-backpack"></span></div>
+		<div><span class="js-wt-melee"></span></div>
+		<div><span class="js-wt-range"></span></div>
+		<div><span class="js-wt-shield"></span></div>
+		<div><span class="js-wt-pilot"></span></div>
+	</div>
+	<div class="part-trait-ex-skill">
+		<h3>Part Traits / EX Skill</h3>
+		<div><span class="js-skill-trait-head"></span></div>
+		<div><span class="js-skill-trait-torso"></span></div>
+		<div><span class="js-skill-trait-arms"></span></div>
+		<div><span class="js-skill-trait-legs"></span></div>
+		<div><span class="js-skill-trait-backpack"></span></div>
+		<div><span class="js-skill-trait-melee"></span></div>
+		<div><span class="js-skill-trait-range"></span></div>
+		<div><span class="js-skill-trait-shield"></span></div>
+		<div><span class="js-skill-trait-pilot"></span></div>
+	</div>
 	<div class="parts">
-		<div><label>Head</label><select class="js-select-head"><option></option></select><span class="js-skill-trait"></span></div>
-		<div><label>Torso</label><select class="js-select-torso"><option></option></select><span class="js-skill-trait"></span></div>
-		<div><label>Arms</label><select class="js-select-arms"><option></option></select><span class="js-skill-trait"></span></div>
-		<div><label>Legs</label><select class="js-select-legs"><option></option></select><span class="js-skill-trait"></span></div>
-		<div><label>Backpack</label><select class="js-select-backpack"><option></option></select><span class="js-skill-trait"></span></div>
-		<div><label>Melee</label><select class="js-select-melee"><option></option></select><span class="js-skill-trait"></span></div>
-		<div><label>Range</label><select class="js-select-range"><option></option></select><span class="js-skill-trait"></span></div>
-		<div><label>Shield</label><select class="js-select-shield"><option></option></select><span class="js-skill-trait"></span></div>
-		<div><label>Pilot</label><select class="js-select-pilot"><option></option></select><span class="js-skill-trait"></span></div>
+		<h3>Parts</h3>
+		<div><div><label>Head</label><select class="js-select-head" data-part="head"><option></option></select></div></div>
+		<div><div><label>Torso</label><select class="js-select-torso" data-part="torso"><option></option></select></div></div>
+		<div><div><label>Arms</label><select class="js-select-arms" data-part="arms"><option></option></select></div></div>
+		<div><div><label>Legs</label><select class="js-select-legs" data-part="legs"><option></option></select></div></div>
+		<div><div><label>Backpack</label><select class="js-select-backpack" data-part="backpack"><option></option></select></div></div>
+		<div><div><label>Melee</label><select class="js-select-melee" data-part="melee"><option></option></select></div></div>
+		<div><div><label>Range</label><select class="js-select-range" data-part="range"><option></option></select></div></div>
+		<div><div><label>Shield</label><select class="js-select-shield" data-part="shield"><option></option></select></div></div>
+		<div><div><label>Pilot</label><select class="js-select-pilot" data-part="pilot"><option></option></select></div></div>
 		<div class="attribute-tally">
 			<label>[P] <span class="js-tally-p">0</span></label>
 			<label>[T] <span class="js-tally-t">0</span></label>
@@ -75,61 +125,97 @@
 </div>
 
 <script>
-	const wt = ["Protag.","Mass P.","Ace Excl.","Amphib.","Commander","Close Combat","Mid-Range","Long-Shoter","High Mobility"," High Firepower","Heavy Armor","Transformer","Gudam Type","Mobile Fighter","Support Type","Federation","Zeon","Zaku Type","GM Type","For Space","For Dessert","For Tundra","For Forest","For Urban Area","For Base","For Computers"];
-	const t = ["Power", "Technique", "Speed"];
-	const ex = ["EX Skill", "Part Traits"];
+	const wordTagActivation = 5;
+	const _wordTags = ["Protag.","Mass P.","Ace Excl.","Amphib.","Commander","Close Combat","Mid-Range","Long-Range","High Mobility"," High Firepower","Heavy Armor","Transformer","Gudam Type","Mobile Fighter","Support Type","Federation","Zeon","Zaku Type","GM Type","For Space","For Dessert","For Tundra","For Forest","For Urban Area","For Base","For Computers"];
+	const wordTags = [
+		{"name":"Protag.", "parameters":["ma"], "multiplier": 0.1},
+		{"name":"Close Combat", "parameters":["a","ma"], "multiplier": 0.05},
+	]
+	const attributes = ["Power", "Technique", "Speed"];
+	const exTypes = ["EX Skill", "Part Traits"];
 	const parameters = ["a", "ma", "sa", "md", "sd", "br", "pr"];
-	const damageType = ["Beam ", "Physical"];
+	const damageTypes = ["Beam ", "Physical"];
 	const parts = ["head", "torso", "arms", "legs", "backpack", "melee", "range", "shield", "pilot"];
-	const jobLicense = ["All-Rounder", "Defender", "In-Fighter", "Out-Fighter", "Middle-Shooter", "Long-Shooter", "Supporter"];
+	const jobLicenses = [
+		{"name":"All-Rounder"},
+		{"name":"Defender", "parameters":["a", "md", "sd"], "multiplier": 0.05},
+		{"name":"In-Fighter", "parameters":["ma"], "multiplier": 0.1},
+		{"name":"Out-Fighter", "parameters":["ma"], "multiplier": 0.1},
+		{"name":"Middle-Shooter", "parameters":["sa"], "multiplier": 0.1},
+		{"name":"Long-Shooter", "parameters":["sa"], "multiplier": 0.1},
+		{"name":"Supporter"}
+	];
 	const mobileSuits = [
 		{
 			"name":"Aegis Gundam",
 			"attribute":"Speed",
+			"rarity": 4,
 			"parts":[
 				{"part":"head", "a":1181, "ma":384, "sa":2380, "md": 384, "sd":384, "br":213, "pr":417, "wt":["Transformer", "High Mobility"], "ex":{"type":"EX Skill", "name":"Igelstellung"}},
-				{"part":"torso", "a":1977, "ma":384, "sa":796, "md":796, "sd":796, "br":0, "pr":661, "wt":["Transformer", "High Mobility"], "ex":{"type":"Part Traits", "name":"When Armor is 40% or more, Shooting DMG taken reduced by 8-35"}},
+				{"part":"torso", "a":1977, "ma":384, "sa":796, "md":796, "sd":796, "br":0, "pr":661, "wt":["Transformer", "High Mobility"], "ex":{"type":"Part Traits", "name":"When Armor is 40% or more Shooting DMG taken reduced by 8-35"}},
 				{"part":"arms", "a":1181, "ma":796, "sa":796, "md":1181, "sd":1181, "br":0, "pr":0, "wt":["Transformer", "High Mobility"], "ex":{"type":"EX Skill", "name":"Assault Cyclone"}},
 				{"part":"legs", "a":1181, "ma":384, "sa":384, "md":796, "sd":1181, "br":417, "pr":611, "wt":["Transformer", "Gudam Type"], "ex":{"type":"EX Skill", "name":"Kick Combination"}},
-				{"part":"backpack", "a":1181, "ma":384, "sa":384, "md":796, "sd":1181, "br":417, "pr":611, "wt":["Transformer", "Gudam Type"], "ex":{"type":"Part Traits", "name":"When Armor is 40% or more, Enemy Sp. Shot power reduced 17-30%"}},
-				{"part":"range", "a":1181, "ma":0, "sa":3177, "md":0, "sd":0, "br":213, "pr":611, "wt":["Transformer", "For Base"], "ex":{"type":"Part Traits", "name":"Out-Fighter Job, Enemy Shooting power reduced 17-30%"}, "name":"60mm High-Energy Beam Rifle", "type":"Beam"},
+				{"part":"backpack", "a":1181, "ma":384, "sa":384, "md":796, "sd":1181, "br":417, "pr":611, "wt":["Transformer", "Gudam Type"], "ex":{"type":"Part Traits", "name":"When Armor is 40% or more Enemy Sp. Shot power reduced 17-30%"}},
+				{"part":"range", "a":1181, "ma":0, "sa":3177, "md":0, "sd":0, "br":213, "pr":611, "wt":["Transformer", "For Base"], "ex":{"type":"Part Traits", "name":"Out-Fighter Job Enemy Shooting power reduced 17-30%"}, "name":"60mm High-Energy Beam Rifle", "type":"Beam"},
 				{"part":"shield", "a":1181, "ma":0, "sa":0, "md":796, "sd":1602, "br":213, "pr":806, "wt":["Transformer", "Gudam Type"], "ex":{"type":"EX Skill", "name":"Shield Throw"}, "name":"Anti-Beam Shield"},
 			]
 		},
 		{
 			"name":"Gundam",
 			"attribute":"Technique",
+			"rarity": 4,
 			"parts":[
 				{"part":"head", "a":796, "ma":383, "sa":2378, "md":796, "sd":796, "br":212, "pr":212, "wt":["Protag.", "Gudam Type"], "ex":{"type":"EX Skill", "name":"Head-Mounted Vulcan"}},
-				{"part":"torso", "a":1602, "ma":383, "sa":383, "md":1180, "sd":1180, "br":288, "pr":288, "wt":["Protag.", "Gudam Type"], "ex":{"type":"Part Traits", "name":"With Saber category equipped, Melee power boosted 17-30%"}},
-				{"part":"arms", "a":796, "ma":2378, "sa":383, "md":1180, "sd":1180, "br":0, "pr":0, "wt":["Protag.", "Close Combat"], "ex":{"type":"Part Traits", "name":"With Technique attribute (self), Melee DMG taken reduced by 8-35"}},
-				{"part":"legs", "a":796, "ma":383, "sa":383, "md":1180, "sd":1180, "br":475, "pr":502, "wt":["Protag.", "Close Combat"], "ex":{"type":"Part Traits", "name":"With Technique attribute (self), Mid Shot Attack raised 8-20%"}},
+				{"part":"torso", "a":1602, "ma":383, "sa":383, "md":1180, "sd":1180, "br":288, "pr":288, "wt":["Protag.", "Gudam Type"], "ex":{"type":"Part Traits", "name":"With Saber category equipped Melee power boosted 17-30%"}},
+				{"part":"arms", "a":796, "ma":2378, "sa":383, "md":1180, "sd":1180, "br":0, "pr":0, "wt":["Protag.", "Close Combat"], "ex":{"type":"Part Traits", "name":"With Technique attribute (self) Melee DMG taken reduced by 8-35"}},
+				{"part":"legs", "a":796, "ma":383, "sa":383, "md":1180, "sd":1180, "br":475, "pr":502, "wt":["Protag.", "Close Combat"], "ex":{"type":"Part Traits", "name":"With Technique attribute (self) Mid Shot Attack raised 8-20%"}},
 				{"part":"backpack", "a":796, "ma":383, "sa":383, "md":1180, "sd":1180, "br":502, "pr":475, "wt":["Protag.", "Gudam Type"], "ex":{"type":"EX Skill", "name":"Double Saber Rush"}},
 				{"part":"melee", "a":796, "ma":3176, "sa":0, "md":0, "sd":0, "br":417, "pr":417, "wt":["Protag.", "Close Combat"], "ex":{"type":"EX Skill", "name":"Crimson Stinger"}, "name":"Beam Javelin", "type":"Beam"},
-				{"part":"melee", "a":796, "ma":3176, "sa":0, "md":0, "sd":0, "br":417, "pr":417, "wt":["Protag.", "Close Combat"], "ex":{"type":"Part Traits", "name":"With Technique attribute (self), Melee Crit rate boosted 10-30%"}, "name":"Beam Saber", "type":"Beam"},
+				{"part":"melee", "a":796, "ma":3176, "sa":0, "md":0, "sd":0, "br":417, "pr":417, "wt":["Protag.", "Close Combat"], "ex":{"type":"Part Traits", "name":"With Technique attribute (self) Melee Crit rate boosted 10-30%"}, "name":"Beam Saber", "type":"Beam"},
 				{"part":"range", "a":796, "ma":0, "sa":3176, "md":0, "sd":0, "br":417, "pr":417, "wt":["Protag.", "Mid-Range"], "ex":{"type":"EX Skill", "name":"Last Shooting"}, "name":"Beam Rifle", "type":"Beam"},
-				{"part":"range", "a":796, "ma":0, "sa":3176, "md":0, "sd":0, "br":417, "pr":417, "wt":["Protag.", "Mid-Range"], "ex":{"type":"Part Traits", "name":"With Technique attribute (self), Shooting DMG output boosted by 8-35"}, "name":"Hyper Bazooka", "type":"Physical"},
-				{"part":"shield", "a":796, "ma":0, "sa":0, "md":1602, "sd":1602, "br":417, "pr":417, "wt":["Protag.", "Close Combat"], "ex":{"type":"Part Traits", "name":"With Technique attribute (self), Buff EX Skill effect up 4-22%"}, "name":"Shield"},
+				{"part":"range", "a":796, "ma":0, "sa":3176, "md":0, "sd":0, "br":417, "pr":417, "wt":["Protag.", "Mid-Range"], "ex":{"type":"Part Traits", "name":"With Technique attribute (self) Shooting DMG output boosted by 8-35"}, "name":"Hyper Bazooka", "type":"Physical"},
+				{"part":"shield", "a":796, "ma":0, "sa":0, "md":1602, "sd":1602, "br":417, "pr":417, "wt":["Protag.", "Close Combat"], "ex":{"type":"Part Traits", "name":"With Technique attribute (self) Buff EX Skill effect up 4-22%"}, "name":"Shield"},
 			]
 		},
 		{
 			"name":"Gundam Barbatos",
 			"attribute":"Power",
+			"rarity": 4,
 			"parts":[
-				{"part":"head", "a":335, "ma":162, "sa":830, "md": 162, "sd":496, "br":172, "pr":91, "wt":["Protag.", "For Forest"], "ex":{"type":"Part Traits", "name":"With Power attribute (self), Close Shot Attack raised 8-20%"}},
+				{"part":"head", "a":335, "ma":162, "sa":830, "md": 162, "sd":496, "br":172, "pr":91, "wt":["Protag.", "For Forest"], "ex":{"type":"Part Traits", "name":"With Power attribute (self) Close Shot Attack raised 8-20%"}},
 				{"part":"torso", "a":496, "ma":335, "sa":162, "md": 335, "sd":678, "br":266, "pr":0, "wt":["Protag.", "For Forest"], "ex":{"type":"EX Skill", "name":"Fearless Hurl"}},
-				{"part":"arms", "a":799, "ma":2786, "sa":384, "md":799, "sd":1182, "br":0, "pr":0, "wt":["Protag.", "Close Combat"], "ex":{"type":"Part Traits", "name":"In-fighter Job, Melee power boosted 17-30%"}},
+				{"part":"arms", "a":799, "ma":2786, "sa":384, "md":799, "sd":1182, "br":0, "pr":0, "wt":["Protag.", "Close Combat"], "ex":{"type":"Part Traits", "name":"In-fighter Job Melee power boosted 17-30%"}},
 				{"part":"legs", "a":799, "ma":384, "sa":384, "md":384, "sd":1182, "br":612, "pr":420, "wt":["Protag.", "Close Combat"], "ex":{"type":"EX Skill", "name":"Menace Shot"}},
-				{"part":"backpack", "a":799, "ma":384, "sa":384, "md":384, "sd":1182, "br":612, "pr":420, "wt":["Protag.", "Close Combat"], "ex":{"type":"Part Traits", "name":"With Power attribute (self), Melee DMG output boosted by 8-35"}},
-				{"part":"melee", "a":384, "ma":3586, "sa":0, "md":0, "sd":799, "br":420, "pr":213, "wt":["Protag.", "For Forest"], "ex":{"type":"Part Traits", "name":"In-Fighter Job, Melee CRIT rate boosted 10-30%"}, "name":"Long Sword", "type":"Physical"},
+				{"part":"backpack", "a":799, "ma":384, "sa":384, "md":384, "sd":1182, "br":612, "pr":420, "wt":["Protag.", "Close Combat"], "ex":{"type":"Part Traits", "name":"With Power attribute (self) Melee DMG output boosted by 8-35"}},
+				{"part":"melee", "a":384, "ma":3586, "sa":0, "md":0, "sd":799, "br":420, "pr":213, "wt":["Protag.", "For Forest"], "ex":{"type":"Part Traits", "name":"In-Fighter Job Melee CRIT rate boosted 10-30%"}, "name":"Long Sword", "type":"Physical"},
 				{"part":"melee", "a":384, "ma":3586, "sa":0, "md":0, "sd":799, "br":420, "pr":213, "wt":["Protag.", "For Forest"], "ex":{"type":"EX Skill", "name":"Iron Impact"}, "name":"Mace", "type":"Physical"},
-				{"part":"range", "a":799, "ma":0, "sa":1979, "md":0, "sd":799, "br":612, "pr":213, "wt":["Protag.", "For Forest"], "ex":{"type":"Part Traits", "name":"With Power attribute (self), CLose Shot Attack raised 8-20%"}, "name":"Smoothbore Cannon", "type":"Physical"},
+				{"part":"range", "a":799, "ma":0, "sa":1979, "md":0, "sd":799, "br":612, "pr":213, "wt":["Protag.", "For Forest"], "ex":{"type":"Part Traits", "name":"With Power attribute (self) CLose Shot Attack raised 8-20%"}, "name":"Smoothbore Cannon", "type":"Physical"},
 			]
-		}
+		},
+		{
+			"name":"Gundam Exia",
+			"attribute":"Speed",
+			"rarity": 0,
+			"parts":[
+				{"part":"backpack", "a":796, "ma":384, "sa":384, "md":1602, "sd":796, "br":417, "pr":611, "wt":["Gudam Type", "For Base"], "ex":{"type":"EX Skill", "name":"Trans-Am Raid"}},
+			]
+		},
+		{
+			"name":"Tallgeese II",
+			"attribute":"Technique",
+			"rarity": 3,
+			"parts":[
+				{"part":"head", "a":558, "ma":291, "sa":1700, "md":558, "sd":558, "br":126, "pr":126, "wt":["Commander", "Long-Range"], "ex":{"type":"EX Skill", "name":"Offense Up a"}},
+			]
+		},
 	];
 	
 	const pilots = [
-		{"name":"Athrun Zala", "jl":"In-Fighter", "attribute":"Speed", "a":799, "ma":1182, "sa":384, "md":799, "sd":1182, "br":612, "pr":213, "wt":["Transformer", "Mid-Range"], "ex":{"type":"Part Traits", "name":"20% chance to prevent vernier consumption when stepping"}},
+		{"name":"Athrun Zala", "jl":"In-Fighter", "attribute":"Speed", "rarity": 4, "a":799, "ma":1182, "sa":384, "md":799, "sd":1182, "br":612, "pr":213, "wt":["Transformer", "Mid-Range"], "ex":{"type":"Part Traits", "name":"20% chance to prevent vernier consumption when stepping"}},
+		{"name":"Chang Wufei", "jl":"In-Fighter", "attribute":"Technique", "rarity": 4, "a":1181, "ma":1181, "sa":384, "md":796, "sd":796, "br":417, "pr":417, "wt":["Close Combat", "Ace Excl."], "ex":{"type":"Part Traits", "name":"With Technique attribute (self) Strong Melee DMG output boosted by 8-35"}},
+		{"name":"Dearka Elsman", "jl":"Long-Shooter", "attribute":"Power", "rarity": 3, "a":558, "ma":291, "sa":1142, "md":558, "sd":558, "br":302, "pr":126, "wt":["Long-Range", "Support Type"], "ex":{"type":"Part Traits", "name":"With Power attribute (self) Shot guidance boosted 5-14%"}},
+		{"name":"Duo Maxwell", "jl":"In-Fighter", "attribute":"Speed", "rarity": 4, "a":796, "ma":1602, "sa":384, "md":796, "sd":796, "br":213, "pr":417, "wt":["Close Combat", "For Forest"], "ex":{"type":"Part Traits", "name":"With Speed attribute (self) 8-20% chance to not recoil"}},
+		{"name":"Harry Ord", "jl":"Defender", "attribute":"Speed", "rarity": 3, "a":558, "ma":1142, "sa":291, "md":558, "sd":558, "br":302, "pr":126, "wt":["Ace Excl.", "Close Combat"], "ex":{"type":"Part Traits", "name":"Beam ranged weapon magazine boosted 9-20%"}},
 	];
 	
 	/** sample
@@ -137,6 +223,7 @@
 	{
 		"name":"",
 		"attribute":"",
+		"rarity": 0,
 		"parts":[
 			{"part":"head", "a":0, "ma":0, "sa":0, "md":0, "sd":0, "br":0, "pr":0, "wt":["", ""], "ex":{"type":"", "name":""}},
 			{"part":"torso", "a":0, "ma":0, "sa":0, "md":0, "sd":0, "br":0, "pr":0, "wt":["", ""], "ex":{"type":"", "name":""}},
@@ -149,12 +236,15 @@
 		]
 	},
 	
-	{"name":"", "jl":"", "attribute":"", "a":0, "ma":0, "sa":0, "md": 0, "sd":0, "br":0, "pr":0, "wt":["", ""], "ex":{"type":"", "name":""}}
+	{"name":"", "jl":"", "attribute":"", "rarity": 0, "a":0, "ma":0, "sa":0, "md":0, "sd":0, "br":0, "pr":0, "wt":["", ""], "ex":{"type":"", "name":""}},
 	
 	*/
 	
 	class GBWB_Calculator {
 		constructor() {
+			this.wordTagsTally = {};
+			this.parametersTotal = {};
+			this.attributesTally = {"p":0, "t":0, "s":0};
 			this.selects = {};
 			
 			parts.forEach((part) => {
@@ -175,7 +265,7 @@
 					if("parts" in ms && Array.isArray(ms.parts)) {
 						ms.parts.forEach((p) => {
 							const o = document.createElement('option');
-							o.text = "[" + ms.attribute.charAt(0) + "] " + ms.name + ("name" in p ? " ("+p.name+")" : "");
+							o.text = `[${ms.attribute.charAt(0)}] ${ms.name} ${"name" in p ? " ("+p.name+")" : ""}`;
 							o.dataset["attribute"] = ms.attribute;
 							for(let k in p) {
 								if(p.hasOwnProperty(k)) {
@@ -193,7 +283,8 @@
 			if(pilots && Array.isArray(pilots)) {
 				pilots.forEach((p) => {
 					const o = document.createElement('option');
-					o.text = "[" + p.attribute.charAt(0) + "] " + p.name;
+					o.text = `[${p.attribute.charAt(0)}] ${p.name} (${p.jl})`;
+					o.dataset.part = "pilot";
 					for(let k in p) {
 						if(p.hasOwnProperty(k)) {
 							o.dataset[k] = p[k] instanceof Object ? JSON.stringify(p[k]) : p[k];
@@ -213,73 +304,216 @@
 				if(ss.hasOwnProperty(k)) {
 					ss[k].addEventListener('change', (e) => {
 						this._displaySkillTraits(e);
-						this._calculateParameters();
-						this._displayAttributeTally();
+						this._loopThroughSelects();
+						this._displayPartsWordTags();
 					});
 				}
 			}
 			
 		}
 		
-		_calculateParameters() {
-			const t = {},
-				ss = this.selects;
+		_displaySkillTraits(e) {
+			const s = e.currentTarget,
+				o = this._getSelectedOption(s);
+			let ex, span;
 			
-			parameters.forEach((p) => {
-				t[p] = 0;
-			});
+			if(o && o.dataset.part && o.dataset.ex) {
+				span = document.querySelector(`.js-skill-trait-${o.dataset.part}`),
+				ex = JSON.parse(o.dataset.ex);
+				
+				if(ex.type && ex.name && span) {
+					span.textContent = ex.name;
+				}
+			}
+			else {
+				document.querySelector(`.js-skill-trait-${s.dataset.part}`).textContent = "";
+			}
+		}
+		
+		_loopThroughSelects() {
+			const ss = this.selects;
 			
+			this._resetWordTagTally();
+			this._resetParameters();
+			this._resetAttributesTally();
+			console.log("--------------------");
 			for(let k in ss) {
 				if(ss.hasOwnProperty(k)) {
-					const s = ss[k];
-					if(s.options.length) {
-						const o = s.options[s.selectedIndex];
-						parameters.forEach((p) => {
-							if(o.dataset[p]) {
-								t[p] += +o.dataset[p];
-							}
+					const o = this._getSelectedOption(ss[k]);
+					
+					if(o) {
+						console.log(Object.assign({}, o.dataset));
+						this._tallyWordTags(o);
+						this._calculateParameters(o);
+						this._tallyAttributes(o);
+					}
+				}
+			}
+			this._displayWordTagsTally();
+			this._displayParametersTotal();
+			this._displayAttributesTally();
+		}
+		
+		_resetWordTagTally() {
+			this.wordTagsTally = {};
+		}
+		
+		_tallyWordTags(o) {
+			if(o && o.dataset.wt) {
+				const wt = JSON.parse(o.dataset.wt);
+				
+				if(Array.isArray(wt)) {
+					wt.forEach((t) => {
+						this.wordTagsTally[t] = t in this.wordTagsTally ? this.wordTagsTally[t] + 1 : 1;
+					});
+				}
+			}
+		}
+		
+		_displayWordTagsTally() {
+			const listCont = document.querySelector('.js-active-wt');
+			
+			listCont.innerHTML = "";
+			
+			for(let k in this.wordTagsTally) {
+				if(this.wordTagsTally[k] >= wordTagActivation) {
+					const d = document.createElement('div');
+					
+					d.textContent = k;
+					listCont.appendChild(d);
+				}
+			}
+			//console.log('this.wordTagsTally', this.wordTagsTally);
+		}
+		
+		_resetParameters() {
+			this.parametersTotal = {};
+			
+			parameters.forEach((p) => {
+				this.parametersTotal[p] = 0;
+			});
+		}
+		
+		_calculateParameters(o) {
+			if(o) {
+				parameters.forEach((p) => {
+					if(o.dataset[p] && p in this.parametersTotal) {
+						this.parametersTotal[p] += +o.dataset[p];
+					}
+				});
+			}
+		}
+		
+		_displayParametersTotal() {
+			this._applyWordTagBonus();
+			this._applyJobLicenseBonus();
+			
+			for(let k in this.parametersTotal) {
+				document.querySelector(`.js-total-${k}`).textContent = this.parametersTotal[k];
+			}
+		}
+		
+		_applyWordTagBonus() {
+			const multipliers = {};
+			
+			for(let k in this.wordTagsTally) {
+				if(this.wordTagsTally[k] >= wordTagActivation) {
+					const wt = this._getWordTag(k);
+					
+					if(wt.multiplier && wt.parameters && Array.isArray(wt.parameters)) {
+						wt.parameters.forEach((p) => {
+							multipliers[p] = p in multipliers ? multipliers[p] + wt.multiplier : wt.multiplier;
 						});
 					}
 				}
 			}
 			
-			for(var k in t) {
-				document.querySelector(`.js-total-${k}`).textContent = t[k];
+			for(let k in multipliers) {
+				if(k in this.parametersTotal) {
+					this.parametersTotal[k] = Math.round(this.parametersTotal[k] + (this.parametersTotal[k] * multipliers[k]));
+				}
 			}
 		}
 		
-		_displaySkillTraits(e) {
-			const s = e.currentTarget,
-				skillTraitCont = s.nextElementSibling;
-			let ex;
-			
-			if(s.options.length && s.options[s.selectedIndex].dataset.ex) {
-				ex = JSON.parse(s.options[s.selectedIndex].dataset.ex);
+		_getWordTag(name) {
+			return wordTags.find(wt => name === wt.name);
+		}
+		
+		_applyJobLicenseBonus() {
+			const ps = document.querySelector('.js-select-pilot'),
+				o = this._getSelectedOption(ps);
 				
-				skillTraitCont.textContent = `${ex.type}: ${ex.name}`;
+			if(o && o.dataset.jl) {
+				const jl = this._getJobLicense(o.dataset.jl);
+				
+				if(jl.multiplier && jl.parameters && Array.isArray(jl.parameters)) {
+					jl.parameters.forEach((p) => {
+						if(p in this.parametersTotal) {
+							this.parametersTotal[p] = Math.round(this.parametersTotal[p] + (this.parametersTotal[p] * jl.multiplier));
+						}
+					});
+				}
 			}
-			else {
-				skillTraitCont.textContent = "";
+			
+		}
+		
+		_getJobLicense(name) {
+			return jobLicenses.find(jl => name === jl.name);
+		}
+		
+		_resetAttributesTally() {
+			this.attributesTally = {"p":0, "t":0, "s":0};
+		}
+		
+		_tallyAttributes(o) {
+			if(o && o.dataset.attribute && o.dataset.attribute.charAt(0).toLowerCase() in this.attributesTally) {
+				this.attributesTally[o.dataset.attribute.charAt(0).toLowerCase()]++;
 			}
 		}
 		
-		_displayAttributeTally() {
-			const attributesTally = {"p":0, "t":0, "s":0},
-				ss = this.selects;
+		_displayAttributesTally() {
+			for(let k in this.attributesTally) {
+				document.querySelector(`.js-tally-${k}`).textContent = this.attributesTally[k];
+			}
+		}
+		
+		_displayPartsWordTags() {
+			const ss = this.selects;
 			
 			for(let k in ss) {
 				if(ss.hasOwnProperty(k)) {
 					const o = this._getSelectedOption(ss[k]);
 					
-					if(o && o.dataset.attribute && o.dataset.attribute.charAt(0).toLowerCase() in attributesTally) {
-						attributesTally[o.dataset.attribute.charAt(0).toLowerCase()]++;
+					if(o) {
+						if(!this._displayWordTags(o)) {
+							this._clearWordTag(k);
+						}
 					}
 				}
 			}
-			
-			for(let k in attributesTally) {
-				document.querySelector(`.js-tally-${k}`).textContent = attributesTally[k];
+		}
+		
+		_clearWordTag(part) {
+			document.querySelector(`.js-wt-${part}`).innerHTML = "";
+		}
+		
+		_displayWordTags(o) {
+			if(!(o && o.dataset.part && o.dataset.wt)) {
+				return false;
 			}
+						
+			const span = document.querySelector(`.js-wt-${o.dataset.part}`),
+				wt = JSON.parse(o.dataset.wt);
+			
+			if(Array.isArray(wt) && span) {
+				span.innerHTML = wt.reduce((v, t) => {
+					const count = this.wordTagsTally[t];
+				
+					return v + `${v == "" ? "" : "<br />"}<span class="${count >= wordTagActivation ? 'activatedWT' : '' }">(${count}) ${t}</span>`; 
+				}, "")
+			}
+			
+			return true;
 		}
 		
 		_getSelectedOption(select) {
