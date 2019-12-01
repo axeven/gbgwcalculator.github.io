@@ -1,0 +1,100 @@
+[
+	{
+		"name":"Aegis Gundam",
+		"attribute":"Speed",
+		"rarity": 4,
+		"sokai": 0,
+		"parts":[
+			{"part":"head", "a":1181, "ma":384, "sa":2380, "md": 384, "sd":384, "br":213, "pr":417, "wt":["Transformer", "High Mobility"], "ex":{"type":"EX Skill", "name":"Igelstellung"}},
+			{"part":"torso", "a":1977, "ma":384, "sa":796, "md":796, "sd":796, "br":0, "pr":661, "wt":["Transformer", "High Mobility"], "ex":{"type":"Part Traits", "name":"When Armor is 40% or more Shooting DMG taken reduced by 8-35"}},
+			{"part":"arms", "a":1181, "ma":796, "sa":796, "md":1181, "sd":1181, "br":0, "pr":0, "wt":["Transformer", "High Mobility"], "ex":{"type":"EX Skill", "name":"Assault Cyclone"}},
+			{"part":"legs", "a":1181, "ma":384, "sa":384, "md":796, "sd":1181, "br":417, "pr":611, "wt":["Transformer", "Gundam Type"], "ex":{"type":"EX Skill", "name":"Kick Combination"}},
+			{"part":"backpack", "a":1181, "ma":384, "sa":384, "md":796, "sd":1181, "br":417, "pr":611, "wt":["Transformer", "Gundam Type"], "ex":{"type":"Part Traits", "name":"When Armor is 40% or more Enemy Sp. Shot power reduced 17-30%"}},
+			{"part":"range", "a":1181, "ma":0, "sa":3177, "md":0, "sd":0, "br":213, "pr":611, "wt":["Transformer", "For Base"], "ex":{"type":"Part Traits", "name":"Out-Fighter Job Enemy Shooting power reduced 17-30%"}, "name":"60mm High-Energy Beam Rifle", "type":"Beam"},
+			{"part":"shield", "a":1181, "ma":0, "sa":0, "md":796, "sd":1602, "br":213, "pr":806, "wt":["Transformer", "Gundam Type"], "ex":{"type":"EX Skill", "name":"Shield Throw"}, "name":"Anti-Beam Shield"},
+		]
+	},
+	{
+		"name":"Enhanced ZZ Gundam [Ver. Ka]",
+		"attribute":"Power",
+		"rarity": 4,
+		"sokai": 1,
+		"parts":[
+			{"part":"head", "a":965, "ma":0, "sa":3306, "md":551, "sd":551, "br":282, "pr":464, "wt":["Gundam Type", "Ace Excl."], "ex":{"type":"EX Skill", "name":"High Mega Cannon"}},
+			{"part":"torso", "a":1732, "ma":551, "sa":551, "md":1732, "sd":965, "br":75, "pr":670, "wt":["Gundam Type", "Ace Excl."], "ex":{"type":"EX Skill", "name":"Biosensor"}},
+			{"part":"arms", "a":1884, "ma":1506, "sa":551, "md":4255, "sd":1506, "br":381, "pr":947, "wt":["Gundam Type", "Ace Excl."], "ex":{"type":"Part Traits", "name":"With Power attribute (self) Strong Melee DMG output boosted by 35"}, "combo":"shield"},
+			{"part":"legs", "a":965, "ma":329, "sa":551, "md":1732, "sd":965, "br":464, "pr":670, "wt":["Gundam Type", "High Firepower"], "ex":{"type":"Part Traits", "name":"With Blade category equipped EX Skill CD reduced 20%"}},
+			{"part":"backpack", "a":965, "ma":329, "sa":551, "md":1732, "sd":965, "br":464, "pr":670, "wt":["Gundam Type", "High Firepower"], "ex":{"type":"EX Skill", "name":"Double Cannon & Missile Launcher"}},
+			{"part":"melee", "a":551, "ma":3138, "sa":0, "md":788, "sd":153, "br":282, "pr":464, "wt":["Protag.", "High Firepower"], "ex":{"type":"EX Skill", "name":"Hyper Beam Saber"}, "name":"Hyper Beam Saber", "type":"Beam"},
+			{"part":"range", "a":0, "ma":0, "sa":0, "md":0, "sd":0, "br":0, "pr":0, "wt":["", ""], "ex":{"type":"", "name":""}, "name":"", "type":""},
+			{"part":"shield", "a":0, "ma":0, "sa":0, "md":0, "sd":0, "br":0, "pr":0, "wt":["", ""], "ex":{"type":"", "name":""}, "name":""},
+		]
+	},
+	{
+		"name":"Gundam",
+		"attribute":"Technique",
+		"rarity": 4,
+		"sokai": 0,
+		"parts":[
+			{"part":"head", "a":796, "ma":383, "sa":2378, "md":796, "sd":796, "br":212, "pr":212, "wt":["Protag.", "Gundam Type"], "ex":{"type":"EX Skill", "name":"Head-Mounted Vulcan"}},
+			{"part":"torso", "a":1602, "ma":383, "sa":383, "md":1180, "sd":1180, "br":288, "pr":288, "wt":["Protag.", "Gundam Type"], "ex":{"type":"Part Traits", "name":"With Saber category equipped Melee power boosted 17-30%"}},
+			{"part":"arms", "a":796, "ma":2378, "sa":383, "md":1180, "sd":1180, "br":0, "pr":0, "wt":["Protag.", "Close Combat"], "ex":{"type":"Part Traits", "name":"With Technique attribute (self) Melee DMG taken reduced by 8-35"}},
+			{"part":"legs", "a":796, "ma":383, "sa":383, "md":1180, "sd":1180, "br":475, "pr":502, "wt":["Protag.", "Close Combat"], "ex":{"type":"Part Traits", "name":"With Technique attribute (self) Mid Shot Attack raised 8-20%"}},
+			{"part":"backpack", "a":796, "ma":383, "sa":383, "md":1180, "sd":1180, "br":502, "pr":475, "wt":["Protag.", "Gundam Type"], "ex":{"type":"EX Skill", "name":"Double Saber Rush"}},
+			{"part":"melee", "a":796, "ma":3176, "sa":0, "md":0, "sd":0, "br":417, "pr":417, "wt":["Protag.", "Close Combat"], "ex":{"type":"EX Skill", "name":"Crimson Stinger"}, "name":"Beam Javelin", "type":"Beam"},
+			{"part":"melee", "a":796, "ma":3176, "sa":0, "md":0, "sd":0, "br":417, "pr":417, "wt":["Protag.", "Close Combat"], "ex":{"type":"Part Traits", "name":"With Technique attribute (self) Melee Crit rate boosted 10-30%"}, "name":"Beam Saber", "type":"Beam"},
+			{"part":"range", "a":796, "ma":0, "sa":3176, "md":0, "sd":0, "br":417, "pr":417, "wt":["Protag.", "Mid-Range"], "ex":{"type":"EX Skill", "name":"Last Shooting"}, "name":"Beam Rifle", "type":"Beam"},
+			{"part":"range", "a":796, "ma":0, "sa":3176, "md":0, "sd":0, "br":417, "pr":417, "wt":["Protag.", "Mid-Range"], "ex":{"type":"Part Traits", "name":"With Technique attribute (self) Shooting DMG output boosted by 8-35"}, "name":"Hyper Bazooka", "type":"Physical"},
+			{"part":"shield", "a":796, "ma":0, "sa":0, "md":1602, "sd":1602, "br":417, "pr":417, "wt":["Protag.", "Close Combat"], "ex":{"type":"Part Traits", "name":"With Technique attribute (self) Buff EX Skill effect up 4-22%"}, "name":"Shield"},
+		]
+	},
+	{
+		"name":"Gundam Barbatos",
+		"attribute":"Power",
+		"rarity": 4,
+		"sokai": 0,
+		"parts":[
+			{"part":"head", "a":335, "ma":162, "sa":830, "md": 162, "sd":496, "br":172, "pr":91, "wt":["Protag.", "For Forest"], "ex":{"type":"Part Traits", "name":"With Power attribute (self) Close Shot Attack raised 8-20%"}},
+			{"part":"torso", "a":496, "ma":335, "sa":162, "md": 335, "sd":678, "br":266, "pr":0, "wt":["Protag.", "For Forest"], "ex":{"type":"EX Skill", "name":"Fearless Hurl"}},
+			{"part":"arms", "a":799, "ma":2786, "sa":384, "md":799, "sd":1182, "br":0, "pr":0, "wt":["Protag.", "Close Combat"], "ex":{"type":"Part Traits", "name":"In-fighter Job Melee power boosted 17-30%"}},
+			{"part":"legs", "a":799, "ma":384, "sa":384, "md":384, "sd":1182, "br":612, "pr":420, "wt":["Protag.", "Close Combat"], "ex":{"type":"EX Skill", "name":"Menace Shot"}},
+			{"part":"backpack", "a":799, "ma":384, "sa":384, "md":384, "sd":1182, "br":612, "pr":420, "wt":["Protag.", "Close Combat"], "ex":{"type":"Part Traits", "name":"With Power attribute (self) Melee DMG output boosted by 8-35"}},
+			{"part":"melee", "a":384, "ma":3586, "sa":0, "md":0, "sd":799, "br":420, "pr":213, "wt":["Protag.", "For Forest"], "ex":{"type":"Part Traits", "name":"In-Fighter Job Melee CRIT rate boosted 10-30%"}, "name":"Long Sword", "type":"Physical"},
+			{"part":"melee", "a":384, "ma":3586, "sa":0, "md":0, "sd":799, "br":420, "pr":213, "wt":["Protag.", "For Forest"], "ex":{"type":"EX Skill", "name":"Iron Impact"}, "name":"Mace", "type":"Physical"},
+			{"part":"range", "a":799, "ma":0, "sa":1979, "md":0, "sd":799, "br":612, "pr":213, "wt":["Protag.", "For Forest"], "ex":{"type":"Part Traits", "name":"With Power attribute (self) CLose Shot Attack raised 8-20%"}, "name":"Smoothbore Cannon", "type":"Physical"},
+		]
+	},
+	{
+		"name":"Gundam Exia",
+		"attribute":"Speed",
+		"rarity": 4,
+		"sokai": 0,
+		"parts":[
+			{"part":"backpack", "a":796, "ma":384, "sa":384, "md":1602, "sd":796, "br":417, "pr":611, "wt":["Gundam Type", "For Base"], "ex":{"type":"EX Skill", "name":"Trans-Am Raid"}},
+		]
+	},
+	{
+		"name":"Hi-nu Gundam HWS [Ver. Ka]",
+		"attribute":"Technique",
+		"rarity": 4,
+		"sokai": 1,
+		"parts":[
+			{"part":"head", "a":965, "ma":0, "sa":3309, "md":551, "sd":551, "br":464, "pr":464, "wt":["Ace Excl.", "Heavy Armor"], "ex":{"type":"EX Skill", "name":"Head-Mounted Vulcan"}},
+			{"part":"torso", "a":1732, "ma":551, "sa":551, "md":965, "sd":1732, "br":672, "pr":75, "wt":["Ace Excl.", "Heavy Armor"], "ex":{"type":"EX Skill", "name":"Chest Missile Launcher"}},
+			{"part":"arms", "a":965, "ma":1355, "sa":551, "md":551, "sd":1732, "br":75, "pr":75, "wt":["Ace Excl.", "Heavy Armor"], "ex":{"type":"Part Traits", "name":"When Armor is 40% or more Sp.Shot power boosted 30%"}},
+			{"part":"legs", "a":965, "ma":551, "sa":551, "md":965, "sd":1732, "br":672, "pr":464, "wt":["Ace Excl.", "High Firepower"], "ex":{"type":"EX Skill", "name":"Hidden Arms"}},
+			{"part":"backpack", "a":965, "ma":551, "sa":551, "md":965, "sd":1732, "br":672, "pr":464, "wt":["Ace Excl.", "High Firepower"], "ex":{"type":"EX Skill", "name":"Fin Funnels"}},
+			{"part":"range", "a":551, "ma":153, "sa":4105, "md":153, "sd":0, "br":672, "pr":282, "wt":["Ace Excl.", "High Firepower"], "ex":{"type":"Part Traits", "name":"With Technique attribute (self) Ex Skill power boosted 30%"}, "name":"Hyper Mega Rifle", "type":"Beam"},
+			{"part":"shield", "a":965, "ma":153, "sa":0, "md":965, "sd":2521, "br":872, "pr":282, "wt":["Ace Excl.", "High Firepower"], "ex":{"type":"EX Skill", "name":"High-Caliber Mega Particle Cannon"}, "name":"Hi-Mega Shield"},
+		]
+	},
+	{
+		"name":"Tallgeese II",
+		"attribute":"Technique",
+		"rarity": 3,
+		"sokai": 0,
+		"parts":[
+			{"part":"head", "a":558, "ma":291, "sa":1700, "md":558, "sd":558, "br":126, "pr":126, "wt":["Commander", "Long-Range"], "ex":{"type":"EX Skill", "name":"Offense Up a"}},
+		]
+	},
+]
