@@ -204,8 +204,6 @@
 				{"part":"legs", "a":965, "ma":329, "sa":551, "md":1732, "sd":965, "br":464, "pr":670, "wt":["Gundam Type", "High Firepower"], "ex":{"type":"Part Traits", "name":"With Blade category equipped EX Skill CD reduced 20%"}},
 				{"part":"backpack", "a":965, "ma":329, "sa":551, "md":1732, "sd":965, "br":464, "pr":670, "wt":["Gundam Type", "High Firepower"], "ex":{"type":"EX Skill", "name":"Double Cannon & Missile Launcher"}},
 				{"part":"melee", "a":551, "ma":3138, "sa":0, "md":788, "sd":153, "br":282, "pr":464, "wt":["Protag.", "High Firepower"], "ex":{"type":"EX Skill", "name":"Hyper Beam Saber"}, "name":"Hyper Beam Saber", "type":"Beam"},
-				{"part":"range", "a":0, "ma":0, "sa":0, "md":0, "sd":0, "br":0, "pr":0, "wt":["", ""], "ex":{"type":"", "name":""}, "name":"", "type":""},
-				{"part":"shield", "a":0, "ma":0, "sa":0, "md":0, "sd":0, "br":0, "pr":0, "wt":["", ""], "ex":{"type":"", "name":""}, "name":""},
 			]
 		},
 		{
@@ -448,6 +446,7 @@
 			}
 			
 			if(o.dataset.combo && o.dataset.part) {
+				this._clearParts(o.dataset.combo);
 				this.comboParts.push({"part":o.dataset.part, "combo":o.dataset.combo});
 				document.querySelector(`.js-select-${o.dataset.combo}`).disabled = true;
 			}
@@ -466,8 +465,14 @@
 					span.textContent = ex.name;
 				}
 			}
-			else if(document.querySelector(`.js-skill-trait-${s.dataset.part}`)) {
-				document.querySelector(`.js-skill-trait-${s.dataset.part}`).textContent = "";
+			else {
+				this._clearSkillTrait(s.dataset.part);
+			}
+		}
+		
+		_clearSkillTrait(part) {
+			if(part && document.querySelector(`.js-skill-trait-${part}`)) {
+				document.querySelector(`.js-skill-trait-${part}`).textContent = "";
 			}
 		}
 		
@@ -627,7 +632,7 @@
 				if(ss.hasOwnProperty(k)) {
 					const o = this._getSelectedOption(ss[k]);
 					
-					if(o && o.dataset.part) {
+					if(o) {
 						if(!this._displayWordTags(o) && ss[k].disabled == false) {
 							this._clearWordTag(k);
 						}
@@ -671,6 +676,16 @@
 			}
 			
 			return false;
+		}
+		
+		_clearParts(part) {
+			if(part && part in this.selects) {
+				const s = this.selects[part];
+				
+				s.selectedIndex = 0;
+				this._clearSkillTrait(part);
+				this._clearWordTag(part);
+			}
 		}
 	}
 	
