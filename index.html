@@ -22,35 +22,11 @@
 	
 	.activatedWT {color: #206cc9;}
 	
-	.container {display: flex; flex-flow: row no-wrap;}
+	.container {display: flex; flex-flow: row nowrap;}
 	.info,
 	.word-tags,
 	.part-trait-ex-skill,
-	.parts,
-	.gears {margin-right:10px; width: 180px;}
-	
-	.parameters > *,
-	.active-word-tag > * {padding: 0 10px;}
-	
-	.parameters > div:nth-of-type(even),
-	.active-word-tag-list > div:nth-of-type(even),
-	.word-tags > div:nth-of-type(even),
-	.part-trait-ex-skill > div:nth-of-type(even) {background: #f2f7f4;}
-	
-	.parameters > div > * {display: inline-block; width: 50%;}
-	.parameters > div > span {text-align: right;}
-	
-	.word-tags > div,
-	.part-trait-ex-skill > div,
-	.parts > div,
-	.gears > div {
-		justify-content: center;
-		display: flex;
-		flex-direction: column;
-		height: 50px; 
-		padding: 0px 10px; 
-		width:100%;
-	}
+	.parts {margin-right:10px; width: 180px;}
 	
 	.word-tags span,
 	.part-trait-ex-skill span {font-size: 12px;}
@@ -58,83 +34,30 @@
 	.part-trait-ex-skill {width: 350px;}
 	
 	.parts {width: 300px;}
-	.parts label,
-	.gears label {display: inline-block; width: 30%;}
-	.parts select,
-	.gears select {display: inline-block; padding: 5px 0; width: 70%;}
+	.parts label {display: inline-block; width: 30%;}
+	.parts select {display: inline-block; padding: 5px 0; width: 70%;}
 	
 	.attribute-tally {display:block !important; padding: 0 0 0 35% !important;}
 	
-	.gears {width: 250px;}
+	.float-right {float: right;}
+	
+	.height-50 {height:50px;}
+	
+	.row {
+		justify-content: center;
+		display: flex;
+		flex-direction: column;
+		padding: 0px 10px; 
+		width:100%;
+	}
+	
+	.alt-bg:nth-of-type(even) {background: #f2f7f4;}
 </style>
 </head>
 
 <body>
 <h1>GBGW Calculator</h1>
-<div class="container">
-	<div class="info">
-		<div class="parameters">
-			<h3>Parameters</h3>
-			<div><label>Armor</label><span class="js-total-a">0</span></div>
-			<div><label>Melee ATK</label><span class="js-total-ma">0</span></div>
-			<div><label>Shot ATK</label><span class="js-total-sa">0</span></div>
-			<div><label>Melee DEF</label><span class="js-total-md">0</span></div>
-			<div><label>Shot DEF</label><span class="js-total-sd">0</span></div>
-			<div><label>Beam RES</label><span class="js-total-br">0</span></div>
-			<div><label>Phys. RES</label><span class="js-total-pr">0</span></div>
-		</div>
-		<div class="active-word-tag">
-			<h3>Active Word Tag</h3>
-			<div class="active-word-tag-list js-active-wt"></div>
-		</div>
-	</div>
-	<div class="word-tags">
-		<h3>Word Tags</h3>
-		<div><span class="js-wt-head"></span></div>
-		<div><span class="js-wt-torso"></span></div>
-		<div><span class="js-wt-arms"></span></div>
-		<div><span class="js-wt-legs"></span></div>
-		<div><span class="js-wt-backpack"></span></div>
-		<div><span class="js-wt-melee"></span></div>
-		<div><span class="js-wt-range"></span></div>
-		<div><span class="js-wt-shield"></span></div>
-		<div><span class="js-wt-pilot"></span></div>
-	</div>
-	<div class="part-trait-ex-skill">
-		<h3>Part Traits / EX Skill</h3>
-		<div><span class="js-skill-trait-head"></span></div>
-		<div><span class="js-skill-trait-torso"></span></div>
-		<div><span class="js-skill-trait-arms"></span></div>
-		<div><span class="js-skill-trait-legs"></span></div>
-		<div><span class="js-skill-trait-backpack"></span></div>
-		<div><span class="js-skill-trait-melee"></span></div>
-		<div><span class="js-skill-trait-range"></span></div>
-		<div><span class="js-skill-trait-shield"></span></div>
-		<div><span class="js-skill-trait-pilot"></span></div>
-	</div>
-	<div class="parts">
-		<h3>Parts</h3>
-		<div><div><label>Head</label><select class="js-select-head" data-part="head"><option></option></select></div></div>
-		<div><div><label>Torso</label><select class="js-select-torso" data-part="torso"><option></option></select></div></div>
-		<div><div><label>Arms</label><select class="js-select-arms" data-part="arms"><option></option></select></div></div>
-		<div><div><label>Legs</label><select class="js-select-legs" data-part="legs"><option></option></select></div></div>
-		<div><div><label>Backpack</label><select class="js-select-backpack" data-part="backpack"><option></option></select></div></div>
-		<div><div><label>Melee</label><select class="js-select-melee" data-part="melee"><option></option></select></div></div>
-		<div><div><label>Range</label><select class="js-select-range" data-part="range"><option></option></select></div></div>
-		<div><div><label>Shield</label><select class="js-select-shield" data-part="shield"><option></option></select></div></div>
-		<div><div><label>Pilot</label><select class="js-select-pilot" data-part="pilot"><option></option></select></div></div>
-		<div class="attribute-tally">
-			<label>[P] <span class="js-tally-p">0</span></label>
-			<label>[T] <span class="js-tally-t">0</span></label>
-			<label>[S] <span class="js-tally-s">0</span></label>
-		</div>
-	</div>
-	<div class="gears">
-		<h3>Gears</h3>
-		<div><div><label>Slot 1</label><select class="js-select-gear-s1ot1" data-part="gear-s1ot1"><option></option></select></div></div>
-	</div>
-</div>
-
+<div class="container js-container"></div>
 <script>
 	const wordTagActivation = 5;
 	const fullBuff = 0.1;
@@ -164,9 +87,19 @@
 	]; //{"name":"", "parameters":["",""], "multiplier": 0},
 	const attributes = ["Power", "Technique", "Speed"];
 	const exTypes = ["EX Skill", "Part Traits"];
-	const parameters = ["a", "ma", "sa", "md", "sd", "br", "pr"];
+	const parameters = [
+		{"name":"Armor", "slug":"a"},
+		{"name":"Melee ATK", "slug":"ma"},
+		{"name":"Shot ATK", "slug":"sa"},
+		{"name":"Melee DEF", "slug":"md"},
+		{"name":"Shot DEF", "slug":"sd"},
+		{"name":"Beam RES", "slug":"br"},
+		{"name":"Phys. RES", "slug":"pr"}
+	];
 	const damageTypes = ["Beam ", "Physical"];
-	const parts = ["head", "torso", "arms", "legs", "backpack", "melee", "range", "shield", "pilot", "gear-s1ot1"];
+	const msParts = ["head", "torso", "arms", "legs", "backpack", "melee", "range", "shield", "pilot"];
+	const gearParts = ["gear-s1ot1"];
+	const parts = [...msParts, ...gearParts];
 	const jobLicenses = [
 		{"name":"All-Rounder"},
 		{"name":"Defender", "parameters":["a", "md", "sd"], "multiplier": fullBuff},
@@ -180,7 +113,7 @@
 		{
 			"name":"Aegis Gundam",
 			"attribute":"Speed",
-			"rarity": 4,
+			"rarity":4,
 			"sokai": 0,
 			"parts":[
 				{"part":"head", "a":1181, "ma":384, "sa":2380, "md": 384, "sd":384, "br":213, "pr":417, "wt":["Transformer", "High Mobility"], "ex":{"type":"EX Skill", "name":"Igelstellung"}},
@@ -195,7 +128,7 @@
 			{ 
 			"name":"Aile Strike Gundam", 
 			"attribute":"Speed", 
-			"rarity": 4, 
+			"rarity":4, 
 			"sokai": 0, 
 			"parts":[ 
 				{"part":"head", "a":799, "ma":384, "sa":2791, "md": 799, "sd":384, "br":213, "pr":0, "wt":["Protag.", "Mid-Range"], "ex":{"type":"EX Skill", "name":"Igelstellung"}}, 
@@ -212,7 +145,7 @@
 		{
 			"name":"Astray Blue Frame",
 			"attribute":"Speed",
-			"rarity": 4,
+			"rarity":4,
 			"sokai": 0,
 			"parts":[
 				{"part":"head", "a":795, "ma":382, "sa":1179, "md":1179, "sd":1179, "br":0, "pr":416, "wt":["Mid-Range", "For Tundra"], "ex":{"type":"EX Skill", "name":"Igelstellung"}},
@@ -226,7 +159,7 @@
 		{
 			"name":"Astray Red Frame",
 			"attribute":"Speed",
-			"rarity": 4,
+			"rarity":4,
 			"sokai": 0,
 			"parts":[ 
 				{"part":"head", "a":1181, "ma":384, "sa":796, "md": 1181, "sd":796, "br":289, "pr":289, "wt":["Protag.", "Close Combat"], "ex":{"type":"EX Skill", "name":"Igelstellung"}},
@@ -241,7 +174,7 @@
 		{
 			"name":"Blitz Gundam", 
 			"attribute":"Speed", 
-			"rarity": 3, 
+			"rarity":3, 
 			"sokai": 0, 
 			"parts":[ 
 				{"part":"head", "a":558, "ma":291, "sa":889, "md": 889, "sd":889, "br":302, "pr":0, "wt":["High Mobility", "For Urban Area"], "ex":{"type":"EX Skill", "name":"Recovery Tool b"}}, 
@@ -254,7 +187,7 @@
 		{
 			"name":"Enhanced ZZ Gundam [Ver. Ka]",
 			"attribute":"Power",
-			"rarity": 4,
+			"rarity":4,
 			"sokai": 1,
 			"parts":[
 				{"part":"head", "a":965, "ma":0, "sa":3306, "md":551, "sd":551, "br":282, "pr":464, "wt":["Gundam Type", "Ace Excl."], "ex":{"type":"EX Skill", "name":"High Mega Cannon"}},
@@ -268,7 +201,7 @@
 		{
 			"name":"Gundam",
 			"attribute":"Technique",
-			"rarity": 4,
+			"rarity":4,
 			"sokai": 0,
 			"parts":[
 				{"part":"head", "a":796, "ma":383, "sa":2378, "md":796, "sd":796, "br":212, "pr":212, "wt":["Protag.", "Gundam Type"], "ex":{"type":"EX Skill", "name":"Head-Mounted Vulcan"}},
@@ -286,7 +219,7 @@
 		{
 			"name":"Gundam Barbatos",
 			"attribute":"Power",
-			"rarity": 4,
+			"rarity":4,
 			"sokai": 0,
 			"parts":[
 				{"part":"head", "a":335, "ma":162, "sa":830, "md": 162, "sd":496, "br":172, "pr":91, "wt":["Protag.", "For Forest"], "ex":{"type":"Part Traits", "name":"With Power attribute (self) Close Shot Attack raised 8-20%"}},
@@ -302,7 +235,7 @@
 		{ 
 			"name":"Gundam Dynames", 
 			"attribute":"Techique", 
-			"rarity": 4, 
+			"rarity":4, 
 			"sokai": 0, 
 			"parts":[
 				{"part":"head", "a":384, "ma":384, "sa":3181, "md": 384, "sd":1182, "br":0, "pr":0, "wt":["Long-Range", "Gundam Type"], "ex":{"type":"EX Skill", "name":"Archer Stance y"}}, 
@@ -316,7 +249,7 @@
 		{
 			"name":"Gundam Exia",
 			"attribute":"Speed",
-			"rarity": 4,
+			"rarity":4,
 			"sokai": 0,
 			"parts":[
 				{"part":"head", "a":1181, "ma":384, "sa":796, "md": 1181, "sd":384, "br":213, "pr":417, "wt":["Gundam Type", "Close Combat"], "ex":{"type":"EX Skill", "name":"Recovery Tool a"}}, 
@@ -332,7 +265,7 @@
 		{
 			"name":"Gundam Kyrios",
 			"attribute":"Technique",
-			"rarity": 3,
+			"rarity":3,
 			"sokai": 0,
 			"parts":[
 				{"part":"head", "a":561, "ma":294, "sa":1440, "md":294, "sd":893, "br":215, "pr":215, "wt":["Transformer", "High Mobility"], "ex":{"type":"Part Traits", "name":"With Machine Gu category equipped Enemy shooting power reduced 8-25%"}},
@@ -347,7 +280,7 @@
 		{ 
 			"name":"Gundam X Divider", 
 			"attribute":"Power", 
-			"rarity": 4, 
+			"rarity":4, 
 			"sokai": 0, 
 			"parts":[ 
 				{"part":"head", "a":1181, "ma":384, "sa":1181, "md": 1181, "sd":797, "br":418, "pr":213, "wt":["Mid-Range", "Gundam Type"], "ex":{"type":"EX Skill", "name":"Offense Up y"}}, 
@@ -362,7 +295,7 @@
 		{
 			"name":"Hi-nu Gundam HWS [Ver. Ka]",
 			"attribute":"Technique",
-			"rarity": 4,
+			"rarity":4,
 			"sokai": 1,
 			"parts":[
 				{"part":"head", "a":965, "ma":0, "sa":3309, "md":551, "sd":551, "br":464, "pr":464, "wt":["Ace Excl.", "Heavy Armor"], "ex":{"type":"EX Skill", "name":"Head-Mounted Vulcan"}},
@@ -377,7 +310,7 @@
 		{
 			"name":"High Mobility Gelgoog [Johnny Ridden]",
 			"attribute":"Technique",
-			"rarity": 3,
+			"rarity":3,
 			"sokai": 0,
 			"parts":[
 				{"part":"head", "a":889, "ma":291, "sa":558, "md":889, "sd":291, "br":302, "pr":126, "wt":["Ace Excl.", "High Mobility"], "ex":{"type":"Part Traits", "name":"With Bazooka category equipped EX Skill power boosted 8-25%"}},
@@ -392,7 +325,7 @@
 		{
 			"name":"Mobile SUMO [Gold Type]",
 			"attribute":"Speed",
-			"rarity": 3,
+			"rarity":3,
 			"sokai": 0,
 			"parts":[
 				{"part":"head", "a":558, "ma":292, "sa":1993, "md":292, "sd":292, "br":302, "pr":127, "wt":["Ace Excl.", "Heavy Armor"], "ex":{"type":"EX Skill", "name":"Combat Stance a"}},
@@ -405,7 +338,7 @@
 		{
 			"name":"Nu Gundam [Ver.Ka]",
 			"attribute":"Speed",
-			"rarity": 4,
+			"rarity":4,
 			"sokai": 1,
 			"parts":[
 				{"part":"head", "a":553, "ma":553, "sa":3312, "md":553, "sd":1356, "br":0, "pr":0, "wt":["For Space", "Ace Excl."], "ex":{"type":"Part Traits", "name":"When attacking with Beam EX Skill power boosted 30%"}},
@@ -422,7 +355,7 @@
 		{
 			"name":"Qubeley", 
 			"attribute":"Power", 
-			"rarity": 4, 
+			"rarity":4, 
 			"sokai": 1, 
 			"parts":[ 
 				{"part":"head", "a":968, "ma":553, "sa":2927, "md": 968, "sd":553, "br":0, "pr":284, "wt":["Commander", "High Firepower"], "ex":{"type":"EX Skill", "name":"Recovery Tool y"}}, 
@@ -435,7 +368,7 @@
 			{ 
 			"name":"Rising Gundam", 
 			"attribute":"Speed", 
-			"rarity": 3, 
+			"rarity":3, 
 			"sokai": 0, 
 			"parts":[
 				{"part":"head", "a":889, "ma":291, "sa":558, "md": 889, "sd":291, "br":126, "pr":302, "wt":["Mobile Fighter", "Long-Range"], "ex":{"type":"EX Skill", "name":"Head-Mounted Vulcan"}}, 
@@ -448,7 +381,7 @@
 		{
 			"name":"Sengoku Astray Gundam",
 			"attribute":"Technique",
-			"rarity": 4,
+			"rarity":4,
 			"sokai": 0,
 			"parts":[
 				{"part":"head", "a":1180, "ma":383, "sa":796, "md":1180, "sd":796, "br":417, "pr":212, "wt":["Heavy Armor", "Gundam Type"], "ex":{"type":"Part Traits", "name":"In-Fighter Job EX Skill piercing boosted 10-28%"}},
@@ -462,7 +395,7 @@
 		{
 			"name":"Shining Gundam",
 			"attribute":"Power",
-			"rarity": 4,
+			"rarity":4,
 			"sokai": 0,
 			"parts":[
 				{"part":"head", "a":1180, "ma":383, "sa":796, "md":1180, "sd":796, "br":212, "pr":417, "wt":["Mobile Fighter", "Close Combat"], "ex":{"type":"Part Traits", "name":"In-Fighter Job Projectile speed boosted 6-15%"}},
@@ -475,7 +408,7 @@
 		{
 			"name":"Strike Nior",
 			"attribute":"Speed",
-			"rarity": 3,
+			"rarity":3,
 			"sokai": 0,
 			"parts":[
 				{"part":"head", "a":291, "ma":291, "sa":2300, "md":291, "sd":889, "br":0, "pr":0, "wt":["Gundam Type", "For Space"], "ex":{"type":"EX Skill", "name":"Head-Mounted Vulcan"}},
@@ -489,7 +422,7 @@
 		/*{
 			"name":"Strike Rouge [IWSP]",
 			"attribute":"Speed",
-			"rarity": 3,
+			"rarity":3,
 			"sokai": 0,
 			"parts":[
 				{"part":"head", "a":558, "ma":291, "sa":1692, "md":558, "sd":558, "br":302, "pr":0, "wt":["Commander", "For Base"], "ex":{"type":"EX Skill", "name":"Igelstellung"}},
@@ -505,7 +438,7 @@
 		{
 			"name":"Tallgeese II",
 			"attribute":"Technique",
-			"rarity": 3,
+			"rarity":3,
 			"sokai": 0,
 			"parts":[
 				{"part":"head", "a":558, "ma":291, "sa":1700, "md":558, "sd":558, "br":126, "pr":126, "wt":["Commander", "Long-Range"], "ex":{"type":"EX Skill", "name":"Offense Up a"}},
@@ -514,7 +447,7 @@
 		{
 			"name":"Veetwo Gundam",
 			"attribute":"Technique",
-			"rarity": 4,
+			"rarity":4,
 			"sokai": 0,
 			"parts":[
 				{"part":"head", "a":799, "ma":384, "sa":2791, "md":799, "sd":384, "br":213, "pr":0, "wt":["Ace Excl.", "High Firepower"], "ex":{"type":"Part Traits", "name":"With Technique attribute (self) Shooting power boosted 30%"}},
@@ -528,7 +461,7 @@
 		{
 			"name":"Wing Gundam",
 			"attribute":"Speed",
-			"rarity": 4,
+			"rarity":4,
 			"sokai": 0,
 			"parts":[
 				{"part":"head", "a":797, "ma":384, "sa":2785, "md":384, "sd":384, "br":418, "pr":213, "wt":["Transformer", "Long-Range"], "ex":{"type":"EX Skill", "name":"Head-Mounted Vulcan"}},
@@ -544,7 +477,7 @@
 		{ 
 			"name":"Zeta Gundam", 
 			"attribute":"Speed", 
-			"rarity": 4, 
+			"rarity":4, 
 			"sokai": 1, 
 			"parts":[ 
 				{"part":"head", "a":969, "ma":379, "sa":2391, "md": 791, "sd":791, "br":468, "pr":0, "wt":["Transformer", "Gundam Type"], "ex":{"type":"EX Skill", "name":"Head-Mounted Vulcan"}}, 
@@ -561,31 +494,31 @@
 	];
 	
 	const pilots = [
-		{"name":"Amuro Ray", "jl":"Long-Shooter", "attribute":"Technique", "rarity": 4, "a":796, "ma":384, "sa":1602, "md":796, "sd":796, "br":213, "pr":417, "wt":["Gundam Type", "Federation"], "ex":{"type":"Part Traits", "name":"Beam ranged weapon reload speed boosted 20%"}},
-		{"name":"Athrun Zala", "jl":"In-Fighter", "attribute":"Speed", "rarity": 4, "a":799, "ma":1182, "sa":384, "md":799, "sd":1182, "br":612, "pr":213, "wt":["Transformer", "Mid-Range"], "ex":{"type":"Part Traits", "name":"20% chance to prevent vernier consumption when stepping"}},
-		{"name":"Bernard Wiseman", "jl":"In-Fighter", "attribute":"Technique", "rarity": 4, "a":795, "ma":795, "sa":795, "md":795, "sd":795, "br":211, "pr":609, "wt":["High Mobility", "Zaku Type"], "ex":{"type":"Part Traits", "name":"When Armor is 60% or less Recover 10 Armor gradually"}},
-		{"name":"Chang Wufei", "jl":"In-Fighter", "attribute":"Technique", "rarity": 4, "a":1181, "ma":1181, "sa":384, "md":796, "sd":796, "br":417, "pr":417, "wt":["Close Combat", "Ace Excl."], "ex":{"type":"Part Traits", "name":"With Technique attribute (self) Strong Melee DMG output boosted by 8-35"}},
-		{"name":"Dearka Elsman", "jl":"Long-Shooter", "attribute":"Power", "rarity": 3, "a":558, "ma":291, "sa":1142, "md":558, "sd":558, "br":302, "pr":126, "wt":["Long-Range", "Support Type"], "ex":{"type":"Part Traits", "name":"With Power attribute (self) Shot guidance boosted 5-14%"}},
-		{"name":"Duo Maxwell", "jl":"In-Fighter", "attribute":"Speed", "rarity": 4, "a":796, "ma":1602, "sa":384, "md":796, "sd":796, "br":213, "pr":417, "wt":["Close Combat", "For Forest"], "ex":{"type":"Part Traits", "name":"With Speed attribute (self) 8-20% chance to not recoil"}},
-		{"name":"Fa Yuiry", "jl":"Supporter", "attribute":"Technique", "rarity": 3, "a":891, "ma":292, "sa":891, "md":558, "sd":558, "br":302, "pr":302, "wt":["Transformer", "Support Type"], "ex":{"type":"Part Traits", "name":"Support Job EX Skill recovery boosted 16%"}},
-		{"name":"Garrod Ran", "jl":"Out-Fighter", "attribute":"Speed", "rarity": 4, "a":797, "ma":1181, "sa":1181, "md":797, "sd":797, "br":213, "pr":418, "wt":["Protag.", "Close Combat"], "ex":{"type":"Part Traits", "name":"When Armor is 80% or less All power boosted 30%"}},
-		{"name":"George de Sand", "jl":"Out-Fighter", "attribute":"Technique", "rarity": 4, "a":795, "ma":382, "sa":382, "md":1179, "sd":1179, "br":609, "pr":211, "wt":["Mobile Fighter", "Long-Range"], "ex":{"type":"Part Traits", "name":"With Technique attribute (self) EX Skill CD reduced 20%"}},
-		{"name":"Haman Karn", "jl":"Long-Shooter", "attribute":"Power", "rarity": 4, "a":796, "ma":384, "sa":1602, "md":796, "sd":796, "br":417, "pr":213, "wt":["Commander", "Zeon"], "ex":{"type":"Part Traits", "name":"With Power attribute (self) Job Gauge increase boosted 17%"}},
-		{"name":"Harry Ord", "jl":"Defender", "attribute":"Speed", "rarity": 3, "a":558, "ma":1142, "sa":291, "md":558, "sd":558, "br":302, "pr":126, "wt":["Ace Excl.", "Close Combat"], "ex":{"type":"Part Traits", "name":"Beam ranged weapon magazine boosted 9-20%"}},
-		{"name":"Johnny Ridden", "jl":"In-Fighter", "attribute":"Technique", "rarity": 3, "a":558, "ma":1142, "sa":291, "md":558, "sd":558, "br":126, "pr":302, "wt":["Zeon", "For Space"], "ex":{"type":"Part Traits", "name":"With Technique attribute (self) Buff EX Skill effect up 1-15%"}},
-		{"name":"Judua Ashta", "jl":"Middle-Shooter", "attribute":"Power", "rarity": 4, "a":796, "ma":384, "sa":1602, "md":796, "sd":796, "br":417, "pr":213, "wt":["Protag.", "Transformer"], "ex":{"type":"Part Traits", "name":"With Power attribute (self) Buff EX Skill time up 22%"}},
-		{"name":"Kamille Bidan", "jl":"Middle-Shooter", "attribute":"Speed", "rarity": 4, "a":796, "ma":796, "sa":796, "md":796, "sd":796, "br":417, "pr":417, "wt":["Protag.", "Close Combat"], "ex":{"type":"Part Traits", "name":"With Speed attribute (self) EX Skill piercing boosted 28%"}},
-		{"name":"Kira Yamato", "jl":"Middle-Shooter", "attribute":"Speed", "rarity": 4, "a":799, "ma":384, "sa":1184, "md":1184, "sd":799, "br":614, "pr":213, "wt":["Protag.", "For Base"], "ex":{"type":"Part Traits", "name":"With Speed attribute (self) EX Skill recovery boosted by 140"}},
-		{"name":"Kou Uraki", "jl":"Defender", "attribute":"Power", "rarity": 4, "a":1606, "ma":384, "sa":384, "md":799, "sd":799, "br":612, "pr":612, "wt":["Protag.", "Federation"], "ex":{"type":"Part Traits", "name":"With Power attribute (self) 14% chance to survive a fatal blow"}},
-		{"name":"Lowe Guele", "jl":"In-Fighter", "attribute":"Speed", "rarity": 4, "a":1180, "ma":1180, "sa":383, "md":796, "sd":796, "br":212, "pr":610, "wt":["Protag.", "High Firepower"], "ex":{"type":"Part Traits", "name":"With Speed Attribute (self) All CRIT Rate boosted 14%"}},
-		{"name":"Lunamaria Hawke", "jl":"Long-Shooter", "attribute":"Technique", "rarity": 3, "a":558, "ma":291, "sa":1142, "md":558, "sd":558, "br":302, "pr":125, "wt":["Zeon", "Zaku Type"], "ex":{"type":"Part Traits", "name":"With Technique attribute (self) Long Shot Attack raised 14%"}},
-		{"name":"Mikazuki Augus", "jl":"Defender", "attribute":"Power", "rarity": 4, "a":384, "ma":1182, "sa":1182, "md":799, "sd":799, "br":420, "pr":420, "wt":["Protag.", "For Desert"], "ex":{"type":"Part Traits", "name":"With Power attribute (self) Initial EX Skill charge boosted 20%"}},
-		{"name":"Paptimus Scirocco", "jl":"Out-Fighter", "attribute":"Technique", "rarity": 4, "a":1180, "ma":1180, "sa":383, "md":796, "sd":796, "br":212, "pr":610, "wt":["Transformer", "Commander"], "ex":{"type":"Part Traits", "name":"With Technique attribute (self) Shot guidance boosted 14%"}},
-		{"name":"Seabook Arno", "jl":"Middle-Shooter", "attribute":"Technique", "rarity": 4, "a":796, "ma":384, "sa":1602, "md":796, "sd":796, "br":417, "pr":213, "wt":["Protag.", "For Urban Area"], "ex":{"type":"Part Traits", "name":"With Technique attribute (self) Enemy All power reduced 18%"}},
-		{"name":"Shin Asuka", "jl":"Out-Fighter", "attribute":"Power", "rarity": 4, "a":797, "ma":1181, "sa":1181, "md":797, "sd":797, "br":418, "pr":213, "wt":["High Mobility", "Protag."], "ex":{"type":"Part Traits", "name":"Initial EX Skill charge boosted 15%"}},
-		{"name":"Shiro Amada", "jl":"Out-Fighter", "attribute":"Power", "rarity": 4, "a":1180, "ma":1180, "sa":383, "md":796, "sd":796, "br":610, "pr":212, "wt":["For Forest", "For Desert"], "ex":{"type":"Part Traits", "name":"With Power attribute (self) Enemy Shooting power reduced 30%"}},
-		{"name":"Sven Cal Bayang", "jl":"Out-Fighter", "attribute":"Speed", "rarity": 3, "a":889, "ma":889, "sa":291, "md":558, "sd":558, "br":302, "pr":302, "wt":["High Mobility", "For Space"], "ex":{"type":"Part Traits", "name":"With Speed attribute (self) Initial EX Skill charged boosted 3-12%"}},
-		{"name":"Zechs Marquise", "jl":"In-Fighter", "attribute":"Speed", "rarity": 4, "a":795, "ma":795, "sa":795, "md":795, "sd":795, "br":211, "pr":609, "wt":["High Mobility", "Commander"], "ex":{"type":"Part Traits", "name":"With Speed attribute (self) Vernier recovery rate boosted 20%"}},
+		{"name":"Amuro Ray", "jl":"Long-Shooter", "attribute":"Technique", "rarity":4, "a":796, "ma":384, "sa":1602, "md":796, "sd":796, "br":213, "pr":417, "wt":["Gundam Type", "Federation"], "ex":{"type":"Part Traits", "name":"Beam ranged weapon reload speed boosted 20%"}},
+		{"name":"Athrun Zala", "jl":"In-Fighter", "attribute":"Speed", "rarity":4, "a":799, "ma":1182, "sa":384, "md":799, "sd":1182, "br":612, "pr":213, "wt":["Transformer", "Mid-Range"], "ex":{"type":"Part Traits", "name":"20% chance to prevent vernier consumption when stepping"}},
+		{"name":"Bernard Wiseman", "jl":"In-Fighter", "attribute":"Technique", "rarity":4, "a":795, "ma":795, "sa":795, "md":795, "sd":795, "br":211, "pr":609, "wt":["High Mobility", "Zaku Type"], "ex":{"type":"Part Traits", "name":"When Armor is 60% or less Recover 10 Armor gradually"}},
+		{"name":"Chang Wufei", "jl":"In-Fighter", "attribute":"Technique", "rarity":4, "a":1181, "ma":1181, "sa":384, "md":796, "sd":796, "br":417, "pr":417, "wt":["Close Combat", "Ace Excl."], "ex":{"type":"Part Traits", "name":"With Technique attribute (self) Strong Melee DMG output boosted by 8-35"}},
+		{"name":"Dearka Elsman", "jl":"Long-Shooter", "attribute":"Power", "rarity":3, "a":558, "ma":291, "sa":1142, "md":558, "sd":558, "br":302, "pr":126, "wt":["Long-Range", "Support Type"], "ex":{"type":"Part Traits", "name":"With Power attribute (self) Shot guidance boosted 5-14%"}},
+		{"name":"Duo Maxwell", "jl":"In-Fighter", "attribute":"Speed", "rarity":4, "a":796, "ma":1602, "sa":384, "md":796, "sd":796, "br":213, "pr":417, "wt":["Close Combat", "For Forest"], "ex":{"type":"Part Traits", "name":"With Speed attribute (self) 8-20% chance to not recoil"}},
+		{"name":"Fa Yuiry", "jl":"Supporter", "attribute":"Technique", "rarity":3, "a":891, "ma":292, "sa":891, "md":558, "sd":558, "br":302, "pr":302, "wt":["Transformer", "Support Type"], "ex":{"type":"Part Traits", "name":"Support Job EX Skill recovery boosted 16%"}},
+		{"name":"Garrod Ran", "jl":"Out-Fighter", "attribute":"Speed", "rarity":4, "a":797, "ma":1181, "sa":1181, "md":797, "sd":797, "br":213, "pr":418, "wt":["Protag.", "Close Combat"], "ex":{"type":"Part Traits", "name":"When Armor is 80% or less All power boosted 30%"}},
+		{"name":"George de Sand", "jl":"Out-Fighter", "attribute":"Technique", "rarity":4, "a":795, "ma":382, "sa":382, "md":1179, "sd":1179, "br":609, "pr":211, "wt":["Mobile Fighter", "Long-Range"], "ex":{"type":"Part Traits", "name":"With Technique attribute (self) EX Skill CD reduced 20%"}},
+		{"name":"Haman Karn", "jl":"Long-Shooter", "attribute":"Power", "rarity":4, "a":796, "ma":384, "sa":1602, "md":796, "sd":796, "br":417, "pr":213, "wt":["Commander", "Zeon"], "ex":{"type":"Part Traits", "name":"With Power attribute (self) Job Gauge increase boosted 17%"}},
+		{"name":"Harry Ord", "jl":"Defender", "attribute":"Speed", "rarity":3, "a":558, "ma":1142, "sa":291, "md":558, "sd":558, "br":302, "pr":126, "wt":["Ace Excl.", "Close Combat"], "ex":{"type":"Part Traits", "name":"Beam ranged weapon magazine boosted 9-20%"}},
+		{"name":"Johnny Ridden", "jl":"In-Fighter", "attribute":"Technique", "rarity":3, "a":558, "ma":1142, "sa":291, "md":558, "sd":558, "br":126, "pr":302, "wt":["Zeon", "For Space"], "ex":{"type":"Part Traits", "name":"With Technique attribute (self) Buff EX Skill effect up 1-15%"}},
+		{"name":"Judua Ashta", "jl":"Middle-Shooter", "attribute":"Power", "rarity":4, "a":796, "ma":384, "sa":1602, "md":796, "sd":796, "br":417, "pr":213, "wt":["Protag.", "Transformer"], "ex":{"type":"Part Traits", "name":"With Power attribute (self) Buff EX Skill time up 22%"}},
+		{"name":"Kamille Bidan", "jl":"Middle-Shooter", "attribute":"Speed", "rarity":4, "a":796, "ma":796, "sa":796, "md":796, "sd":796, "br":417, "pr":417, "wt":["Protag.", "Close Combat"], "ex":{"type":"Part Traits", "name":"With Speed attribute (self) EX Skill piercing boosted 28%"}},
+		{"name":"Kira Yamato", "jl":"Middle-Shooter", "attribute":"Speed", "rarity":4, "a":799, "ma":384, "sa":1184, "md":1184, "sd":799, "br":614, "pr":213, "wt":["Protag.", "For Base"], "ex":{"type":"Part Traits", "name":"With Speed attribute (self) EX Skill recovery boosted by 140"}},
+		{"name":"Kou Uraki", "jl":"Defender", "attribute":"Power", "rarity":4, "a":1606, "ma":384, "sa":384, "md":799, "sd":799, "br":612, "pr":612, "wt":["Protag.", "Federation"], "ex":{"type":"Part Traits", "name":"With Power attribute (self) 14% chance to survive a fatal blow"}},
+		{"name":"Lowe Guele", "jl":"In-Fighter", "attribute":"Speed", "rarity":4, "a":1180, "ma":1180, "sa":383, "md":796, "sd":796, "br":212, "pr":610, "wt":["Protag.", "High Firepower"], "ex":{"type":"Part Traits", "name":"With Speed Attribute (self) All CRIT Rate boosted 14%"}},
+		{"name":"Lunamaria Hawke", "jl":"Long-Shooter", "attribute":"Technique", "rarity":3, "a":558, "ma":291, "sa":1142, "md":558, "sd":558, "br":302, "pr":125, "wt":["Zeon", "Zaku Type"], "ex":{"type":"Part Traits", "name":"With Technique attribute (self) Long Shot Attack raised 14%"}},
+		{"name":"Mikazuki Augus", "jl":"Defender", "attribute":"Power", "rarity":4, "a":384, "ma":1182, "sa":1182, "md":799, "sd":799, "br":420, "pr":420, "wt":["Protag.", "For Desert"], "ex":{"type":"Part Traits", "name":"With Power attribute (self) Initial EX Skill charge boosted 20%"}},
+		{"name":"Paptimus Scirocco", "jl":"Out-Fighter", "attribute":"Technique", "rarity":4, "a":1180, "ma":1180, "sa":383, "md":796, "sd":796, "br":212, "pr":610, "wt":["Transformer", "Commander"], "ex":{"type":"Part Traits", "name":"With Technique attribute (self) Shot guidance boosted 14%"}},
+		{"name":"Seabook Arno", "jl":"Middle-Shooter", "attribute":"Technique", "rarity":4, "a":796, "ma":384, "sa":1602, "md":796, "sd":796, "br":417, "pr":213, "wt":["Protag.", "For Urban Area"], "ex":{"type":"Part Traits", "name":"With Technique attribute (self) Enemy All power reduced 18%"}},
+		{"name":"Shin Asuka", "jl":"Out-Fighter", "attribute":"Power", "rarity":4, "a":797, "ma":1181, "sa":1181, "md":797, "sd":797, "br":418, "pr":213, "wt":["High Mobility", "Protag."], "ex":{"type":"Part Traits", "name":"Initial EX Skill charge boosted 15%"}},
+		{"name":"Shiro Amada", "jl":"Out-Fighter", "attribute":"Power", "rarity":4, "a":1180, "ma":1180, "sa":383, "md":796, "sd":796, "br":610, "pr":212, "wt":["For Forest", "For Desert"], "ex":{"type":"Part Traits", "name":"With Power attribute (self) Enemy Shooting power reduced 30%"}},
+		{"name":"Sven Cal Bayang", "jl":"Out-Fighter", "attribute":"Speed", "rarity":3, "a":889, "ma":889, "sa":291, "md":558, "sd":558, "br":302, "pr":302, "wt":["High Mobility", "For Space"], "ex":{"type":"Part Traits", "name":"With Speed attribute (self) Initial EX Skill charged boosted 3-12%"}},
+		{"name":"Zechs Marquise", "jl":"In-Fighter", "attribute":"Speed", "rarity":4, "a":795, "ma":795, "sa":795, "md":795, "sd":795, "br":211, "pr":609, "wt":["High Mobility", "Commander"], "ex":{"type":"Part Traits", "name":"With Speed attribute (self) Vernier recovery rate boosted 20%"}},
 	];
 	
 	const gears = [
@@ -604,7 +537,7 @@
 	{
 		"name":"",
 		"attribute":"",
-		"rarity": 0,
+		"rarity":0,
 		"sokai": 0,
 		"parts":[
 			{"part":"head", "a":0, "ma":0, "sa":0, "md":0, "sd":0, "br":0, "pr":0, "wt":["", ""], "ex":{"type":"", "name":""}},
@@ -618,9 +551,206 @@
 		]
 	},
 	
-	{"name":"", "jl":"", "attribute":"", "rarity": 0, "a":0, "ma":0, "sa":0, "md":0, "sd":0, "br":0, "pr":0, "wt":["", ""], "ex":{"type":"Part Traits", "name":""}},
+	{"name":"", "jl":"", "attribute":"", "rarity":0, "a":0, "ma":0, "sa":0, "md":0, "sd":0, "br":0, "pr":0, "wt":["", ""], "ex":{"type":"Part Traits", "name":""}},
 	
 	*/
+	
+	class HTML {
+		constructor() {
+			this.container = document.querySelector('.js-container');
+			if(this.container) {
+				this._generateHTML();
+			}
+		}
+		
+		_generateHTML() {
+			this._generate();
+		}
+		
+		_createElement(o, cont) {
+			const el = document.createElement(o.type);
+			
+			if('class' in o) {
+				if(Array.isArray(o.class)) {
+					o.class.forEach(c => el.classList.add(c));
+				}
+				else if(typeof o.class === 'string') {
+					el.classList.add(o.class);
+				}
+			}
+			
+			if('text' in o) {
+				el.textContent = o.text;
+			}
+			
+			if('data' in o && Array.isArray(o.data)) {
+				o.data.forEach((d) => {
+					el.dataset[d.name] = d.value;
+				});
+			}
+			
+			if('children' in o && Array.isArray(o.children)) {
+				o.children.forEach((child) => {
+					this._createElement(child, el);
+				});
+			}
+			
+			if(cont && cont.append) {
+				cont.append(el);
+			}
+		}
+		
+		_generate() {
+			const elements = [
+					this._info(),
+					this._wordTags(),
+					this._partTrait(),
+					this._parts()
+				];
+			
+			elements.forEach((el) => {
+				this._createElement(el, this.container);
+			});
+		}
+		
+		_info() {
+			return {
+				"type":"div", 
+				"class":"info", 
+				"children":[
+						{"type": "h3", "text":"Parameters"}, 
+						...this._paramChildren(),
+						{"type": "h3", "text":"Active Word Tag"},
+						{"type": "div", "class":["row", "active-word-tag-list", "js-active-wt"]},
+						
+				]
+			};
+		}
+		
+		_paramChildren() {
+			if(Array.isArray(parameters)) {
+				return parameters.map((p) => {
+						return {
+							"type":"div",
+							"class":["row", "alt-bg"],
+							"children":[
+								{
+									"type":"div",
+									"children":[
+										{"type":"label", "text":p.name},
+										{"type":"span", "class":["float-right", ("js-total-"+p.slug)], "text":0}
+									]
+								}
+							]
+						};
+					});
+			}
+		}
+		
+		_wordTags() {
+			return {
+				"type":"div",
+				"class":"word-tags",
+				"children":[
+					{"type": "h3", "text":"Word Tags"},
+					...msParts.map((p) => {
+						return {
+							"type":"div",
+							"class":["row", "height-50", "alt-bg"],
+							"children":[{"type":"span", "class":("js-wt-"+p)}]
+						};
+					})
+				]
+			};
+		}
+		
+		_partTrait() {
+			return {
+				"type":"div",
+				"class":"part-trait-ex-skill",
+				"children":[
+					{"type": "h3", "text":"Part Traits / EX Skill"},
+					...msParts.map((p) => {
+						return {
+							"type":"div",
+							"class":["row", "height-50", "alt-bg"],
+							"children":[{"type":"span", "class":("js-skill-trait-"+p)}]
+						};
+					})
+				]
+			}
+		}
+		
+		_parts() {
+			return {
+				"type":"div",
+				"class":"parts",
+				"children":[
+					{"type": "h3", "text":"Parts"},
+					...this._partsChildren(),
+					{"type": "h3", "text":"Gears"},
+					...this._gearsChildren(),
+					this._attributeTally()
+				]
+			}
+		}
+		
+		_partsChildren() {
+			if(Array.isArray(msParts)) {
+				return msParts.map((p) => {
+					return {
+						"type":"div",
+						"class":["row", "height-50"],
+						"children":[
+							{
+								"type":"div", 
+								"children":[
+									{"type":"label", "text":p},
+									{"type":"select", "class":("js-select-"+p), "data":[{"name":"part", "value":p}], "children":[{"type":"option"}]}
+								]
+							}
+						]
+					};
+				});
+			}
+		}
+		
+		_gearsChildren() {
+			if(Array.isArray(gearParts)) {
+				return gearParts.map((p, i) => {
+					return {
+						"type":"div",
+						"class":["row", "height-50"],
+						"children":[
+							{
+								"type":"div", 
+								"children":[
+									{"type":"label", "text":("Slot "+(i+1))},
+									{"type":"select", "class":("js-select-"+p), "children":[{"type":"option"}]}
+								]
+							}
+						]
+					};
+				});
+			}
+		}
+		
+		_attributeTally() {
+			return {
+				"type":"div",
+				"class":"attribute-tally",
+				"children":attributes.map((a) => {
+					return {
+						"type":"label",
+						"text":("["+a.charAt(0)+"] "),
+						"children":[
+							{"type":"span", "class":("js-tally-"+a.charAt(0).toLowerCase()), "text":0}
+						]
+					};
+				})
+			}
+		}
+	}
 	
 	class GBWB_Calculator {
 		constructor() {
@@ -629,13 +759,13 @@
 			this.attributesTally = {"p":0, "t":0, "s":0};
 			this.selects = {};
 			this.comboParts = [];
-			
-			parts.forEach((part) => {
-				this.selects[part] = document.querySelector(`.js-select-${part}`);
-			});
 		}
 		
 		init() {
+			parts.forEach((part) => {
+				this.selects[part] = document.querySelector(`.js-select-${part}`);
+			});
+			
 			this._generateOptions();
 			this._initSelectOnchange();
 		}
@@ -828,15 +958,20 @@
 			this.parametersTotal = {};
 			
 			parameters.forEach((p) => {
-				this.parametersTotal[p] = 0;
+				if('slug' in p) {
+					this.parametersTotal[p.slug] = 0;
+				}
+				
 			});
 		}
 		
 		_calculateParameters(o) {
 			if(o) {
 				parameters.forEach((p) => {
-					if(o.dataset[p] && p in this.parametersTotal) {
-						this.parametersTotal[p] += +o.dataset[p];
+					const slug = p.slug;
+					
+					if(slug && o.dataset[slug] && slug in this.parametersTotal) {
+						this.parametersTotal[slug] += +o.dataset[slug];
 					}
 				});
 			}
@@ -979,6 +1114,7 @@
 		}
 	}
 	
+	new HTML();
 	(new GBWB_Calculator()).init();
 </script>
 </body>
