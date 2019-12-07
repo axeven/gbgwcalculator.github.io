@@ -26,7 +26,12 @@
 	.info,
 	.word-tags,
 	.part-trait-ex-skill,
-	.parts {margin-right:10px; width: 180px;}
+	.parts,
+	.part-list {margin-right:10px;}
+	
+	.info,
+	.word-tags,
+	.part-list {width: 180px;}
 	
 	.word-tags span,
 	.part-trait-ex-skill span {font-size: 12px;}
@@ -34,8 +39,9 @@
 	.part-trait-ex-skill {width: 350px;}
 	
 	.parts {width: 300px;}
-	.parts label {display: inline-block; width: 30%;}
-	.parts select {display: inline-block; padding: 5px 0; width: 70%;}
+	.parts label {display: inline-block; text-transform:capitalize; width: 30%;}
+	.parts select,
+	.parts input[type=text] {cursor: pointer; display: inline-block; padding: 5px; width: 70%;}
 	
 	.attribute-tally {display:block !important; padding: 0 0 0 35% !important;}
 	
@@ -52,6 +58,26 @@
 	}
 	
 	.alt-bg:nth-of-type(even) {background: #f2f7f4;}
+	
+	.part-list{width: 300px;}
+	.part-list__item {
+		cursor: pointer;
+		padding: 8px 5px;
+	}
+	
+	.part-list__item:hover {
+		background: #ffae00;
+		color: #fff;
+	}
+	
+	.part-list__list {
+		height:600px;
+		overflow-y: scroll;
+	}
+	
+	.selected-part {
+		border-color: #ffae00;
+	}
 </style>
 </head>
 
@@ -568,7 +594,7 @@
 		}
 		
 		_createElement(o, cont) {
-			const el = document.createElement(o.type);
+			const el = document.createElement(o.el);
 			
 			if('class' in o) {
 				if(Array.isArray(o.class)) {
@@ -581,6 +607,14 @@
 			
 			if('text' in o) {
 				el.textContent = o.text;
+			}
+			
+			if('type' in o) {
+				el.type = o.type;
+			}
+			
+			if('readOnly' in o) {
+				el.readOnly = o.readOnly;
 			}
 			
 			if('data' in o && Array.isArray(o.data)) {
@@ -605,7 +639,8 @@
 					this._info(),
 					this._wordTags(),
 					this._partTrait(),
-					this._parts()
+					this._parts(),
+					this._partList()
 				];
 			
 			elements.forEach((el) => {
@@ -615,13 +650,13 @@
 		
 		_info() {
 			return {
-				"type":"div", 
+				"el":"div", 
 				"class":"info", 
 				"children":[
-						{"type": "h3", "text":"Parameters"}, 
+						{"el": "h3", "text":"Parameters"}, 
 						...this._paramChildren(),
-						{"type": "h3", "text":"Active Word Tag"},
-						{"type": "div", "class":["row", "active-word-tag-list", "js-active-wt"]},
+						{"el": "h3", "text":"Active Word Tag"},
+						{"el": "div", "class":["row", "active-word-tag-list", "js-active-wt"]},
 						
 				]
 			};
@@ -631,14 +666,14 @@
 			if(Array.isArray(parameters)) {
 				return parameters.map((p) => {
 						return {
-							"type":"div",
+							"el":"div",
 							"class":["row", "alt-bg"],
 							"children":[
 								{
-									"type":"div",
+									"el":"div",
 									"children":[
-										{"type":"label", "text":p.name},
-										{"type":"span", "class":["float-right", ("js-total-"+p.slug)], "text":0}
+										{"el":"label", "text":p.name},
+										{"el":"span", "class":["float-right", ("js-total-"+p.slug)], "text":0}
 									]
 								}
 							]
@@ -649,15 +684,15 @@
 		
 		_wordTags() {
 			return {
-				"type":"div",
+				"el":"div",
 				"class":"word-tags",
 				"children":[
-					{"type": "h3", "text":"Word Tags"},
+					{"el": "h3", "text":"Word Tags"},
 					...msParts.map((p) => {
 						return {
-							"type":"div",
+							"el":"div",
 							"class":["row", "height-50", "alt-bg"],
-							"children":[{"type":"span", "class":("js-wt-"+p)}]
+							"children":[{"el":"span", "class":("js-wt-"+p)}]
 						};
 					})
 				]
@@ -666,15 +701,15 @@
 		
 		_partTrait() {
 			return {
-				"type":"div",
+				"el":"div",
 				"class":"part-trait-ex-skill",
 				"children":[
-					{"type": "h3", "text":"Part Traits / EX Skill"},
+					{"el": "h3", "text":"Part Traits / EX Skill"},
 					...msParts.map((p) => {
 						return {
-							"type":"div",
+							"el":"div",
 							"class":["row", "height-50", "alt-bg"],
-							"children":[{"type":"span", "class":("js-skill-trait-"+p)}]
+							"children":[{"el":"span", "class":("js-skill-trait-"+p)}]
 						};
 					})
 				]
@@ -683,12 +718,38 @@
 		
 		_parts() {
 			return {
-				"type":"div",
+				"el":"div",
 				"class":"parts",
 				"children":[
-					{"type": "h3", "text":"Parts"},
+					{"el": "h3", "text":"Parts"},
+					/*{
+						"el":"div",
+						"class":["row", "height-50"],
+						"children":[
+							{
+								"el":"div", 
+								"children":[
+									{"el":"label", "text":"Head"},
+									{"el":"input", "type":"text", "class":"js-input-head", "readOnly": true},
+								]
+							}
+						]
+					},
+					{
+						"el":"div",
+						"class":["row", "height-50"],
+						"children":[
+							{
+								"el":"div", 
+								"children":[
+									{"el":"label", "text":"Shield"},
+									{"el":"input", "type":"text", "class":"js-input-shield", "readOnly": true},
+								]
+							}
+						]
+					},*/
 					...this._partsChildren(),
-					{"type": "h3", "text":"Gears"},
+					{"el": "h3", "text":"Gears"},
 					...this._gearsChildren(),
 					this._attributeTally()
 				]
@@ -699,14 +760,14 @@
 			if(Array.isArray(msParts)) {
 				return msParts.map((p) => {
 					return {
-						"type":"div",
-						"class":["row", "height-50"],
+						"el":"div",
+						"class":["row", "height-50", "js-part-cont"],
 						"children":[
 							{
-								"type":"div", 
+								"el":"div", 
 								"children":[
-									{"type":"label", "text":p},
-									{"type":"select", "class":("js-select-"+p), "data":[{"name":"part", "value":p}], "children":[{"type":"option"}]}
+									{"el":"label", "text":p},
+									{"el":"input", "type":"text", "class":("js-input-"+p), "readOnly": true},
 								]
 							}
 						]
@@ -715,18 +776,38 @@
 			}
 		}
 		
+		/*_partsChildren() {
+			if(Array.isArray(msParts)) {
+				return msParts.map((p) => {
+					return {
+						"el":"div",
+						"class":["row", "height-50"],
+						"children":[
+							{
+								"el":"div", 
+								"children":[
+									{"el":"label", "text":p},
+									{"el":"select", "class":("js-select-"+p), "data":[{"name":"part", "value":p}], "children":[{"el":"option"}]}
+								]
+							}
+						]
+					};
+				});
+			}
+		}*/
+		
 		_gearsChildren() {
 			if(Array.isArray(gearParts)) {
 				return gearParts.map((p, i) => {
 					return {
-						"type":"div",
+						"el":"div",
 						"class":["row", "height-50"],
 						"children":[
 							{
-								"type":"div", 
+								"el":"div", 
 								"children":[
-									{"type":"label", "text":("Slot "+(i+1))},
-									{"type":"select", "class":("js-select-"+p), "children":[{"type":"option"}]}
+									{"el":"label", "text":("Slot "+(i+1))},
+									{"el":"select", "class":("js-select-"+p), "children":[{"el":"option"}]}
 								]
 							}
 						]
@@ -737,17 +818,28 @@
 		
 		_attributeTally() {
 			return {
-				"type":"div",
+				"el":"div",
 				"class":"attribute-tally",
 				"children":attributes.map((a) => {
 					return {
-						"type":"label",
+						"el":"label",
 						"text":("["+a.charAt(0)+"] "),
 						"children":[
-							{"type":"span", "class":("js-tally-"+a.charAt(0).toLowerCase()), "text":0}
+							{"el":"span", "class":("js-tally-"+a.charAt(0).toLowerCase()), "text":0}
 						]
 					};
 				})
+			}
+		}
+		
+		_partList() {
+			return {
+				"el":"div",
+				"class":"part-list",
+				"children":[
+					{"el":"h3", "text":"Part List"},
+					{"el":"div", "class":["part-list__list", "js-part-list"]},
+				]
 			}
 		}
 	}
@@ -757,19 +849,397 @@
 			this.wordTagsTally = {};
 			this.parametersTotal = {};
 			this.attributesTally = {"p":0, "t":0, "s":0};
-			this.selects = {};
+			this.inputs = {};
+			//this.selects = {};
 			this.comboParts = [];
+			this.parts = {};
+			
+			this.partList = document.querySelector('.js-part-list');
 		}
 		
 		init() {
 			parts.forEach((part) => {
-				this.selects[part] = document.querySelector(`.js-select-${part}`);
+				//old
+				//this.selects[part] = document.querySelector(`.js-select-${part}`);
+				
+				//new
+				this.inputs[part] = document.querySelector(`.js-input-${part}`);
+				this.parts[part] = [];
 			});
 			
-			this._generateOptions();
-			this._initSelectOnchange();
+			//old
+			//this._generateOptions();
+			//this._initSelectOnchange();
+			
+			//new
+			this._parseParts(); console.log('this.parts', this.parts);
+			this._initInputClick();
 		}
 		
+		//new
+		_parseParts() {
+			if(parts && Array.isArray(parts)) {
+				if(mobileSuits && Array.isArray(mobileSuits)) {
+					
+					mobileSuits.forEach((ms) => {
+						
+						if(ms.parts && Array.isArray(ms.parts)) {
+							const msObj = {"ms": ms.name};
+							
+							for(let k in ms) {
+								if(ms.hasOwnProperty(k) && k !== 'parts' && k !== 'name') {
+									msObj[k] = ms[k];
+								}
+							}
+							
+							ms.parts.forEach((msp) => {
+								const o = {...msObj};
+								
+								for(let k in msp) {
+									if(msp.hasOwnProperty(k)) {
+										o[k] = msp[k];
+									}
+								}
+								
+								if(msp.part) {
+									this.parts[msp.part].push(o);
+								}
+							});
+						}
+					});
+				}
+				
+				if(pilots && Array.isArray(pilots)) {
+					pilots.forEach((p) => {
+						const o = {"part":"pilot"};
+						
+						for(let k in p) {
+							if(p.hasOwnProperty(k)) {
+								o[k] = p[k];
+							}
+						}
+						
+						this.parts.pilot.push(o);
+					});
+				}
+			}
+		}
+		
+		_initInputClick() {
+			const is = this.inputs; console.log('is', is);
+			
+			for(let k in is) {
+				if(is.hasOwnProperty(k) && is[k]) {
+					is[k].addEventListener('click', (e) => {
+						this._setSelectedPart(k);
+						this._showPartList(k);
+					});
+				}
+			}
+		}
+		
+		_showPartList(part) {
+			if(this.partList && mobileSuits && Array.isArray(mobileSuits)) {
+				this.partList.innerHTML = "";
+				
+				if(this.parts && this.parts[part] && Array.isArray(this.parts[part])) {
+					this.parts[part].forEach((p) => {
+						const el = document.createElement('div');
+						
+						el.textContent = el.dataset.partname = `[${p.attribute.charAt(0)}] ${p.ms ? p.ms + (p.name ? ' ('+p.name+')' : '') : p.name }`;
+						el.classList.add('part-list__item');
+						
+						for(let k in p) {
+							el.dataset[k] = p[k] instanceof Object ? JSON.stringify(p[k]) : p[k];
+						}
+						
+						el.addEventListener('click', (ev) => {
+							const el = ev.currentTarget;
+							let input, elp;
+							
+							if(el.dataset.part && this.inputs[el.dataset.part]) {
+								elp = el.dataset.part;
+								input = this.inputs[elp];
+								
+								input.value = input.title = el.dataset.partname;
+								Object.assign(input.dataset, el.dataset);
+							}
+							
+							this._calculate(elp);
+						});
+						
+						this.partList.appendChild(el);
+					});
+				}
+			}
+		}
+		
+		_setSelectedPart(part) {console.log('_setSelectedPart');
+			const classSelectedPart = 'selected-part';
+			
+			Array.prototype.slice.call(document.querySelectorAll('.selected-part')).forEach((el) => {
+				el.classList.remove(classSelectedPart);
+			});
+			
+			if(this.inputs[part]) {
+				this.inputs[part].classList.add(classSelectedPart);
+			}
+		}
+		
+		_calculate(part) { console.log('_calculate');
+			//this._toggleComboPart(e);
+			this._displaySkillTraits(part);
+			this._loopThroughInput();
+			this._displayPartsWordTags();
+		}
+		
+		_toggleComboPart(e) {
+			const s = e.currentTarget,
+				o = this._getSelectedOption(s);
+			
+			if(Array.isArray(this.comboParts)) {
+				for(let i = 0; i < this.comboParts.length; i++) {
+					const cp = this.comboParts[i];
+					
+					if(cp.part && cp.combo && s.dataset.part && cp.part == s.dataset.part) {
+						document.querySelector(`.js-select-${cp.combo}`).disabled = false;
+						this.comboParts.splice(i, 1);
+						break;
+					}
+				}
+			}
+			
+			if(o.dataset.combo && o.dataset.part) {
+				this._clearParts(o.dataset.combo);
+				this.comboParts.push({"part":o.dataset.part, "combo":o.dataset.combo});
+				document.querySelector(`.js-select-${o.dataset.combo}`).disabled = true;
+			}
+		}
+		
+		_displaySkillTraits(part) {
+			if(this.inputs[part]) {
+				const o = this.inputs[part];
+				let ex, span;
+				
+				if(o && o.dataset.part && o.dataset.ex) {
+					span = document.querySelector(`.js-skill-trait-${o.dataset.part}`),
+					ex = JSON.parse(o.dataset.ex);
+					
+					if(ex.type && ex.name && span) {
+						span.textContent = ex.name;
+					}
+				}
+				else {
+					this._clearSkillTrait(part);
+				}
+			}
+		}
+		
+		_clearSkillTrait(part) {
+			if(part && document.querySelector(`.js-skill-trait-${part}`)) {
+				document.querySelector(`.js-skill-trait-${part}`).textContent = "";
+			}
+		}
+		
+		_loopThroughInput() {console.log('_loopThroughInput');
+			const is = this.inputs;
+			
+			this._resetWordTagTally();
+			this._resetParameters();
+			this._resetAttributesTally();
+			console.log("--------------------");
+			for(let k in is) {
+				if(is.hasOwnProperty(k) && this.inputs[k]) {
+					const o = this.inputs[k];
+					
+					if(o) {
+						console.log(Object.assign({}, o.dataset));
+						this._tallyWordTags(o);
+						this._calculateParameters(o);
+						this._tallyAttributes(o);
+					}
+				}
+			}
+			this._displayWordTagsTally();
+			this._displayParametersTotal();
+			this._displayAttributesTally();
+		}
+		
+		_resetWordTagTally() {
+			this.wordTagsTally = {};
+		}
+		
+		_tallyWordTags(o) {
+			if(o && o.dataset.wt) {
+				const wt = JSON.parse(o.dataset.wt),
+					addon = o.dataset.combo ? 2 : 1;
+				
+				if(Array.isArray(wt)) {
+					wt.forEach((t) => {
+						this.wordTagsTally[t] = t in this.wordTagsTally ? this.wordTagsTally[t] + addon : addon;
+					});
+				}
+			}
+		}
+		
+		_displayWordTagsTally() {
+			const listCont = document.querySelector('.js-active-wt');
+			
+			listCont.innerHTML = "";
+			
+			for(let k in this.wordTagsTally) {
+				if(this.wordTagsTally[k] >= wordTagActivation) {
+					const d = document.createElement('div');
+					
+					d.textContent = k;
+					listCont.appendChild(d);
+				}
+			}
+			console.log('this.wordTagsTally', this.wordTagsTally);
+		}
+		
+		_resetParameters() {
+			this.parametersTotal = {};
+			
+			parameters.forEach((p) => {
+				if('slug' in p) {
+					this.parametersTotal[p.slug] = 0;
+				}
+				
+			});
+		}
+		
+		_calculateParameters(o) {
+			if(o) {
+				parameters.forEach((p) => {
+					const slug = p.slug;
+					
+					if(slug && o.dataset[slug] && slug in this.parametersTotal) {
+						this.parametersTotal[slug] += +o.dataset[slug];
+					}
+				});
+			}
+		}
+		
+		_displayParametersTotal() {
+			this._applyWordTagBonus();
+			this._applyJobLicenseBonus();
+			
+			for(let k in this.parametersTotal) {
+				document.querySelector(`.js-total-${k}`).textContent = this.parametersTotal[k];
+			}
+		}
+		
+		_resetAttributesTally() {
+			this.attributesTally = {"p":0, "t":0, "s":0};
+		}
+		
+		_tallyAttributes(o) {
+			if(o && o.dataset.attribute && o.dataset.attribute.charAt(0).toLowerCase() in this.attributesTally) {
+				const addon = o.dataset.combo ? 2 : 1;
+				this.attributesTally[o.dataset.attribute.charAt(0).toLowerCase()] += addon;
+			}
+		}
+		
+		_displayAttributesTally() {
+			for(let k in this.attributesTally) {
+				document.querySelector(`.js-tally-${k}`).textContent = this.attributesTally[k];
+			}
+		}
+		
+		_applyWordTagBonus() {
+			const multipliers = {}; console.log("Total Raw Attributes:", this.parametersTotal);
+			
+			for(let k in this.wordTagsTally) {
+				if(this.wordTagsTally[k] >= wordTagActivation) {
+					const wt = this._getWordTag(k);
+					
+					if(wt && wt.multiplier && wt.parameters && Array.isArray(wt.parameters)) {
+						wt.parameters.forEach((p) => {
+							multipliers[p] = p in multipliers ? multipliers[p] + wt.multiplier : wt.multiplier;
+						});
+					}
+				}
+			}
+			
+			for(let k in multipliers) {
+				if(k in this.parametersTotal) {
+					this.parametersTotal[k] = Math.round(this.parametersTotal[k] + (this.parametersTotal[k] * multipliers[k]));
+				}
+			} console.log("Total Attributes With WT Bonus:", this.parametersTotal);
+		}
+		
+		_getWordTag(name) {
+			return wordTags.find(wt => name === wt.name);
+		}
+		
+		_applyJobLicenseBonus() {
+			const ps = document.querySelector('.js-select-pilot'),
+				o = this.inputs.pilot;
+				
+			if(o && o.dataset.jl) {
+				const jl = this._getJobLicense(o.dataset.jl);
+				
+				if(jl && jl.multiplier && jl.parameters && Array.isArray(jl.parameters)) {
+					jl.parameters.forEach((p) => {
+						if(p in this.parametersTotal) {
+							this.parametersTotal[p] = Math.round(this.parametersTotal[p] + (this.parametersTotal[p] * jl.multiplier));
+						}
+					});
+				}
+			} console.log("Total Attributes With WT Bonus and Job Bonus:", this.parametersTotal);
+		}
+		
+		_getJobLicense(name) {
+			return jobLicenses.find(jl => name === jl.name);
+		}
+		
+		_displayPartsWordTags() {
+			const is = this.inputs;
+			
+			for(let k in is) {
+				if(is.hasOwnProperty(k)) {
+					const o = this.inputs[k];
+					
+					if(o) {
+						if(!this._displayWordTags(o) && is[k].disabled == false) {
+							this._clearWordTag(k);
+						}
+					}
+				}
+			}
+		}
+		
+		_displayWordTags(o) {
+			if(!(o && o.dataset.part && o.dataset.wt)) {
+				return false;
+			}
+						
+			const span = document.querySelector(`.js-wt-${o.dataset.part}`),
+				wt = JSON.parse(o.dataset.wt);
+			
+			if(Array.isArray(wt) && span) {
+				span.innerHTML = wt.reduce((v, t) => {
+					const count = this.wordTagsTally[t];
+				
+					return v + `${v == "" ? "" : "<br />"}<span class="${count >= wordTagActivation ? 'activatedWT' : '' }">(${count}) ${t}</span>`; 
+				}, "");
+				
+				if(o.dataset.combo) {
+					document.querySelector(`.js-wt-${o.dataset.combo}`).innerHTML = span.innerHTML;
+				}
+			}
+			
+			return true;
+		}
+		
+		_clearWordTag(part) {
+			if(document.querySelector(`.js-wt-${part}`)) {
+				document.querySelector(`.js-wt-${part}`).innerHTML = "";
+			}
+		}
+		
+		//old
 		_generateOptions() {
 			const ss = this.selects;
 		
@@ -850,30 +1320,7 @@
 			
 		}
 		
-		_toggleComboPart(e) {
-			const s = e.currentTarget,
-				o = this._getSelectedOption(s);
-			
-			if(Array.isArray(this.comboParts)) {
-				for(let i = 0; i < this.comboParts.length; i++) {
-					const cp = this.comboParts[i];
-					
-					if(cp.part && cp.combo && s.dataset.part && cp.part == s.dataset.part) {
-						document.querySelector(`.js-select-${cp.combo}`).disabled = false;
-						this.comboParts.splice(i, 1);
-						break;
-					}
-				}
-			}
-			
-			if(o.dataset.combo && o.dataset.part) {
-				this._clearParts(o.dataset.combo);
-				this.comboParts.push({"part":o.dataset.part, "combo":o.dataset.combo});
-				document.querySelector(`.js-select-${o.dataset.combo}`).disabled = true;
-			}
-		}
-		
-		_displaySkillTraits(e) {
+		__displaySkillTraits(e) {
 			const s = e.currentTarget,
 				o = this._getSelectedOption(s);
 			let ex, span;
@@ -888,12 +1335,6 @@
 			}
 			else {
 				this._clearSkillTrait(s.dataset.part);
-			}
-		}
-		
-		_clearSkillTrait(part) {
-			if(part && document.querySelector(`.js-skill-trait-${part}`)) {
-				document.querySelector(`.js-skill-trait-${part}`).textContent = "";
 			}
 		}
 		
@@ -919,180 +1360,6 @@
 			this._displayWordTagsTally();
 			this._displayParametersTotal();
 			this._displayAttributesTally();
-		}
-		
-		_resetWordTagTally() {
-			this.wordTagsTally = {};
-		}
-		
-		_tallyWordTags(o) {
-			if(o && o.dataset.wt) {
-				const wt = JSON.parse(o.dataset.wt),
-					addon = o.dataset.combo ? 2 : 1;
-				
-				if(Array.isArray(wt)) {
-					wt.forEach((t) => {
-						this.wordTagsTally[t] = t in this.wordTagsTally ? this.wordTagsTally[t] + addon : addon;
-					});
-				}
-			}
-		}
-		
-		_displayWordTagsTally() {
-			const listCont = document.querySelector('.js-active-wt');
-			
-			listCont.innerHTML = "";
-			
-			for(let k in this.wordTagsTally) {
-				if(this.wordTagsTally[k] >= wordTagActivation) {
-					const d = document.createElement('div');
-					
-					d.textContent = k;
-					listCont.appendChild(d);
-				}
-			}
-			//console.log('this.wordTagsTally', this.wordTagsTally);
-		}
-		
-		_resetParameters() {
-			this.parametersTotal = {};
-			
-			parameters.forEach((p) => {
-				if('slug' in p) {
-					this.parametersTotal[p.slug] = 0;
-				}
-				
-			});
-		}
-		
-		_calculateParameters(o) {
-			if(o) {
-				parameters.forEach((p) => {
-					const slug = p.slug;
-					
-					if(slug && o.dataset[slug] && slug in this.parametersTotal) {
-						this.parametersTotal[slug] += +o.dataset[slug];
-					}
-				});
-			}
-		}
-		
-		_displayParametersTotal() {
-			this._applyWordTagBonus();
-			this._applyJobLicenseBonus();
-			
-			for(let k in this.parametersTotal) {
-				document.querySelector(`.js-total-${k}`).textContent = this.parametersTotal[k];
-			}
-		}
-		
-		_applyWordTagBonus() {
-			const multipliers = {}; console.log("Total Raw Attributes:", this.parametersTotal);
-			
-			for(let k in this.wordTagsTally) {
-				if(this.wordTagsTally[k] >= wordTagActivation) {
-					const wt = this._getWordTag(k);
-					
-					if(wt && wt.multiplier && wt.parameters && Array.isArray(wt.parameters)) {
-						wt.parameters.forEach((p) => {
-							multipliers[p] = p in multipliers ? multipliers[p] + wt.multiplier : wt.multiplier;
-						});
-					}
-				}
-			}
-			
-			for(let k in multipliers) {
-				if(k in this.parametersTotal) {
-					this.parametersTotal[k] = Math.round(this.parametersTotal[k] + (this.parametersTotal[k] * multipliers[k]));
-				}
-			} console.log("Total Attributes With WT Bonus:", this.parametersTotal);
-		}
-		
-		_getWordTag(name) {
-			return wordTags.find(wt => name === wt.name);
-		}
-		
-		_applyJobLicenseBonus() {
-			const ps = document.querySelector('.js-select-pilot'),
-				o = this._getSelectedOption(ps);
-				
-			if(o && o.dataset.jl) {
-				const jl = this._getJobLicense(o.dataset.jl);
-				
-				if(jl && jl.multiplier && jl.parameters && Array.isArray(jl.parameters)) {
-					jl.parameters.forEach((p) => {
-						if(p in this.parametersTotal) {
-							this.parametersTotal[p] = Math.round(this.parametersTotal[p] + (this.parametersTotal[p] * jl.multiplier));
-						}
-					});
-				}
-			} console.log("Total Attributes With WT Bonus and Job Bonus:", this.parametersTotal);
-		}
-		
-		_getJobLicense(name) {
-			return jobLicenses.find(jl => name === jl.name);
-		}
-		
-		_resetAttributesTally() {
-			this.attributesTally = {"p":0, "t":0, "s":0};
-		}
-		
-		_tallyAttributes(o) {
-			if(o && o.dataset.attribute && o.dataset.attribute.charAt(0).toLowerCase() in this.attributesTally) {
-				const addon = o.dataset.combo ? 2 : 1;
-				this.attributesTally[o.dataset.attribute.charAt(0).toLowerCase()] += addon;
-			}
-		}
-		
-		_displayAttributesTally() {
-			for(let k in this.attributesTally) {
-				document.querySelector(`.js-tally-${k}`).textContent = this.attributesTally[k];
-			}
-		}
-		
-		_displayPartsWordTags() {
-			const ss = this.selects;
-			
-			for(let k in ss) {
-				if(ss.hasOwnProperty(k)) {
-					const o = this._getSelectedOption(ss[k]);
-					
-					if(o) {
-						if(!this._displayWordTags(o) && ss[k].disabled == false) {
-							this._clearWordTag(k);
-						}
-					}
-				}
-			}
-		}
-		
-		_clearWordTag(part) {
-			if(document.querySelector(`.js-wt-${part}`)) {
-				document.querySelector(`.js-wt-${part}`).innerHTML = "";
-			}
-		}
-		
-		_displayWordTags(o) {
-			if(!(o && o.dataset.part && o.dataset.wt)) {
-				return false;
-			}
-						
-			const span = document.querySelector(`.js-wt-${o.dataset.part}`),
-				wt = JSON.parse(o.dataset.wt);
-			
-			if(Array.isArray(wt) && span) {
-				span.innerHTML = wt.reduce((v, t) => {
-					const count = this.wordTagsTally[t];
-				
-					return v + `${v == "" ? "" : "<br />"}<span class="${count >= wordTagActivation ? 'activatedWT' : '' }">(${count}) ${t}</span>`; 
-				}, "");
-				
-				if(o.dataset.combo) {
-					document.querySelector(`.js-wt-${o.dataset.combo}`).innerHTML = span.innerHTML;
-				}
-			}
-			
-			return true;
 		}
 		
 		_getSelectedOption(select) {
