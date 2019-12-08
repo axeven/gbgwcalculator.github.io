@@ -23,6 +23,7 @@
 	.activatedWT {color: #206cc9;}
 	
 	.container {display: flex; flex-flow: row nowrap;}
+	.container > * {flex-shrink: 0;}
 	.info,
 	.word-tags,
 	.part-trait-ex-skill,
@@ -85,6 +86,7 @@
 <h1>GBGW Calculator</h1>
 <div class="container js-container"></div>
 <script>
+(() => {
 	const wordTagActivation = 5;
 	const fullBuff = 0.1;
 	const halfBuff = 0.05;
@@ -581,6 +583,15 @@
 	
 	*/
 	
+	const camelToDash = (str) => { return str.replace(/([A-Z])/g, (g) => `-${g[0].toLowerCase()}`) };
+	const clearDataset = (el) => {
+		if(el.dataset) {
+			for(let k in el.dataset) {
+				el.removeAttribute(`data-${camelToDash(k)}`);
+			}
+		}
+	};
+	
 	class HTML {
 		constructor() {
 			this.container = document.querySelector('.js-container');
@@ -722,32 +733,6 @@
 				"class":"parts",
 				"children":[
 					{"el": "h3", "text":"Parts"},
-					/*{
-						"el":"div",
-						"class":["row", "height-50"],
-						"children":[
-							{
-								"el":"div", 
-								"children":[
-									{"el":"label", "text":"Head"},
-									{"el":"input", "type":"text", "class":"js-input-head", "readOnly": true},
-								]
-							}
-						]
-					},
-					{
-						"el":"div",
-						"class":["row", "height-50"],
-						"children":[
-							{
-								"el":"div", 
-								"children":[
-									{"el":"label", "text":"Shield"},
-									{"el":"input", "type":"text", "class":"js-input-shield", "readOnly": true},
-								]
-							}
-						]
-					},*/
 					...this._partsChildren(),
 					{"el": "h3", "text":"Gears"},
 					...this._gearsChildren(),
@@ -776,38 +761,18 @@
 			}
 		}
 		
-		/*_partsChildren() {
-			if(Array.isArray(msParts)) {
-				return msParts.map((p) => {
-					return {
-						"el":"div",
-						"class":["row", "height-50"],
-						"children":[
-							{
-								"el":"div", 
-								"children":[
-									{"el":"label", "text":p},
-									{"el":"select", "class":("js-select-"+p), "data":[{"name":"part", "value":p}], "children":[{"el":"option"}]}
-								]
-							}
-						]
-					};
-				});
-			}
-		}*/
-		
 		_gearsChildren() {
 			if(Array.isArray(gearParts)) {
 				return gearParts.map((p, i) => {
 					return {
 						"el":"div",
-						"class":["row", "height-50"],
+						"class":["row", "height-50", "js-part-cont"],
 						"children":[
 							{
 								"el":"div", 
 								"children":[
-									{"el":"label", "text":("Slot "+(i+1))},
-									{"el":"select", "class":("js-select-"+p), "children":[{"el":"option"}]}
+									{"el":"label", "text":("Slot " + (i + 1))},
+									{"el":"input", "type":"text", "class":("js-input-"+p), "readOnly": true},
 								]
 							}
 						]
@@ -850,7 +815,6 @@
 			this.parametersTotal = {};
 			this.attributesTally = {"p":0, "t":0, "s":0};
 			this.inputs = {};
-			//this.selects = {};
 			this.comboParts = [];
 			this.parts = {};
 			
@@ -859,24 +823,14 @@
 		
 		init() {
 			parts.forEach((part) => {
-				//old
-				//this.selects[part] = document.querySelector(`.js-select-${part}`);
-				
-				//new
 				this.inputs[part] = document.querySelector(`.js-input-${part}`);
 				this.parts[part] = [];
 			});
 			
-			//old
-			//this._generateOptions();
-			//this._initSelectOnchange();
-			
-			//new
 			this._parseParts(); console.log('this.parts', this.parts);
 			this._initInputClick();
 		}
 		
-		//new
 		_parseParts() {
 			if(parts && Array.isArray(parts)) {
 				if(mobileSuits && Array.isArray(mobileSuits)) {
@@ -922,6 +876,20 @@
 						this.parts.pilot.push(o);
 					});
 				}
+				
+				if(gears && Array.isArray(gears)) {
+					gears.forEach((p) => {
+						const o = {"part":"gear-s1ot1"};
+						
+						for(let k in p) {
+							if(p.hasOwnProperty(k)) {
+								o[k] = p[k];
+							}
+						}
+						
+						this.parts['gear-s1ot1'].push(o);
+					});
+				}
 			}
 		}
 		
@@ -946,7 +914,7 @@
 					this.parts[part].forEach((p) => {
 						const el = document.createElement('div');
 						
-						el.textContent = el.dataset.partname = `[${p.attribute.charAt(0)}] ${p.ms ? p.ms + (p.name ? ' ('+p.name+')' : '') : p.name }`;
+						el.textContent = el.dataset.partname = `${p.attribute ? '['+ p.attribute.charAt(0) +']' : ''} ${p.ms ? p.ms + (p.name ? ' ('+p.name+')' : '') : p.name }`;
 						el.classList.add('part-list__item');
 						
 						for(let k in p) {
@@ -962,6 +930,7 @@
 								input = this.inputs[elp];
 								
 								input.value = input.title = el.dataset.partname;
+								clearDataset(input);
 								Object.assign(input.dataset, el.dataset);
 							}
 							
@@ -974,7 +943,7 @@
 			}
 		}
 		
-		_setSelectedPart(part) {console.log('_setSelectedPart');
+		_setSelectedPart(part) {
 			const classSelectedPart = 'selected-part';
 			
 			Array.prototype.slice.call(document.querySelectorAll('.selected-part')).forEach((el) => {
@@ -986,33 +955,34 @@
 			}
 		}
 		
-		_calculate(part) { console.log('_calculate');
-			//this._toggleComboPart(e);
+		_calculate(part) {
+			this._toggleComboPart(part);
 			this._displaySkillTraits(part);
 			this._loopThroughInput();
 			this._displayPartsWordTags();
 		}
 		
-		_toggleComboPart(e) {
-			const s = e.currentTarget,
-				o = this._getSelectedOption(s);
-			
-			if(Array.isArray(this.comboParts)) {
-				for(let i = 0; i < this.comboParts.length; i++) {
-					const cp = this.comboParts[i];
-					
-					if(cp.part && cp.combo && s.dataset.part && cp.part == s.dataset.part) {
-						document.querySelector(`.js-select-${cp.combo}`).disabled = false;
-						this.comboParts.splice(i, 1);
-						break;
+		_toggleComboPart(part) {
+			if(this.inputs[part]) {
+				const is = this.inputs[part];
+				
+				if(Array.isArray(this.comboParts)) {
+					for(let i = 0; i < this.comboParts.length; i++) {
+						const cp = this.comboParts[i];
+						
+						if(cp.part && cp.combo && is.dataset.part && cp.part == is.dataset.part) {
+							document.querySelector(`.js-input-${cp.combo}`).disabled = false;
+							this.comboParts.splice(i, 1);
+							break;
+						}
 					}
 				}
-			}
-			
-			if(o.dataset.combo && o.dataset.part) {
-				this._clearParts(o.dataset.combo);
-				this.comboParts.push({"part":o.dataset.part, "combo":o.dataset.combo});
-				document.querySelector(`.js-select-${o.dataset.combo}`).disabled = true;
+				
+				if(is.dataset.combo && is.dataset.part) {
+					this._clearParts(is.dataset.combo);
+					this.comboParts.push({"part":is.dataset.part, "combo":is.dataset.combo});
+					document.querySelector(`.js-input-${is.dataset.combo}`).disabled = true;
+				}
 			}
 		}
 		
@@ -1041,7 +1011,7 @@
 			}
 		}
 		
-		_loopThroughInput() {console.log('_loopThroughInput');
+		_loopThroughInput() {
 			const is = this.inputs;
 			
 			this._resetWordTagTally();
@@ -1210,6 +1180,28 @@
 			}
 		}
 		
+		_clearWordTag(part) {
+			if(document.querySelector(`.js-wt-${part}`)) {
+				document.querySelector(`.js-wt-${part}`).innerHTML = "";
+			}
+		}
+		
+		_clearParts(part) {
+			if(part && part in this.inputs) {
+				const is = this.inputs[part];
+				
+				is.value = "";
+				is.title = "";
+				
+				for(let k in is.dataset) {
+					Object.assign(input.dataset, document.createElement('input').dataset);
+				}
+				
+				this._clearSkillTrait(part);
+				this._clearWordTag(part);
+			}
+		}
+		
 		_displayWordTags(o) {
 			if(!(o && o.dataset.part && o.dataset.wt)) {
 				return false;
@@ -1232,157 +1224,11 @@
 			
 			return true;
 		}
-		
-		_clearWordTag(part) {
-			if(document.querySelector(`.js-wt-${part}`)) {
-				document.querySelector(`.js-wt-${part}`).innerHTML = "";
-			}
-		}
-		
-		//old
-		_generateOptions() {
-			const ss = this.selects;
-		
-			if(mobileSuits && Array.isArray(mobileSuits)) {
-				mobileSuits.forEach((ms) => {
-					if("parts" in ms && Array.isArray(ms.parts)) {
-						ms.parts.forEach((p) => {
-							const o = document.createElement('option');
-							
-							o.text = `[${ms.attribute.charAt(0)}] ${ms.name} ${"name" in p ? " ("+p.name+")" : ""}`;
-							o.dataset["attribute"] = ms.attribute;
-							
-							for(let k in p) {
-								if(p.hasOwnProperty(k)) {
-									o.dataset[k] = p[k] instanceof Object ? JSON.stringify(p[k]) : p[k];
-								}
-							}
-							
-							if(p.part in ss && ss[p.part]) {
-								ss[p.part].appendChild(o);
-							}
-						});
-					}
-				});
-			}
-			
-			if(pilots && Array.isArray(pilots)) {
-				pilots.forEach((p) => {
-					const o = document.createElement('option');
-					
-					o.text = `[${p.attribute.charAt(0)}] ${p.name} (${p.jl})`;
-					o.dataset.part = "pilot";
-					
-					for(let k in p) {
-						if(p.hasOwnProperty(k)) {
-							o.dataset[k] = p[k] instanceof Object ? JSON.stringify(p[k]) : p[k];
-						}
-					}
-					
-					if("pilot" in ss && ss.pilot) {
-						ss.pilot.appendChild(o);
-					}
-				});
-			}
-			
-			if(gears && Array.isArray(gears)) {
-				gears.forEach((g) => {
-					const o = document.createElement('option');
-					
-					o.text = g.name;
-					
-					for(let k in g) {
-						if(g.hasOwnProperty(k)) {
-							o.dataset[k] = g[k];
-						}
-					}
-					
-					if("gear-s1ot1" in ss && ss["gear-s1ot1"]) {
-						ss["gear-s1ot1"].appendChild(o);
-					}
-				});
-			}
-		}
-		
-		_initSelectOnchange() {			
-			const ss = this.selects;
-			
-			for(let k in ss) {
-				if(ss.hasOwnProperty(k)) {
-					ss[k].addEventListener('change', (e) => {
-						this._toggleComboPart(e);
-						this._displaySkillTraits(e);
-						this._loopThroughSelects();
-						this._displayPartsWordTags();
-					});
-				}
-			}
-			
-		}
-		
-		__displaySkillTraits(e) {
-			const s = e.currentTarget,
-				o = this._getSelectedOption(s);
-			let ex, span;
-			
-			if(o && o.dataset.part && o.dataset.ex) {
-				span = document.querySelector(`.js-skill-trait-${o.dataset.part}`),
-				ex = JSON.parse(o.dataset.ex);
-				
-				if(ex.type && ex.name && span) {
-					span.textContent = ex.name;
-				}
-			}
-			else {
-				this._clearSkillTrait(s.dataset.part);
-			}
-		}
-		
-		_loopThroughSelects() {
-			const ss = this.selects;
-			
-			this._resetWordTagTally();
-			this._resetParameters();
-			this._resetAttributesTally();
-			console.log("--------------------");
-			for(let k in ss) {
-				if(ss.hasOwnProperty(k)) {
-					const o = this._getSelectedOption(ss[k]);
-					
-					if(o) {
-						console.log(Object.assign({}, o.dataset));
-						this._tallyWordTags(o);
-						this._calculateParameters(o);
-						this._tallyAttributes(o);
-					}
-				}
-			}
-			this._displayWordTagsTally();
-			this._displayParametersTotal();
-			this._displayAttributesTally();
-		}
-		
-		_getSelectedOption(select) {
-			if(select.options.length) {
-				return select.options[select.selectedIndex];
-			}
-			
-			return false;
-		}
-		
-		_clearParts(part) {
-			if(part && part in this.selects) {
-				const s = this.selects[part];
-				
-				s.selectedIndex = 0;
-				this._clearSkillTrait(part);
-				this._clearWordTag(part);
-			}
-		}
 	}
 	
 	new HTML();
 	(new GBWB_Calculator()).init();
+})();
 </script>
 </body>
 
