@@ -49,8 +49,7 @@
 	
 	.parts {width: 230px;}
 	.parts label {display: inline-block; text-transform:capitalize; width: 30%;}
-	.parts select,
-	.parts input[type=text] {cursor: pointer; display: inline-block; padding: 5px; width: 70%;}
+	.parts input[type=text] {border: 1px solid #bfbfbf, cursor: pointer; display: inline-block; padding: 5px; width: 70%;}
 	
 	.attribute-tally {display:block !important; padding: 0 0 0 35% !important;}
 	
@@ -67,6 +66,7 @@
 	}
 	
 	.alt-bg:nth-of-type(even) {background: #f2f7f4;}
+	.alt-bg--blue:nth-of-type(even) {background: #ebf8ff;}
 	
 	.info__total {
 		font-weight: bold;
@@ -91,7 +91,7 @@
 	}
 	
 	.selected-part {
-		border-color: #ffae00;
+		border: 2px solid #ffae00;
 	}
 </style>
 </head>
@@ -692,7 +692,7 @@
 				return parameters.map((p) => {
 						return {
 							"el":"div",
-							"class":["row", "alt-bg"],
+							"class":["row", "alt-bg--blue"],
 							"children":[
 								{
 									"el":"div",
@@ -760,7 +760,7 @@
 				return msParts.map((p) => {
 					return {
 						"el":"div",
-						"class":["row", "height-50", "js-part-cont"],
+						"class":["row", "alt-bg", "height-50", "js-part-cont"],
 						"children":[
 							{
 								"el":"div", 
