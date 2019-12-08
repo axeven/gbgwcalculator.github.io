@@ -11,10 +11,20 @@
 		font-size: 14px;
 		line-height: 1.6;
 	}
-	h1 {
+	body {
+		margin: 0;
+		padding: 0;
+	}
+	header {
+		display: flex;
+		flex-flow: row nowrap;
 		margin-left: auto;
 		margin-right: auto;
 		width: 1200px;
+	}
+	h1 {
+		display: inline-block;
+		margin-right: 30px;
 	}
 	h3 {
 		background: #4379ba;
@@ -112,18 +122,35 @@
 		border-bottom: 1px solid #ff5c5c;
 		font-size: 12px;
 	}
+	
+	.filters {
+		align-items: center;
+		display: flex;
+		flex-flow: row nowrap;
+	}
+	
+	.filters > * {
+		margin-right: 5px;
+	}
 </style>
 </head>
 
 <body>
-<h1>GBGW Calculator</h1>
+<header>
+	<h1>GBGW Calculator</h1>
+	<div class="filters">
+		<span>Filters</span>
+		<select class="js-filter-wt1"><option></option></select>
+		<select class="js-filter-wt2"><option></option></select>
+	</div>
+</header>
 <div class="container js-container"></div>
 <script>
 (() => {
 	const wordTagActivation = 5;
 	const fullBuff = 0.1;
 	const halfBuff = 0.05;
-	const _wordTags = ["Protag.","Mass P.","Ace Excl.","Amphib.","Commander","Close Combat","Mid-Range","Long-Range","High Mobility","High Firepower","Heavy Armor","Transformer","Gundam Type","Mobile Fighter","Support Type",
+	const wordTagsList = ["Protag.","Mass P.","Ace Excl.","Amphib.","Commander","Close Combat","Mid-Range","Long-Range","High Mobility","High Firepower","Heavy Armor","Transformer","Gundam Type","Mobile Fighter","Support Type",
 		"Federation","Zeon","Zaku Type","GM Type","For Space","For Desert","For Tundra","For Forest","For Urban Area","For Base","For Computers"];
 	const wordTags = [
 		{"name":"Protag.", "parameters":["ma"], "multiplier": fullBuff},
@@ -874,6 +901,11 @@
 			this.partSkillTraitCont = document.querySelector('.js-part-skill-trait');
 			
 			this.partCont = {};
+			
+			this.filters = {
+				wt1: '',
+				wt2: '',
+			}
 		}
 		
 		init() {
@@ -890,6 +922,10 @@
 			
 			this._parseParts(); console.log('this.parts', this.parts);
 			this._initInputClick();
+			
+			this._initFilters();
+			
+			this.currentPart = "";
 		}
 		
 		_parseParts() {
@@ -960,6 +996,7 @@
 			for(let k in is) {
 				if(is.hasOwnProperty(k) && is[k]) {
 					is[k].addEventListener('click', (e) => {
+						this.currentPart = k;
 						this._setSelectedPart(k);
 						this._showPartList(k);
 						this._displayPartInfo(e.currentTarget);
@@ -968,12 +1005,30 @@
 			}
 		}
 		
+		_checkFilter(o) {
+			const f = this.filters;
+			
+			if(this.filters.wt1 && o.wt && o.wt.indexOf(this.filters.wt1) < 0) {
+				return false;
+			}
+			
+			if(this.filters.wt2 && o.wt && o.wt.indexOf(this.filters.wt2) < 0) {
+				return false;
+			}
+			
+			return true;
+		}
+		
 		_showPartList(part) {
 			if(this.partList && mobileSuits && Array.isArray(mobileSuits)) {
 				this.partList.innerHTML = "";
 				
 				if(this.parts && this.parts[part] && Array.isArray(this.parts[part])) {
 					this.parts[part].forEach((p) => {
+						if(!this._checkFilter(p)) {
+							return;
+						}
+					
 						const el = document.createElement('div');
 						
 						el.textContent = el.dataset.partname = `${p.attribute ? '['+ p.attribute.charAt(0) +']' : ''} ${p.ms ? p.ms + (p.name ? ' ('+p.name+')' : '') : p.name }`;
@@ -1268,6 +1323,48 @@
 				this._clearSkillTrait(part);
 				this._clearWordTag(part);
 			}
+		}
+		
+		_initFilters() {
+			const wt1 = document.querySelector('.js-filter-wt1'),
+				wt2 = document.querySelector('.js-filter-wt2');
+				
+			if(Array.isArray(wordTagsList)) {
+				wordTagsList.sort();
+				wordTagsList.forEach((wt) => {
+					const o = document.createElement('option');
+					
+					o.value = wt;
+					o.text = wt;
+					wt2.appendChild(o.cloneNode(true));
+					wt1.appendChild(o);
+					
+				});
+			}
+			
+			for(let k in this.filters) {
+				if(this.filters.hasOwnProperty(k)) {
+					document.querySelector(`.js-filter-${k}`).addEventListener('change', (ev) => {
+						this.filters[k] = ev.currentTarget.value;
+						if(this.currentPart) {
+							this._showPartList(this.currentPart);
+						}
+						console.log('this.filters', this.filters);
+					});
+				}
+			}
+			
+			/*wt1.addEventListener('change', (ev) => {
+				this.filters.wt1 = ev.currentTarget.value;
+				this._showPartList(part);
+				console.log('this.filters', this.filters);
+			});
+			
+			wt2.addEventListener('change', (ev) => {
+				this.filters.wt2 = ev.currentTarget.value;
+				this._showPartList(part);
+				console.log('this.filters', this.filters);
+			});*/
 		}
 		
 		_displayPartInfo(o) {
