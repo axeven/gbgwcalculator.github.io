@@ -68,9 +68,13 @@
 	
 	.alt-bg:nth-of-type(even) {background: #f2f7f4;}
 	
+	.info__total {
+		font-weight: bold;
+	}
+	
 	.part-list{width: 300px;}
 	.part-list__item {
-		border-bottom: 1px solid #f2f7f4;
+		border-bottom: 1px solid #bfbfbf;
 		cursor: pointer;
 		padding: 8px 5px;
 	}
@@ -81,7 +85,7 @@
 	}
 	
 	.part-list__list {
-		border: 1px solid #f2f7f4;
+		border: 1px solid #bfbfbf;
 		height: 520px;
 		overflow-y: scroll;
 	}
@@ -694,7 +698,7 @@
 									"el":"div",
 									"children":[
 										{"el":"label", "text":p.name},
-										{"el":"span", "class":["float-right", ("js-total-"+p.slug)], "text":0}
+										{"el":"span", "class":["info__total", "float-right", ("js-total-"+p.slug)], "text":0}
 									]
 								}
 							]
