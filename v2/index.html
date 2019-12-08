@@ -11,6 +11,11 @@
 		font-size: 14px;
 		line-height: 1.6;
 	}
+	h1 {
+		margin-left: auto;
+		margin-right: auto;
+		width: 1200px;
+	}
 	h3 {
 		background: #4379ba;
 		color: #fff;
@@ -22,24 +27,27 @@
 	
 	.activatedWT {color: #206cc9;}
 	
-	.container {display: flex; flex-flow: row nowrap;}
+	.container {
+		display: flex;
+		flex-flow: row nowrap;
+		margin: 0 auto;
+		width: 1200px;
+	}
 	.container > * {flex-shrink: 0;}
 	.info,
 	.word-tags,
 	.part-trait-ex-skill,
-	.parts,
-	.part-list {margin-right:10px;}
+	.parts {margin-right:10px;}
 	
 	.info,
-	.word-tags,
-	.part-list {width: 180px;}
+	.word-tags {width: 170px;}
 	
-	.word-tags span,
-	.part-trait-ex-skill span {font-size: 12px;}
+	.word-tags span {font-size: 12px;}
 	
-	.part-trait-ex-skill {width: 350px;}
+	.part-trait-ex-skill {width: 290px;}
+	.part-trait-ex-skill__text{font-size: 11px;}
 	
-	.parts {width: 300px;}
+	.parts {width: 230px;}
 	.parts label {display: inline-block; text-transform:capitalize; width: 30%;}
 	.parts select,
 	.parts input[type=text] {cursor: pointer; display: inline-block; padding: 5px; width: 70%;}
@@ -72,7 +80,7 @@
 	}
 	
 	.part-list__list {
-		height:600px;
+		height: 520px;
 		overflow-y: scroll;
 	}
 	
@@ -647,9 +655,9 @@
 		
 		_generate() {
 			const elements = [
-					this._info(),
 					this._wordTags(),
 					this._partTrait(),
+					this._info(),
 					this._parts(),
 					this._partList()
 				];
@@ -720,7 +728,7 @@
 						return {
 							"el":"div",
 							"class":["row", "height-50", "alt-bg"],
-							"children":[{"el":"span", "class":("js-skill-trait-"+p)}]
+							"children":[{"el":"span", "class":["part-trait-ex-skill__text", ("js-skill-trait-"+p)]}]
 						};
 					})
 				]
@@ -751,7 +759,7 @@
 							{
 								"el":"div", 
 								"children":[
-									{"el":"label", "text":p},
+									{"el":"label", "text":(p != 'backpack' ? p : 'back')},
 									{"el":"input", "type":"text", "class":("js-input-"+p), "readOnly": true},
 								]
 							}
