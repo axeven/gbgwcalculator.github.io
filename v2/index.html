@@ -37,7 +37,8 @@
 	.info,
 	.word-tags,
 	.part-trait-ex-skill,
-	.parts {margin-right:10px;}
+	.parts,
+	.part-list {margin-right:10px;}
 	
 	.info,
 	.word-tags {width: 170px;}
@@ -67,16 +68,18 @@
 	
 	.alt-bg:nth-of-type(even) {background: #f2f7f4;}
 	.alt-bg--blue:nth-of-type(even) {background: #ebf8ff;}
+	.alt-bg--red:nth-of-type(even) {background: #fce1e1;}
 	
 	.info__total {
 		font-weight: bold;
 	}
 	
-	.part-list{width: 300px;}
+	.part-list{width: 290px;}
 	.part-list__item {
 		border-bottom: 1px solid #bfbfbf;
 		cursor: pointer;
 		padding: 8px 5px;
+		user-select: none;
 	}
 	
 	.part-list__item:hover {
@@ -90,8 +93,24 @@
 		overflow-y: scroll;
 	}
 	
-	.selected-part {
-		border: 2px solid #ffae00 !important;
+	.selected-part {background: #ffae00 !important;}
+	.selected-part label {color: #fff;}
+	.selected-part input {border: 2px solid #ffae00 !important;}
+	
+	.active-word-tag-list {min-height: 67px;}
+	
+	.bg-red {background: #ff5c5c;}
+	
+	.part-name {
+		background: #f71e1e;
+		font-size: 12px
+	}
+	
+	.part-word-tag-list {min-height: 44px;}
+	
+	.part-skill-trait {
+		border-bottom: 1px solid #ff5c5c;
+		font-size: 12px;
 	}
 </style>
 </head>
@@ -682,23 +701,38 @@
 						...this._paramChildren(),
 						{"el": "h3", "text":"Active Word Tag"},
 						{"el": "div", "class":["row", "active-word-tag-list", "js-active-wt"]},
+						{"el": "h3", "class":["part-name", "js-part-name"]},
+						{"el": "h3", "text":"Parameters", "class":"bg-red"},
+						...this._paramChildren('part'),
+						{"el": "h3", "text":"Word Tag", "class":"bg-red"},
+						{"el": "div", "class":["row", "part-word-tag-list", "js-part-wt"]},
+						{"el": "h3", "text":"Traits / EX Skill", "class":"bg-red"},
+						{"el": "div", "class":["row", "part-skill-trait", "js-part-skill-trait"]},
 						
 				]
 			};
 		}
 		
-		_paramChildren() {
+		_paramChildren(type) {console.log('type', type);
 			if(Array.isArray(parameters)) {
+				let jsClass = "js-total-",
+					altBGClass = "alt-bg--blue";
+				
+				if(type && type == 'part') {
+					jsClass = "js-part-total-";
+					altBGClass = "alt-bg--red";
+				}
+			
 				return parameters.map((p) => {
 						return {
 							"el":"div",
-							"class":["row", "alt-bg--blue"],
+							"class":["row", altBGClass],
 							"children":[
 								{
 									"el":"div",
 									"children":[
 										{"el":"label", "text":p.name},
-										{"el":"span", "class":["info__total", "float-right", ("js-total-"+p.slug)], "text":0}
+										{"el":"span", "class":["info__total", "float-right", (jsClass+p.slug)], "text":0}
 									]
 								}
 							]
@@ -833,12 +867,25 @@
 			this.parts = {};
 			
 			this.partList = document.querySelector('.js-part-list');
+			
+			this.partNameCont = document.querySelector('.js-part-name');
+			this.partParamCont = {};
+			this.partWTCont = document.querySelector('.js-part-wt');
+			this.partSkillTraitCont = document.querySelector('.js-part-skill-trait');
+			
+			this.partCont = {};
 		}
 		
 		init() {
+			parameters.forEach((p) => {
+				this.partParamCont[p.slug] = document.querySelector(`.js-part-total-${p.slug}`);
+			});
+		
 			parts.forEach((part) => {
 				this.inputs[part] = document.querySelector(`.js-input-${part}`);
 				this.parts[part] = [];
+				
+				this.partCont[part] = this.inputs[part].closest('.js-part-cont');
 			});
 			
 			this._parseParts(); console.log('this.parts', this.parts);
@@ -915,6 +962,7 @@
 					is[k].addEventListener('click', (e) => {
 						this._setSelectedPart(k);
 						this._showPartList(k);
+						this._displayPartInfo(e.currentTarget);
 					});
 				}
 			}
@@ -946,9 +994,15 @@
 								input.value = input.title = el.dataset.partname;
 								clearDataset(input);
 								Object.assign(input.dataset, el.dataset);
+								
+								this._displayPartInfo(el);
 							}
 							
 							this._calculate(elp);
+						});
+						
+						el.addEventListener('mouseover', (ev) => {
+							this._displayPartInfo(ev.currentTarget);
 						});
 						
 						this.partList.appendChild(el);
@@ -957,15 +1011,15 @@
 			}
 		}
 		
-		_setSelectedPart(part) {
+		_setSelectedPart(part) {console.log('_setSelectedPart');
 			const classSelectedPart = 'selected-part';
 			
 			Array.prototype.slice.call(document.querySelectorAll('.selected-part')).forEach((el) => {
 				el.classList.remove(classSelectedPart);
 			});
 			
-			if(this.inputs[part]) {
-				this.inputs[part].classList.add(classSelectedPart);
+			if(this.partCont[part]) {
+				this.partCont[part].classList.add(classSelectedPart);
 			}
 		}
 		
@@ -1213,6 +1267,30 @@
 				
 				this._clearSkillTrait(part);
 				this._clearWordTag(part);
+			}
+		}
+		
+		_displayPartInfo(o) {
+			if(o && o.dataset.part && msParts.indexOf(o.dataset.part) > -1) {
+				const wt = JSON.parse(o.dataset.wt),
+					ex = JSON.parse(o.dataset.ex);
+
+				this.partNameCont.textContent = o.dataset.partname ? o.dataset.partname : "";
+				
+				parameters.forEach((p) => {
+					this.partParamCont[p.slug].textContent = o.dataset[p.slug] ? o.dataset[p.slug] : 0;
+				});
+				
+				if(Array.isArray(wt)) {
+					this.partWTCont.innerHTML = wt.reduce((v, t) => {
+						return v + '<div>' + t + '</div>';
+					}, "");
+				}
+				else {
+					this.partWTCont.innerHTML = "";
+				}
+				
+				this.partSkillTraitCont.textContent = (ex.type && ex.name) ? ex.name : "";
 			}
 		}
 		
