@@ -190,7 +190,7 @@
 	const parts = [...msParts, ...gearParts];
 	const jobLicenses = [
 		{"name":"All-Rounder"},
-		{"name":"Defender", "parameters":["a", "md", "sd"], "multiplier": fullBuff},
+		{"name":"Defender", "parameters":["a", "md", "sd"], "multiplier": halfBuff},
 		{"name":"In-Fighter", "parameters":["ma"], "multiplier": fullBuff},
 		{"name":"Out-Fighter", "parameters":["ma"], "multiplier": fullBuff},
 		{"name":"Middle-Shooter", "parameters":["sa"], "multiplier": fullBuff},
@@ -348,6 +348,21 @@
 				{"part":"melee", "a":1181, "ma":2380, "sa":0, "md":0, "sd":384, "br":417, "pr":213, "wt":["Gundam Type", "Close Combat"], "ex":{"type":"Traits", "name":"With Speed Attribute (self) Initial EX Skill Charge boosted 6-20%"}, "name":"GN Sword", "type":"Physical"}, 
 				{"part":"range", "a":1181, "ma":0, "sa":3177, "md":0, "sd":0, "br":611, "pr":213, "wt":["Gundam Type", "Close Combat"], "ex":{"type":"Traits", "name":"When Armor is 40% or more Enemy Strong Melee Power Reduced 17-30%"}, "name":"GN Sword Rifle Mode", "type":"Beam"}, 
 				{"part":"shield", "a":796, "ma":0, "sa":0, "md":2380, "sd":796, "br":0, "pr":1028, "wt":["Gundam Type", "Close Combat"], "ex":{"type":"Traits", "name":"When Armor is 40% or more EX Skill DMG output boosted by 8-35"}, "name":"GN Shield"},
+			]
+		},
+		{
+			"name":"Gundam GP03 [Stamen]",
+			"attribute":"Technique",
+			"rarity": 4,
+			"sokai": 0,
+			"parts":[
+				{"part":"head", "a":1180, "ma":383, "sa":796, "md":1180, "sd":796, "br":212, "pr":417, "wt":["Protag.", "Federation"], "ex":{"type":"Part Traits", "name":"With Technique attribute (self) EX Skill piercing boosted 10-28%"}},
+				{"part":"torso", "a":1976, "ma":796, "sa":383, "md":796, "sd":796, "br":0, "pr":610, "wt":["Protag.", "Federation"], "ex":{"type":"EX Skill", "name":"Mega-Beam Cannon [Dendrobium]"}},
+				{"part":"arms", "a":796, "ma":2781, "sa":0, "md":1180, "sd":1180, "br":0, "pr":0, "wt":["Protag.", "Federation"], "ex":{"type":"Part Traits", "name":"With Technique attribute (self) Strong Melee CRIT raate boosted 10-30%"}},
+				{"part":"legs", "a":1180, "ma":383, "sa":383, "md":1180, "sd":796, "br":417, "pr":610, "wt":["Protag.", "Mid-Range"], "ex":{"type":"Part Traits", "name":"With Technique attribute (self) Shooting CRIT rate boosted 10-30%"}},
+				{"part":"backpack", "a":1180, "ma":383, "sa":383, "md":1180, "sd":796, "br":417, "pr":610, "wt":["Protag.", "Mid-Range"], "ex":{"type":"EX Skill", "name":"Rapid Thrust"}},
+				{"part":"range", "a":1181, "ma":0, "sa":2378, "md":0, "sd":0, "br":212, "pr":610, "wt":["Protag.", "Mid-Range"], "ex":{"type":"EX Skill", "name":"Dual Cascade"}, "name":"Folding Bazooka", "type":"Physical"},
+				{"part":"shield", "a":1181, "ma":0, "sa":0, "md":1601, "sd":796, "br":212, "pr":805, "wt":["Protag.", "Federation"], "ex":{"type":"Part Traits", "name":"With Technique attribute (self) Shooting DMG taken reduced 8-35"}, "name":"Folding Shield"},
 			]
 		},
 		{
@@ -539,7 +554,7 @@
 			]
 		},
 		{
-			"name":"Strike Nior",
+			"name":"Strike Noir",
 			"attribute":"Speed",
 			"rarity":3,
 			"sokai": 0,
@@ -1076,7 +1091,7 @@
 					
 						const el = document.createElement('div');
 						
-						el.textContent = el.dataset.partname = `${p.attribute ? '['+ p.attribute.charAt(0) +']' : ''} ${p.ms ? p.ms + (p.name ? ' ('+p.name+')' : '') : p.name }`;
+						el.textContent = el.dataset.partname = `${p.attribute ? '['+ p.attribute.charAt(0) +']' : ''} ${p.ms ? p.ms + (p.name ? ' ('+p.name+')' : '') : p.name }${p.jl ? ' (' + p.jl + ')' : ''}`;
 						el.classList.add('part-list__item');
 						
 						for(let k in p) {
