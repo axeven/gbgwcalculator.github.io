@@ -123,13 +123,15 @@
 		font-size: 12px;
 	}
 	
-	.filters {
+	.filters,
+	.sort {
 		align-items: center;
 		display: flex;
 		flex-flow: row nowrap;
 	}
 	
-	.filters > * {
+	.filters > *,
+	.sort > *{
 		margin-right: 5px;
 	}
 </style>
@@ -142,6 +144,10 @@
 		<span>Filters</span>
 		<select class="js-filter-wt1"><option></option></select>
 		<select class="js-filter-wt2"><option></option></select>
+	</div>
+	<div class="sort">
+		<span>Sort</span>
+		<select class="js-sort-param"><option></option></select>
 	</div>
 </header>
 <div class="container js-container"></div>
@@ -1221,6 +1227,9 @@
 				wt1: '',
 				wt2: '',
 			}
+			
+			this.sort = '';
+			this.currentPart = "";
 		}
 		
 		init() {
@@ -1239,8 +1248,7 @@
 			this._initInputClick();
 			
 			this._initFilters();
-			
-			this.currentPart = "";
+			this._initSort();
 		}
 		
 		_parseParts() {
@@ -1339,7 +1347,16 @@
 				this.partList.innerHTML = "";
 				
 				if(this.parts && this.parts[part] && Array.isArray(this.parts[part])) {
-					this.parts[part].forEach((p) => {
+					const pl = [...this.parts[part]],
+						sort = this.sort;
+					
+					if(sort && gearParts.indexOf(part) < 0) {
+						pl.sort((a, b) => {
+							return a[sort] > b[sort] ? -1 : 1;
+						})
+					}
+					
+					pl.forEach((p) => {
 						if(!this._checkFilter(p)) {
 							return;
 						}
@@ -1670,18 +1687,27 @@
 					});
 				}
 			}
+		}
+		
+		_initSort() {
+			const sort = document.querySelector('.js-sort-param');
 			
-			/*wt1.addEventListener('change', (ev) => {
-				this.filters.wt1 = ev.currentTarget.value;
-				this._showPartList(part);
-				console.log('this.filters', this.filters);
-			});
-			
-			wt2.addEventListener('change', (ev) => {
-				this.filters.wt2 = ev.currentTarget.value;
-				this._showPartList(part);
-				console.log('this.filters', this.filters);
-			});*/
+			if(Array.isArray(parameters)) {
+				parameters.forEach((p) => {
+					const o = document.createElement('option');
+					
+					o.value = p.slug;
+					o.text = p.name;
+					sort.appendChild(o);
+				});
+				
+				sort.addEventListener('change', (ev) => {
+					this.sort = ev.currentTarget.value;
+					if(this.currentPart) {
+						this._showPartList(this.currentPart);
+					}
+				});
+			}
 		}
 		
 		_displayPartInfo(o) {
