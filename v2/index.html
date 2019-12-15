@@ -737,6 +737,8 @@
 				{"part":"arms", "a":558, "ma":1993, "sa":891, "md":292, "sd":292, "br":0, "pr":0, "wt":["Ace Excl.", "Heavy Armor"], "ex":{"type":"EX Skill", "name":"IF bunker"}},
 				{"part":"legs", "a":558, "ma":558, "sa":292, "md":558, "sd":558, "br":302, "pr":430, "wt":["Ace Excl.", "Mid-Range"], "ex":{"type":"EX Skill", "name":"Flight Unit"}},
 				{"part":"backpack", "a":558, "ma":558, "sa":292, "md":558, "sd":558, "br":430, "pr":302, "wt":["Ace Excl.", "For Urban Area"], "ex":{"type":"Part Traits", "name":"When Armor is 60% or more EX Skill piercing boosted 22%"}},
+				{"part":"melee", "a":292, "ma":2593, "sa":0, "md":0, "sd":0, "br":430, "pr":302, "wt":["Ace Excl.", "For Urban Area"], "ex":{"type":"EX Skill", "name":"Storm Edge"}, "name":"Heat Fan", "type":"Physical"},
+				{"part":"range", "a":292, "ma":0, "sa":2593, "md":0, "sd":0, "br":302, "pr":127, "wt":["Ace Excl.", "Mid-Range"], "ex":{"type":"Part Traits", "name":"When Armor is 60% or more Shooting DMG output boosted by 6-20"}, "name":"Hand Beam Gun", "type":"Beam"},
 			]
 		},
 		{
@@ -866,22 +868,36 @@
 				{"part":"melee", "a":889, "ma":1701, "sa":0, "md":0, "sd":0, "br":428, "pr":302, "wt":["Gundam Type", "For Space"], "ex":{"type":"Part Traits", "name":"3-12% chance of attcks penetrating super armor"}, "name":"Fragarach 3-Beam Blade", "type":"Beam"},
 			]
 		},
-		/*{
+		{
 			"name":"Strike Rouge [IWSP]",
 			"attribute":"Speed",
 			"rarity":3,
 			"sokai": 0,
 			"parts":[
 				{"part":"head", "a":558, "ma":291, "sa":1692, "md":558, "sd":558, "br":302, "pr":0, "wt":["Commander", "For Base"], "ex":{"type":"EX Skill", "name":"Igelstellung"}},
-				{"part":"torso", "a":1140, "ma":290, "sa":291, "md":889, "sd":889, "br":428, "pr":0, "wt":["Commander", "For Base"], "ex":{"type":"Part Traits", "name":"With Speed attribute (self) Enemy Ex Skill penetration reduced 8-22%"}},
-				{"part":"arms", "a":0, "ma":0, "sa":0, "md":0, "sd":0, "br":0, "pr":0, "wt":["", ""], "ex":{"type":"", "name":""}},
-				{"part":"legs", "a":0, "ma":0, "sa":0, "md":0, "sd":0, "br":0, "pr":0, "wt":["", ""], "ex":{"type":"", "name":""}},
-				{"part":"backpack", "a":0, "ma":0, "sa":0, "md":0, "sd":0, "br":0, "pr":0, "wt":["", ""], "ex":{"type":"", "name":""}},
-				{"part":"melee", "a":0, "ma":0, "sa":0, "md":0, "sd":0, "br":0, "pr":0, "wt":["", ""], "ex":{"type":"", "name":""}, "name":"", "type":""},
-				{"part":"range", "a":0, "ma":0, "sa":0, "md":0, "sd":0, "br":0, "pr":0, "wt":["", ""], "ex":{"type":"", "name":""}, "name":"", "type":""},
-				{"part":"shield", "a":0, "ma":0, "sa":0, "md":0, "sd":0, "br":0, "pr":0, "wt":["", ""], "ex":{"type":"", "name":""}, "name":""},
+				{"part":"torso", "a":1140, "ma":291, "sa":291, "md":889, "sd":889, "br":428, "pr":0, "wt":["Commander", "For Base"], "ex":{"type":"Part Traits", "name":"With Speed attribute (self) Enemy Ex Skill penetration reduced 8-22%"}},
+				{"part":"arms", "a":558, "ma":1698, "sa":291, "md":889, "sd":889, "br":0, "pr":0, "wt":["Commander", "For Base"], "ex":{"type":"Part Traits", "name":"When Armor is 60% or more Melee CRIT rate boosted 8-17%"}},
+				{"part":"legs", "a":558, "ma":291, "sa":291, "md":889, "sd":889, "br":428, "pr":302, "wt":["Commander", "Gundam Type"], "ex":{"type":"EX Skill", "name":"Rapid Thrust"}},
+				{"part":"backpack", "a":558, "ma":291, "sa":291, "md":889, "sd":889, "br":428, "pr":302, "wt":["Commander", "Gundam Type"], "ex":{"type":"EX Skill", "name":"Railgun & Single-Mounted Cannon"}},
+				{"part":"melee", "a":558, "ma":2297, "sa":0, "md":0, "sd":0, "br":428, "pr":126, "wt":["Commander", "For Base"], "ex":{"type":"Part Traits", "name":"With Speed attribute (Self) Melee DGM output boosted 6-20"}, "name":"9.1m Experimental Anti-Ship Sword", "type":"Physical"},
+				{"part":"range", "a":1140, "ma":0, "sa":2297, "md":1140, "sd":1140, "br":1016, "pr":302, "wt":["Commander", "Gundam Type"], "ex":{"type":"EX Skill", "name":"Dual Shredder"}, "name":"Combined Shield", "type":"Physical", "combo":"shield"},
+				{"part":"shield", "a":558, "ma":0, "sa":0, "md":1140, "sd":1140, "br":558, "pr":126, "wt":["Commander", "For Base"], "ex":{"type":"Part Traits", "name":"Out-Fighter Job Shooting DMG taken reduced by 6-20"}, "name":"Anti-Beam Shield"},
 			]
-		},*/
+		},
+		{
+			"name":"Sword Strike Gundam",
+			"attribute":"Technique",
+			"rarity": 3,
+			"sokai": 0,
+			"parts":[
+				{"part":"head", "a":558, "ma":292, "sa":1993, "md":292, "sd":292, "br":302, "pr":127, "wt":["High Firepower", "Close Combat"], "ex":{"type":"EX Skill", "name":"Protection Hack b"}},
+				{"part":"torso", "a":1144, "ma":558, "sa":558, "md":558, "sd":558, "br":430, "pr":0, "wt":["High Firepower", "Close Combat"], "ex":{"type":"Part Traits", "name":"Against a large enemy Enemy Strong Melee power reduced 8-25%"}},
+				{"part":"arms", "a":1144, "ma":2593, "sa":1144, "md":891, "sd":891, "br":718, "pr":0, "wt":["High Firepower", "Close Combat"], "ex":{"type":"EX Skill", "name":"Block Stance y"}, "combo":"shield"},
+				{"part":"legs", "a":558, "ma":558, "sa":292, "md":558, "sd":558, "br":302, "pr":430, "wt":["High Firepower", "Gundam Type"], "ex":{"type":"Part Traits", "name":"Against a large enemy Melee CRIT rate boosted 8-17%"}},
+				{"part":"backpack", "a":558, "ma":558, "sa":292, "md":558, "sd":558, "br":430, "pr":302, "wt":["High Firepower", "Gundam Type"], "ex":{"type":"EX Skill", "name":"Schwert Gewehr"}},
+				{"part":"melee", "a":292, "ma":2593, "sa":0, "md":0, "sd":0, "br":430, "pr":302, "wt":["High Firepower", "Close Combat"], "ex":{"type":"EX Skill", "name":"Maelstrom"}, "name":"Schwert Gewehr", "type":"Beam"},
+			]
+		},
 		{
 			"name":"Tallgeese [Endless Waltz Ver.]",
 			"attribute":"Speed",
@@ -990,13 +1006,14 @@
 		{"name":"Amuro Ray", "jl":"Long-Shooter", "attribute":"Technique", "rarity":4, "a":796, "ma":384, "sa":1602, "md":796, "sd":796, "br":213, "pr":417, "wt":["Gundam Type", "Federation"], "ex":{"type":"Part Traits", "name":"Beam ranged weapon reload speed boosted 20%"}},
 		{"name":"Athrun Zala", "jl":"In-Fighter", "attribute":"Speed", "rarity":4, "a":799, "ma":1182, "sa":384, "md":799, "sd":1182, "br":612, "pr":213, "wt":["Transformer", "Mid-Range"], "ex":{"type":"Part Traits", "name":"20% chance to prevent vernier consumption when stepping"}},
 		{"name":"Bernard Wiseman", "jl":"In-Fighter", "attribute":"Technique", "rarity":4, "a":795, "ma":795, "sa":795, "md":795, "sd":795, "br":211, "pr":609, "wt":["High Mobility", "Zaku Type"], "ex":{"type":"Part Traits", "name":"When Armor is 60% or less Recover 10 Armor gradually"}},
+		{"name":"Cagalli Yula Athha", "jl":"Middle-Shooter", "attribute":"Speed", "rarity":3, "a":559, "ma":294, "sa":893, "md":893, "sd":559, "br":432, "pr":129, "wt":["For Base", "Mid-Range"], "ex":{"type":"Part Traits", "name":"With Speed attribute (self) Projectile speed boosted 5-14%"}},
 		{"name":"Carozzo Ronah", "jl":"Defender", "attribute":"Power", "rarity":4, "a":799, "ma":384, "sa":384, "md":799, "sd":799, "br":614, "pr":614, "wt":["High Firepower", "For Computers"], "ex":{"type":"Part Traits", "name":"With Power attribute (self) Debuff EX Skill effect up 15%"}},
 		{"name":"Chang Wufei", "jl":"In-Fighter", "attribute":"Technique", "rarity":4, "a":1181, "ma":1181, "sa":384, "md":796, "sd":796, "br":417, "pr":417, "wt":["Close Combat", "Ace Excl."], "ex":{"type":"Part Traits", "name":"With Technique attribute (self) Strong Melee DMG output boosted by 8-35"}},
 		{"name":"Chloe Croce", "jl":"Out-Fighter", "attribute":"Speed", "rarity":3, "a":559, "ma":1144, "sa":292, "md":559, "sd":559, "br":303, "pr":303, "wt":["High Mobility", "For Forest"], "ex":{"type":"Part Traits", "name":"With Speed attribute (self) Vernier consumption reduced 15%"}},		
 		{"name":"Dearka Elsman", "jl":"Long-Shooter", "attribute":"Power", "rarity":3, "a":558, "ma":291, "sa":1142, "md":558, "sd":558, "br":302, "pr":126, "wt":["Long-Range", "Support Type"], "ex":{"type":"Part Traits", "name":"With Power attribute (self) Shot guidance boosted 5-14%"}},
 		{"name":"Duo Maxwell", "jl":"In-Fighter", "attribute":"Speed", "rarity":4, "a":796, "ma":1602, "sa":384, "md":796, "sd":796, "br":213, "pr":417, "wt":["Close Combat", "For Forest"], "ex":{"type":"Part Traits", "name":"With Speed attribute (self) 8-20% chance to not recoil"}},
 		{"name":"Fa Yuiry", "jl":"Supporter", "attribute":"Technique", "rarity":3, "a":891, "ma":292, "sa":891, "md":558, "sd":558, "br":302, "pr":302, "wt":["Transformer", "Support Type"], "ex":{"type":"Part Traits", "name":"Support Job EX Skill recovery boosted 16%"}},
-		{"name":"Garrod Ran", "jl":"Out-Fighter", "attribute":"Speed", "rarity":4, "a":797, "ma":1181, "sa":1181, "md":797, "sd":797, "br":213, "pr":418, "wt":["Protag.", "Close Combat"], "ex":{"type":"Part Traits", "name":"When Armor is 80% or less All power boosted 30%"}},
+		{"name":"Garrod Ran", "jl":"Out-Fighter", "attribute":"Speed", "rarity":4, "a":797, "ma":1181, "sa":1181, "md":797, "sd":797, "br":213, "pr":418, "wt":["Protag.", "Close Combat"], "ex":{"type":"Part Traits", "name":"When Armor is 80% or less All power boosted 17-30%"}},
 		{"name":"George de Sand", "jl":"Out-Fighter", "attribute":"Technique", "rarity":4, "a":795, "ma":382, "sa":382, "md":1179, "sd":1179, "br":609, "pr":211, "wt":["Mobile Fighter", "Long-Range"], "ex":{"type":"Part Traits", "name":"With Technique attribute (self) EX Skill CD reduced 20%"}},
 		{"name":"Haman Karn", "jl":"Long-Shooter", "attribute":"Power", "rarity":4, "a":796, "ma":384, "sa":1602, "md":796, "sd":796, "br":417, "pr":213, "wt":["Commander", "Zeon"], "ex":{"type":"Part Traits", "name":"With Power attribute (self) Job Gauge increase boosted 17%"}},
 		{"name":"Harry Ord", "jl":"Defender", "attribute":"Speed", "rarity":3, "a":558, "ma":1142, "sa":291, "md":558, "sd":558, "br":302, "pr":126, "wt":["Ace Excl.", "Close Combat"], "ex":{"type":"Part Traits", "name":"Beam ranged weapon magazine boosted 9-20%"}},
