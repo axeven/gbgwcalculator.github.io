@@ -1585,10 +1585,18 @@
 					for(let i = 0; i < this.comboParts.length; i++) {
 						const cp = this.comboParts[i];
 						
-						if(cp.part && cp.combo && is.dataset.part && cp.part == is.dataset.part) {
-							document.querySelector(`.js-input-${cp.combo}`).disabled = false;
-							this.comboParts.splice(i, 1);
-							break;
+						if(cp.part && cp.combo && is.dataset.part) {
+							if(cp.part == is.dataset.part) {
+								document.querySelector(`.js-input-${cp.combo}`).disabled = false;
+								this.comboParts.splice(i, 1);
+								break;
+							}
+							else if(is.dataset.combo && is.dataset.combo == cp.combo) {
+								this._clearParts(cp.part);
+								document.querySelector(`.js-input-${cp.combo}`).disabled = false;
+								this.comboParts.splice(i, 1);
+								break;
+							}
 						}
 					}
 				}
@@ -1808,9 +1816,8 @@
 				is.value = "";
 				is.title = "";
 				
-				for(let k in is.dataset) {
-					Object.assign(input.dataset, document.createElement('input').dataset);
-				}
+				clearDataset(is);
+				Object.assign(is.dataset, document.createElement('input').dataset);
 				
 				this._clearSkillTrait(part);
 				this._clearWordTag(part);
