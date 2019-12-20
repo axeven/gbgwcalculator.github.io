@@ -124,6 +124,7 @@
 	}
 	
 	.filters,
+	.map-bonus,
 	.sort {
 		align-items: center;
 		display: flex;
@@ -133,6 +134,10 @@
 	.filters > *,
 	.sort > *{
 		margin-right: 5px;
+	}
+	
+	.map-bonus {
+		padding-left: 20px;
 	}
 </style>
 </head>
@@ -149,6 +154,9 @@
 		<span>Sort</span>
 		<select class="js-sort-param"><option></option></select>
 	</div>
+	<div class="map-bonus">
+		Apply map bonus <input class="js-apply-map-bonus" type="checkbox" />
+	</div>
 </header>
 <div class="container js-container"></div>
 <script>
@@ -156,8 +164,11 @@
 	const wordTagActivation = 5;
 	const fullBuff = 0.1;
 	const halfBuff = 0.05;
+	const forBuff = 0.01;
+	const mapBuff = 0.03;
 	const wordTagsList = ["Protag.","Mass P.","Ace Excl.","Amphib.","Commander","Close Combat","Mid-Range","Long-Range","High Mobility","High Firepower","Heavy Armor","Transformer","Gundam Type","Mobile Fighter","Support Type",
 		"Federation","Zeon","Zaku Type","GM Type","For Space","For Desert","For Tundra","For Forest","For Urban Area","For Base","For Computers"];
+	const wordTagsWithMapBonus = ["For Space","For Desert","For Tundra","For Forest","For Urban Area","For Base","For Computers"];
 	const wordTags = [
 		{"name":"Protag.", "parameters":["ma"], "multiplier": fullBuff},
 		{"name":"Mass P.", "parameters":["a"], "multiplier": fullBuff},
@@ -178,6 +189,13 @@
 		{"name":"Zeon", "parameters":["md"], "multiplier": fullBuff},
 		{"name":"Zaku Type", "parameters":["ma","pr"], "multiplier": halfBuff},
 		{"name":"GM Type", "parameters":["sa","md"], "multiplier": halfBuff},
+		{"name":"For Space", "parameters":["a", "ma", "sa", "md", "sd", "br", "pr"], "multiplier": forBuff},
+		{"name":"For Desert", "parameters":["a", "ma", "sa", "md", "sd", "br", "pr"], "multiplier": forBuff},
+		{"name":"For Tundra", "parameters":["a", "ma", "sa", "md", "sd", "br", "pr"], "multiplier": forBuff},
+		{"name":"For Forest", "parameters":["a", "ma", "sa", "md", "sd", "br", "pr"], "multiplier": forBuff},
+		{"name":"For Urban Area", "parameters":["a", "ma", "sa", "md", "sd", "br", "pr"], "multiplier": forBuff},
+		{"name":"For Base", "parameters":["a", "ma", "sa", "md", "sd", "br", "pr"], "multiplier": forBuff},
+		{"name":"For Computers", "parameters":["a", "ma", "sa", "md", "sd", "br", "pr"], "multiplier": forBuff},
 	]; //{"name":"", "parameters":["",""], "multiplier": 0},
 	const attributes = ["Power", "Technique", "Speed"];
 	const exTypes = ["EX Skill", "Part Traits"];
@@ -1385,6 +1403,7 @@
 				wt1: '',
 				wt2: '',
 			}
+			this.applyMapBonus = false;
 			
 			this.sort = '';
 			this.currentPart = "";
@@ -1407,6 +1426,7 @@
 			
 			this._initFilters();
 			this._initSort();
+			this._initApplyMapBonus();
 		}
 		
 		_parseParts() {
@@ -1742,18 +1762,30 @@
 		
 		_applyWordTagBonus() {
 			const multipliers = {}; console.log("Total Raw Attributes:", this.parametersTotal);
+			let countMapWT = 0;
 			
 			for(let k in this.wordTagsTally) {
 				if(this.wordTagsTally[k] >= wordTagActivation) {
 					const wt = this._getWordTag(k);
 					
+					if(wordTagsWithMapBonus.indexOf(k) > -1) {
+						countMapWT++;
+					}
+					
 					if(wt && wt.multiplier && wt.parameters && Array.isArray(wt.parameters)) {
 						wt.parameters.forEach((p) => {
-							multipliers[p] = p in multipliers ? multipliers[p] + wt.multiplier : wt.multiplier;
+							multipliers[p] = p in multipliers ? Math.round((multipliers[p] + wt.multiplier) * 1e12) / 1e12 : wt.multiplier;
 						});
 					}
 				}
 			}
+			
+			if(countMapWT && this.applyMapBonus && Array.isArray(parameters)) {
+				parameters.forEach((p) => {
+					multipliers[p.slug] = multipliers[p.slug] ? Math.round((multipliers[p.slug] + mapBuff) * 1e12) / 1e12 : mapBuff;
+				});
+			}
+			console.log('Word Tag Multipliers', multipliers);
 			
 			for(let k in multipliers) {
 				if(k in this.parametersTotal) {
@@ -1873,6 +1905,16 @@
 					}
 				});
 			}
+		}
+		
+		_initApplyMapBonus() {
+			const amp = document.querySelector('.js-apply-map-bonus');
+			amp.checked = false;
+			
+			amp.addEventListener('change', (ev) => {
+				this.applyMapBonus = ev.currentTarget.checked;
+				this._loopThroughInput();
+			});
 		}
 		
 		_displayPartInfo(o) {
