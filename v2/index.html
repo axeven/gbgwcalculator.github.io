@@ -139,6 +139,14 @@
 	.map-bonus {
 		padding-left: 20px;
 	}
+	
+	[class*="js-filter-"] {
+		width: 105px;
+	}
+	
+	.js-filter-pt {
+		width:155px;
+	}
 </style>
 </head>
 
@@ -149,6 +157,7 @@
 		<span>Filters</span>
 		<select class="js-filter-wt1"><option></option></select>
 		<select class="js-filter-wt2"><option></option></select>
+		<select class="js-filter-pt"><option></option></select>
 	</div>
 	<div class="sort">
 		<span>Sort</span>
@@ -221,6 +230,38 @@
 		{"name":"Long-Shooter", "parameters":["sa"], "multiplier": fullBuff},
 		{"name":"Supporter"}
 	];
+	const filterPT = [
+		"All power boosted",
+		"All power reduced",
+		"Attacks penetrating super armor",
+		"Buff EX Skill effect up",
+		"Buff Ex Skill time up",
+		"Chance to not recoil",
+		"Chance to survive a fatal blow",
+		"CRIT rate boosted",
+		"Debuff EX Skill effect up",
+		"Debuff EX Skill time up",
+		"EX Skill CD reduced",
+		"EX Skill piercing boosted",
+		"EX Skill power boosted",
+		"Initial EX Skill Charge boosted",
+		"Job Gauge increase boosted",
+		"Melee power boosted",
+		"Melee power reduced",
+		"Prevent vernier consumption",
+		"Projectile Speed boosted",
+		"Ranged weapon magazine boosted",
+		"Ranged weapon reload speed",
+		"Shooting power boosted",
+		"Shooting power reduced",
+		"Shot Attack raised",
+		"Shot guidance boosted",
+		"Shot spread reduced",
+		"Sp. Shot power boosted",
+		"Sp. Shot power reduced",
+		"Vernier consumption reduced",
+		"Vernier recovery"
+	];
 	const mobileSuits = [
 		{
 			"name":"Aegis Gundam",
@@ -245,7 +286,7 @@
 			"parts":[ 
 				{"part":"head", "a":799, "ma":384, "sa":2791, "md": 799, "sd":384, "br":213, "pr":0, "wt":["Protag.", "Mid-Range"], "ex":{"type":"EX Skill", "name":"Igelstellung"}}, 
 				{"part":"torso", "a":1184, "ma":384, "sa":384, "md":1608, "sd":799, "br":614, "pr":0, "wt":["Protag.", "Mid-Range"], "ex":{"type":"Part Traits", "name":"With Speed attribute (self) Shooting CRIT rate boosted 10-30%"}}, 
-				{"part":"arms", "a":799, "ma":1982, "sa":384, "md":1184, "sd":799, "br":0, "pr":0, "wt":["Protag.", "Mid-Range"], "ex":{"type":"Part Traits", "name":"With Speed attribute (self) Sp. Shot Power boosted 17-30%"}}, 
+				{"part":"arms", "a":799, "ma":1982, "sa":384, "md":1184, "sd":799, "br":0, "pr":0, "wt":["Protag.", "Mid-Range"], "ex":{"type":"Part Traits", "name":"With Speed attribute (self) Sp. Shot power boosted 17-30%"}}, 
 				{"part":"legs", "a":799, "ma":384, "sa":799, "md":1184, "sd":384, "br":614, "pr":420, "wt":["Protag.", "High Mobility"], "ex":{"type":"EX Skill", "name":"Rapid Thrust"}}, 
 				{"part":"backpack", "a":799, "ma":384, "sa":384, "md":1608, "sd":384, "br":614, "pr":420, "wt":["Protag.", "High Mobility"], "ex":{"type":"EX Skill", "name":"Strike Punisher"}}, 
 				{"part":"melee", "a":799, "ma":1982, "sa":0, "md":799, "sd":0, "br":614, "pr":213, "wt":["Protag.", "High Mobility"], "ex":{"type":"Part Traits", "name":"Out-Fighter Job Enemy Melee Power reduced 17-30%"}, "name":"Beam Saber", "type":"Beam"}, 
@@ -265,7 +306,7 @@
 				{"part":"arms", "a":796, "ma":1181, "sa":384, "md":1181, "sd":1602, "br":213, "pr":0, "wt":["Gundam Type", "For Base"], "ex":{"type":"Part Traits", "name":"When attacking with Beam Sp. Shot power boosted 30%"}},
 				{"part":"legs", "a":1181, "ma":384, "sa":384, "md":384, "sd":1602, "br":611, "pr":213, "wt":["Gundam Type", "For Tundra"], "ex":{"type":"EX Skill", "name":"Experimental Twin Beam Saber"}},
 				{"part":"backpack", "a":1181, "ma":384, "sa":384, "md":796, "sd":1181, "br":611, "pr":213, "wt":["Gundam Type", "For Tundra"], "ex":{"type":"EX Skill", "name":"High Energy Beam Cannon"}},
-				{"part":"melee", "a":1181, "ma":2380, "sa":0, "md":0, "sd":796, "br":417, "pr":213, "wt":["Gundam Type", "High Mobility"], "ex":{"type":"Part Traits", "name":"Middle-Shooter Job Job Guage Increase boosted 17%"}, "name":"Experimental Twin Beam Saber", "type":"Beam"},
+				{"part":"melee", "a":1181, "ma":2380, "sa":0, "md":0, "sd":796, "br":417, "pr":213, "wt":["Gundam Type", "High Mobility"], "ex":{"type":"Part Traits", "name":"Middle-Shooter Job Job Gauge Increase boosted 17%"}, "name":"Experimental Twin Beam Saber", "type":"Beam"},
 				{"part":"range", "a":1181, "ma":0, "sa":2380, "md":0, "sd":796, "br":611, "pr":213, "wt":["Gundam Type", "For Base"], "ex":{"type":"Part Traits", "name":"Initial Ex Skill charge boosted 20%"}, "name":"Hyakurai", "type":"Beam"},
 				{"part":"shield", "a":1181, "ma":0, "sa":0, "md":796, "sd":1977, "br":806, "pr":213, "wt":["Gundam Type", "High Mobility"], "ex":{"type":"Part Traits", "name":"With Rifle category equipped Enemy Shooting power reduced 30%"}, "name":"Type 71 Experimental Defensive Shield"},
 			]
@@ -323,7 +364,7 @@
 				{"part":"legs", "a":799, "ma":384, "sa":384, "md":384, "sd":1182, "br":612, "pr":420, "wt":["Gundam Type", "For Computers"], "ex":{"type":"EX Skill", "name":"IFS Unit Barrier"}},
 				{"part":"backpack", "a":799, "ma":384, "sa":384, "md":384, "sd":1182, "br":612, "pr":420, "wt":["Gundam Type", "High Firepower"], "ex":{"type":"EX Skill", "name":"IFS Unit Combo"}},
 				{"part":"melee", "a":384, "ma":3586, "sa":0, "md":0, "sd":799, "br":420, "pr":213, "wt":["Gundam Type", "High Firepower"], "ex":{"type":"Part Traits", "name":"15% chance of attacks penetrating super armor"}, "name":"Beam Saber", "type":"Beam"},
-				{"part":"range", "a":799, "ma":0, "sa":1979, "md":0, "sd":799, "br":612, "pr":213, "wt":["Gundam Type", "High Firepower"], "ex":{"type":"Part Traits", "name":"Intitial EX Skill charge boosted 20%"}, "name":"Beam Rifle", "type":"Beam"},
+				{"part":"range", "a":799, "ma":0, "sa":1979, "md":0, "sd":799, "br":612, "pr":213, "wt":["Gundam Type", "High Firepower"], "ex":{"type":"Part Traits", "name":"Initial EX Skill charge boosted 20%"}, "name":"Beam Rifle", "type":"Beam"},
 			]
 		},
 		{
@@ -636,7 +677,7 @@
 				{"part":"backpack", "a":799, "ma":384, "sa":384, "md":384, "sd":1182, "br":612, "pr":420, "wt":["Protag.", "Close Combat"], "ex":{"type":"Part Traits", "name":"With Power attribute (self) Melee DMG output boosted by 8-35"}},
 				{"part":"melee", "a":384, "ma":3586, "sa":0, "md":0, "sd":799, "br":420, "pr":213, "wt":["Protag.", "For Forest"], "ex":{"type":"Part Traits", "name":"In-Fighter Job Melee CRIT rate boosted 10-30%"}, "name":"Long Sword", "type":"Physical"},
 				{"part":"melee", "a":384, "ma":3586, "sa":0, "md":0, "sd":799, "br":420, "pr":213, "wt":["Protag.", "For Forest"], "ex":{"type":"EX Skill", "name":"Iron Impact"}, "name":"Mace", "type":"Physical"},
-				{"part":"range", "a":799, "ma":0, "sa":1979, "md":0, "sd":799, "br":612, "pr":213, "wt":["Protag.", "For Forest"], "ex":{"type":"Part Traits", "name":"With Power attribute (self) CLose Shot Attack raised 8-20%"}, "name":"Smoothbore Cannon", "type":"Physical"},
+				{"part":"range", "a":799, "ma":0, "sa":1979, "md":0, "sd":799, "br":612, "pr":213, "wt":["Protag.", "For Forest"], "ex":{"type":"Part Traits", "name":"With Power attribute (self) Close Shot Attack raised 8-20%"}, "name":"Smoothbore Cannon", "type":"Physical"},
 			]
 		},
 		{
@@ -765,7 +806,7 @@
 			"parts":[
 				{"part":"head", "a":1180, "ma":383, "sa":796, "md":1180, "sd":796, "br":212, "pr":417, "wt":["Protag.", "Federation"], "ex":{"type":"Part Traits", "name":"With Technique attribute (self) EX Skill piercing boosted 10-28%"}},
 				{"part":"torso", "a":1976, "ma":796, "sa":383, "md":796, "sd":796, "br":0, "pr":610, "wt":["Protag.", "Federation"], "ex":{"type":"EX Skill", "name":"Mega-Beam Cannon [Dendrobium]"}},
-				{"part":"arms", "a":796, "ma":2781, "sa":0, "md":1180, "sd":1180, "br":0, "pr":0, "wt":["Protag.", "Federation"], "ex":{"type":"Part Traits", "name":"With Technique attribute (self) Strong Melee CRIT raate boosted 10-30%"}},
+				{"part":"arms", "a":796, "ma":2781, "sa":0, "md":1180, "sd":1180, "br":0, "pr":0, "wt":["Protag.", "Federation"], "ex":{"type":"Part Traits", "name":"With Technique attribute (self) Strong Melee CRIT rate boosted 10-30%"}},
 				{"part":"legs", "a":1180, "ma":383, "sa":383, "md":1180, "sd":796, "br":417, "pr":610, "wt":["Protag.", "Mid-Range"], "ex":{"type":"Part Traits", "name":"With Technique attribute (self) Shooting CRIT rate boosted 10-30%"}},
 				{"part":"backpack", "a":1180, "ma":383, "sa":383, "md":1180, "sd":796, "br":417, "pr":610, "wt":["Protag.", "Mid-Range"], "ex":{"type":"EX Skill", "name":"Rapid Thrust"}},
 				{"part":"range", "a":1181, "ma":0, "sa":2378, "md":0, "sd":0, "br":212, "pr":610, "wt":["Protag.", "Mid-Range"], "ex":{"type":"EX Skill", "name":"Dual Cascade"}, "name":"Folding Bazooka", "type":"Physical"},
@@ -823,7 +864,7 @@
 			"rarity":3,
 			"sokai": 0,
 			"parts":[
-				{"part":"head", "a":561, "ma":294, "sa":1440, "md":294, "sd":893, "br":215, "pr":215, "wt":["Transformer", "High Mobility"], "ex":{"type":"Part Traits", "name":"With Machine Gu category equipped Enemy shooting power reduced 8-25%"}},
+				{"part":"head", "a":561, "ma":294, "sa":1440, "md":294, "sd":893, "br":215, "pr":215, "wt":["Transformer", "High Mobility"], "ex":{"type":"Part Traits", "name":"With Machine Gun category equipped Enemy shooting power reduced 8-25%"}},
 				{"part":"torso", "a":893, "ma":561, "sa":294, "md":561, "sd":1147, "br":215, "pr":215, "wt":["Transformer", "High Mobility"], "ex":{"type":"Part Traits", "name":"When Armor is 80% or less 5-14% chance to survive a fatal blow"}},
 				{"part":"arms", "a":561, "ma":2000, "sa":294, "md":561, "sd":893, "br":0, "pr":0, "wt":["Transformer", "High Mobility"], "ex":{"type":"Part Traits", "name":"With Technique attribute (self) EX Skill DMG output boosted by 6-20"}},
 				{"part":"legs", "a":561, "ma":294, "sa":294, "md":294, "sd":893, "br":352, "pr":352, "wt":["Transformer", "For Tundra"], "ex":{"type":"EX Skill", "name":"Saber Boomerang"}},
@@ -903,7 +944,7 @@
 				{"part":"backpack", "a":891, "ma":292, "sa":292, "md":891, "sd":891, "br":430, "pr":127, "wt":["Long-Range", "Federation"], "ex":{"type":"EX Skill", "name":"Shield Booster"}},
 				{"part":"range", "a":891, "ma":0, "sa":1144, "md":292, "sd":292, "br":430, "pr":302, "wt":["Long-Range", "High Mobility"], "ex":{"type":"Part Traits", "name":"Middle-Shooter Job, Sp. Shot DMG output boosted 6-20"}, "name":"Beam Rifle", "type":"Beam"},
 				{"part":"shield", "a":891, "ma":0, "sa":0, "md":891, "sd":891, "br":718, "pr":0, "wt":["Long-Range", "High Mobility"], "ex":{"type":"EX Skill", "name":"Scattering Beam Cannon"}, "name":"Enhanced Shield Booster"},
-				{"part":"shield", "a":891, "ma":0, "sa":0, "md":891, "sd":891, "br":718, "pr":0, "wt":["Long-Range", "Federation"], "ex":{"type":"Part Traits", "name":"With Technique attribute (self) Buff EX Skill Effect 15%"}, "name":"Shield Booster"},
+				{"part":"shield", "a":891, "ma":0, "sa":0, "md":891, "sd":891, "br":718, "pr":0, "wt":["Long-Range", "Federation"], "ex":{"type":"Part Traits", "name":"With Technique attribute (self) Buff EX Skill effect up 15%"}, "name":"Shield Booster"},
 			]
 		},
 		{
@@ -1007,7 +1048,7 @@
 				{"part":"torso", "a":893, "ma":294, "sa":294, "md":1147, "sd":559, "br":215, "pr":215, "wt":["For Space", "Zeon"], "ex":{"type":"Part Traits", "name":"With Technique attribute (self) Strong Melee power boosted 8-20%"}},
 				{"part":"arms", "a":559, "ma":1440, "sa":294, "md":893, "sd":559, "br":0, "pr":0, "wt":["For Space", "Zeon"], "ex":{"type":"EX Skill", "name":"Funnels"}},
 				{"part":"legs", "a":559, "ma":294, "sa":559, "md":893, "sd":294, "br":352, "pr":352, "wt":["For Space", "Long-Range"], "ex":{"type":"EX Skill", "name":"Beam Saber Combo"}},
-				{"part":"backpack", "a":559, "ma":294, "sa":559, "md":1147, "sd":294, "br":352, "pr":352, "wt":["For Space", "Long-Range"], "ex":{"type":"Part Traits", "name":"With Gatling Gun category equipped Mid Shot Attacked raised 14%"}},
+				{"part":"backpack", "a":559, "ma":294, "sa":559, "md":1147, "sd":294, "br":352, "pr":352, "wt":["For Space", "Long-Range"], "ex":{"type":"Part Traits", "name":"With Gatling Gun category equipped Mid Shot Attack raised 14%"}},
 				{"part":"melee", "a":559, "ma":1440, "sa":0, "md":559, "sd":0, "br":303, "pr":303, "wt":["For Space", "Zeon"], "ex":{"type":"Part Traits", "name":"When attacking with Beam Melee DMG output boosted 6-20"}, "name":"Beam Saber with Heat Knife", "type":"Beam"},
 				{"part":"range", "a":294, "ma":0, "sa":2600, "md":559, "sd":0, "br":215, "pr":215, "wt":["For Space", "Zeon"], "ex":{"type":"EX Skill", "name":"Dual Beam Shredder"}, "name":"Mega Gatling Gun", "type":"Beam"},
 				{"part":"shield", "a":559, "ma":0, "sa":0, "md":1440, "sd":559, "br":352, "pr":352, "wt":["For Space", "Zeon"], "ex":{"type":"EX Skill", "name":"Quadruple-Barrel Mega Particle Cannon"}, "name":"Shield"},
@@ -1311,7 +1352,7 @@
 			"sokai": 0,
 			"parts":[
 				{"part":"head", "a":558, "ma":291, "sa":1700, "md":558, "sd":558, "br":126, "pr":126, "wt":["Commander", "Long-Range"], "ex":{"type":"EX Skill", "name":"Offense Up a"}},
-				{"part":"torso", "a":1142, "ma":291, "sa":291, "md":889, "sd":889, "br":213, "pr":213, "wt":["Commander", "Long-Range"], "ex":{"type":"Part Traits", "name":"With For Space enemy EX Skill percing boosted 8-22%"}},
+				{"part":"torso", "a":1142, "ma":291, "sa":291, "md":889, "sd":889, "br":213, "pr":213, "wt":["Commander", "Long-Range"], "ex":{"type":"Part Traits", "name":"With For Space enemy EX Skill piercing boosted 8-22%"}},
 				{"part":"arms", "a":1142, "ma":1700, "sa":291, "md":1991, "sd":1991, "br":302, "pr":302, "wt":["Commander", "Long-Range"], "ex":{"type":"EX Skill", "name":"Dober Gun"}, "combo":"shield"},
 				{"part":"legs", "a":558, "ma":291, "sa":291, "md":889, "sd":889, "br":349, "pr":375, "wt":["Commander", "High Mobility"], "ex":{"type":"Part Traits", "name":"With For Space enemy, Mid Shot Attack raised 14%"}},
 				{"part":"backpack", "a":558, "ma":291, "sa":291, "md":889, "sd":889, "br":375, "pr":349, "wt":["Commander", "High Mobility"], "ex":{"type":"Part Traits", "name":"With For Space enemy Shooting power boosted 25%"}},
@@ -1490,7 +1531,7 @@
 		{"name":"Seabook Arno", "jl":"Middle-Shooter", "attribute":"Technique", "rarity":4, "a":796, "ma":384, "sa":1602, "md":796, "sd":796, "br":417, "pr":213, "wt":["Protag.", "For Urban Area"], "ex":{"type":"Part Traits", "name":"With Technique attribute (self) Enemy All power reduced 18%"}},
 		{"name":"Shin Asuka", "jl":"Out-Fighter", "attribute":"Power", "rarity":4, "a":797, "ma":1181, "sa":1181, "md":797, "sd":797, "br":418, "pr":213, "wt":["High Mobility", "Protag."], "ex":{"type":"Part Traits", "name":"Initial EX Skill charge boosted 15%"}},
 		{"name":"Shiro Amada", "jl":"Out-Fighter", "attribute":"Power", "rarity":4, "a":1180, "ma":1180, "sa":383, "md":796, "sd":796, "br":610, "pr":212, "wt":["For Forest", "For Desert"], "ex":{"type":"Part Traits", "name":"With Power attribute (self) Enemy Shooting power reduced 30%"}},
-		{"name":"Sven Cal Bayang", "jl":"Out-Fighter", "attribute":"Speed", "rarity":3, "a":889, "ma":889, "sa":291, "md":558, "sd":558, "br":302, "pr":302, "wt":["High Mobility", "For Space"], "ex":{"type":"Part Traits", "name":"With Speed attribute (self) Initial EX Skill charged boosted 3-12%"}},
+		{"name":"Sven Cal Bayang", "jl":"Out-Fighter", "attribute":"Speed", "rarity":3, "a":889, "ma":889, "sa":291, "md":558, "sd":558, "br":302, "pr":302, "wt":["High Mobility", "For Space"], "ex":{"type":"Part Traits", "name":"With Speed attribute (self) Initial EX Skill charge boosted 3-12%"}},
 		{"name":"Trowa Barton", "jl":"Middle-Shooter", "attribute":"Technique", "rarity": 3, "a":891, "ma":292, "sa":891, "md":558, "sd":558, "br":302, "pr":302, "wt":["For Base", "High Firepower"], "ex":{"type":"Part Traits", "name":"All ranged weapon magazine boosted 5-14%"}},
 		{"name":"Zechs Marquise", "jl":"In-Fighter", "attribute":"Speed", "rarity":4, "a":795, "ma":795, "sa":795, "md":795, "sd":795, "br":211, "pr":609, "wt":["High Mobility", "Commander"], "ex":{"type":"Part Traits", "name":"With Speed attribute (self) Vernier recovery rate boosted 20%"}},
 	];
@@ -1789,8 +1830,9 @@
 			this.partCont = {};
 			
 			this.filters = {
-				wt1: '',
-				wt2: '',
+				"wt1": "",
+				"wt2": "",
+				"pt": ""
 			}
 			this.applyMapBonus = false;
 			
@@ -1903,6 +1945,10 @@
 			}
 			
 			if(this.filters.wt2 && o.wt && o.wt.indexOf(this.filters.wt2) < 0) {
+				return false;
+			}
+			
+			if(this.filters.pt && o.ex && o.ex.name && !(new RegExp("\\b" + this.filters.pt + "\\b", "i")).test(o.ex.name)) {
 				return false;
 			}
 			
@@ -2247,7 +2293,8 @@
 		
 		_initFilters() {
 			const wt1 = document.querySelector('.js-filter-wt1'),
-				wt2 = document.querySelector('.js-filter-wt2');
+				wt2 = document.querySelector('.js-filter-wt2'),
+				pt = document.querySelector('.js-filter-pt');
 				
 			if(Array.isArray(wordTagsList)) {
 				wordTagsList.sort();
@@ -2259,6 +2306,16 @@
 					wt2.appendChild(o.cloneNode(true));
 					wt1.appendChild(o);
 					
+				});
+			}
+			
+			if(Array.isArray(filterPT)) {
+				filterPT.forEach((fpt) => {
+					const o = document.createElement('option');
+					
+					o.value = fpt;
+					o.text = fpt;
+					pt.appendChild(o);
 				});
 			}
 			
